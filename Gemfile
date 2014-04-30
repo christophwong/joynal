@@ -47,6 +47,7 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem 'shoulda-matchers', require: false
 end
 
 gem 'acts-as-taggable-on'
