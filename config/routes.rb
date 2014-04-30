@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'journal_entries#index'
+
   resources :journal_entries
+  devise_for :users
+ 
+  root 'landing_page#index'
+
 end
