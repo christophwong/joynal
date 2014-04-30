@@ -4,6 +4,7 @@ class CreateJournalEntries < ActiveRecord::Migration
       t.integer :user_id
       t.string :content
       t.integer :emotion_rating
+      t.timestamps
     end
   end
 end

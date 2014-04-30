@@ -40,4 +40,4 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rspec-rails'
 
-# gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on'
