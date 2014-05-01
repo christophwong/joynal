@@ -42,5 +42,22 @@ $(document).ready(function() {
     circle.transition().duration(1200).delay(1250).attr('cy', 120);
   })
 
+  var dataset = [ 5, 10, 15, 20, 25 ];
+
+  // d3.select('.d3').selectAll('rect')
+  //   .data(dataset).enter()
+  //   .append('svg')
+  //   .attr('class', 'rect')
+  //   .attr("width", "20")
+  //   .attr("height", '100')
+  //   .attr("fill", 'teal');
+
+  d3.select('.d3').selectAll('.bar-chart')
+    .data(dataset).enter()
+    .append('div')
+    .attr('class', 'bar-chart')
+
+  $('#rectangle').on('click', function(e) {
+  });
 
 });
