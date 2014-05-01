@@ -30,7 +30,8 @@ class JournalEntriesController < ApplicationController
   end
 
   def show_tagged
-    @tagged_entries = JournalEntry.tagged_with(params[:name])
+    @tag_name = params[:name]
+    @tagged_entries = JournalEntry.tagged_with(@tag_name)
   end
 
   private
