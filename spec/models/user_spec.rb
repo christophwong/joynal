@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "has a valid factory" do
+    FactoryGirl.create(:user).should be_valid
+  end
+
+  it { should have_many :journal_entries }
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+
 end
+
