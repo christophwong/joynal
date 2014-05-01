@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# ruby "2.0.0"
+ruby "2.0.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 # Use postgresql as the database for Active Record
@@ -31,15 +31,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 # Use unicorn as the app server
 gem 'unicorn'
-gem 'capistrano'
-gem 'rvm-capistrano'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'rails_12factor', group: :production
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-group :development, :test do
   gem 'rspec-rails'
+group :development, :test do
   gem 'factory_girl_rails'
 end
 
