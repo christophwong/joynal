@@ -1,0 +1,10 @@
+<div class="container">
+  <h1>Tagged journals</h1>
+
+  <ul>
+    <% @tagged_entries.each do |entry| %>
+      <li><%= entry.created_at %></li>
+    <% end %>
+  </ul>
+
+</div>
