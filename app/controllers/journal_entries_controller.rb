@@ -10,6 +10,12 @@ class JournalEntriesController < ApplicationController
   def create
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
+
+    response = @journal_entry.get_sentiment
+    if response['docSentiment'].key?('score')
+      @journal_entry.  = response['docSentiment']['score']
+    end
+
     if @journal_entry.save
       redirect_to journal_entries_path
     else
