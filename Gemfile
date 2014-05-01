@@ -51,4 +51,7 @@ group :test do
 end
 
 gem 'acts-as-taggable-on'
+
+gem 'coveralls', require: false
+
 gem 'rake', group: :test
