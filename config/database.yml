@@ -81,5 +81,4 @@ test:
 production:
   <<: *default
   database: ponies_production
-  username:
-  password:
+

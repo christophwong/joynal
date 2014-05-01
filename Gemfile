@@ -28,7 +28,7 @@ gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
+gem 'devise'
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -37,7 +37,21 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
 
-gem 'rspec-rails'
+group :test do
+  gem 'faker'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
+  gem 'shoulda-matchers', require: false
+end
 
 gem 'acts-as-taggable-on'
+
+gem 'coveralls', require: false
+
+gem 'rake', group: :test

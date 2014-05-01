@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe JournalEntriesController do
+# describe JournalEntriesController do
 
-end
+# end
