@@ -19,12 +19,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
-      t.boolean :employment_status
-      t.string :gender
-      t.integer :age
-      t.string :city
-      t.string :relationship_status
-
+      t.string :first_name
+      t.string :last_name
 
       t.timestamps
     end
