@@ -1,4 +1,14 @@
 <div class="container">
   <h1>Here are your list of journal entries:</h1>
+  <ul>
+  <% @journal_entries.each do |entry| %>
+    <% d = Date.parse(entry.created_at.to_s) %>
+    <li><%= link_to d.strftime('%a %b %d %Y'), journal_entry_path(entry) %></li>
+  <% end %>
+  </ul>
 
 </div>
+
+
+
+
