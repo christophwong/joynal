@@ -16,5 +16,15 @@ class JournalEntry < ActiveRecord::Base
     response = CLIENT.keywords('text', self.content, { 'sentiment'=>1 })
   end
 
+  def set_sentiment_score
+    response = self.get_sentiment
+    if response['docSentiment'].key?('score')
+      self.sentiment_score = integerize(response['docSentiment']['score'])
+    end
+  end
 
+  def integerize(score)
+    puts score
+    (score.to_f + 1.0) * 50
+  end
 end
