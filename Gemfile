@@ -51,3 +51,4 @@ group :test do
 end
 
 gem 'acts-as-taggable-on'
+gem 'rake', group: :test
