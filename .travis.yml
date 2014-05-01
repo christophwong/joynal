@@ -1,7 +1,9 @@
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
-
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
 language: ruby
 rvm:
-  - 2.0.0
+- 2.0.0
+env:
+  global:
+    secure: DzO2GUPc2LRUzk7qdacOrtmZEkQq0k84+xCuXWNz4qzDomp3pz3g/UpX+xlcht6PaOBr3iZgcnuMBPXqgWtY+G3RA2EW+qAsLR11UgCAGQbppHuZHsYtdZvxdsdeuqWG1DjNoUpCmCnxm7qnIS6ScqCYuGugv1Pj9CH4e75kpHA=
