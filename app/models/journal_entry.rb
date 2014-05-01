@@ -8,10 +8,13 @@ class JournalEntry < ActiveRecord::Base
   validates :content, presence: true
   validates :emotion_rating, presence: true
 
-
-  def analyze(demo_text)
-
-    response = CLIENT.entities('text', demo_text, { 'sentiment'=>1 })
-
+  def get_sentiment(text)
+    response = CLIENT.sentiment('text', text)
   end
+
+  def get_keywords(text)
+    response = CLIENT.keywords('text', text, { 'sentiment'=>1 })
+  end
+
+
 end
