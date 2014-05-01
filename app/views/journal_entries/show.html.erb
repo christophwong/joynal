@@ -1,13 +1,8 @@
-
-<h2>journal entry</h2>
-<p><%= @entry.content %></p>
-<h2>tags</h2>
-<% @entry.tags.each do |tag| %>
-  <%= link_to tag.name, tag_path(tag.name) %>
-<% end %>
-
-
-
-
-
-
+<div class="container">
+  <h2>journal entry</h2>
+  <p><%= @entry.content %></p>
+  <h2>tags</h2>
+  <% @entry.tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag.name) %>
+  <% end %>
+</div>
