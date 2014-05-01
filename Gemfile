@@ -33,11 +33,11 @@ gem 'devise'
 gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'rails_12factor'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-group :development, :test do
   gem 'rspec-rails'
+group :development, :test do
   gem 'factory_girl_rails'
 end
 
