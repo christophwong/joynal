@@ -19,7 +19,7 @@ class JournalEntriesController < ApplicationController
 
   def show
     @entry = JournalEntry.find(params[:id])
-
+    # @entry =
   end
 
   def edit
