@@ -14,19 +14,30 @@ describe JournalEntriesController do
 	end
 
 
-	# describe  "GET #show" do
-	# 	it "assigns the requested JournalEntry to @entry" do
-	# 	end
-	# 	it "renders the :show template" do
-	# 	end
-	# end
+	describe  "GET #show" do
+		it "assigns the requested JournalEntry to @entry" do
+			 journal_entry = FactoryGirl.create(:journal_entry)
+			 get :show, id: journal_entry
+			 assigns(:entry).should eq(journal_entry)
+		end
+		it "renders the :show template" do
+      get :show, id: FactoryGirl.create(:journal_entry)
+      response.should render_template :show
+		end
+	end
 
-	# describe "GET #new" do
-	# 	it "assigns a new JournalEntry to @journal_entry" do
-	# 	end
-	# 	it "renders the :new template" do
-	# 	end
-	# end
+	describe "GET #new" do
+		# it "assigns a new JournalEntry to @journal_entry" do
+		#   journal_entry = JournalEntry.new
+		#   get :new
+		#    assigns(:journal_entry).should eq(journal_entry)
+		# end
+		# it "renders the :new template" do
+		# end
+	end
+
+
+
 
 	# describe "POST #create" do
 	# 	it "saves the new JournalEntry to the database" do
