@@ -1,13 +1,16 @@
 <div class="container">
-  <h1>Please create a new journal entry:</h1>
+  <div class="top-bar">
+    <span><h2>Please create a new journal entry:</h2></span>
+  </div>
   <%= form_for @journal_entry do |f| %>
-    <%= f.label :speak_your_mind %>:<br>
-    <%= f.text_area :content, cols: 80, rows: 20 %><br>
-    <%= f.label "select a rating for how you feel (1 is bad 5 is great)"  %>:<br>
-    <%= f.select :emotion_rating, options_for_select((1..5).to_a) %><br>
-    <%= f.label "enter some tags seperated by commas." %>:<br>
-    <%= f.text_area :tags, value: '' %><br>
-    <%= f.submit %>
+    <%= f.text_area :content, :class => "text"%><br>
+      <div class="journal-details">
+      <%= f.label "select a rating for how you feel (1 is bad 5 is great)"  %>:<br>
+      <%= f.select :emotion_rating, options_for_select((1..5).to_a) %><br>
+      <%= f.label "enter some tags seperated by commas." %>:<br>
+      <%= f.text_field :tags, value: '' %><br>
+      <%= f.submit "Submit", :class => "journal-submit" %>
+    </div>
   <% end %>
 
 

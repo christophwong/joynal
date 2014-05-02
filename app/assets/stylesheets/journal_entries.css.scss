@@ -2,7 +2,31 @@
 /* entry form */
 
 .entry {
-
+  width: 100%;
+  border-bottom: solid #a3acb2 1px;
+  padding-left: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f8f8f8;
+  a {
+    &:link  {
+      text-decoration: none;
+      font-size: 1.4em;
+      color: black;
+    }
+    &:visited {
+      color: black;
+    }
+  }
+  &:hover {
+    background-color: white;
+    a:link {
+      color:#fd4968;
+    }
+    a:visited {
+      color:#fd4968;
+    }
+  }
 }
 
 .top-bar {
@@ -10,6 +34,11 @@
   position: relative;
   height: 50px;
   border-bottom: solid #a3acb2 1px;
+  a {
+    &:link {
+      text-decoration: none;
+    }
+  }
 }
 
 .button {
@@ -22,19 +51,54 @@
   text-decoration: none;
   &:hover {
     background-color: #fd4968 ;
-  }  
+  }
+}
+
+button {
+  border: 0;
+}
+span h2 {
+  width: 50%;
+  padding-top: 15px;
+  padding-left: 15px;
 }
 
 .right {
-
-  float: right;
-  padding-right: 10%; 
+  right: 20px;
+  top: 0;
+  position: absolute;
 }
 
 input[type=textarea]{
   border: 0px;
   background: transparent;
   margin: auto 0;
+}
+
+.text {
+  position: relative;
+  width: 800px;
+  height: 300px;
+  margin-right: 40px;
+  margin-left: 90px;
+  margin-top: 40px;
+  border: solid 1px #ddd;
+  font-size: 14px;
+  line-height: 25px;
+  outline: none;
+  resize:vertical;  
+}
+
+.journal-details {
+  text-align: center; 
+  margin-bottom: 40px;
+}
+
+.journal-submit {
+  @include button(#2e9ac2);
+  &:hover {
+    @include button(#fd4968)
+  }
 }
 
 
