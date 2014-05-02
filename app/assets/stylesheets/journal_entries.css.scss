@@ -1,3 +1,54 @@
+/* journal bar */
+
+.journal-bar {
+  width: 100%;
+  position: relative;
+  left:0;
+  top: 0;
+  height: 50px;
+  background-color: #424242;
+  padding-top: 5px;
+  color: #a3acb2;
+  box-shadow: 2px 2px 2px #a3acb2;
+
+  ul {
+    margin-top: 7px;
+  }
+
+  li {
+    display: inline;
+    margin-right: 15px;
+  }
+
+ a{
+    &:link {
+    font-size: 1.5em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #a3acb2;
+    margin-left: 20px;
+    }
+    &:hover {
+    color: #2e9ac2;
+    }
+    &:visited {
+    color: #a3acb2;
+    }
+    &:visited:hover{
+    color: #2e9ac2;
+    }
+  }
+}
+
+/* registered user landing page */
+
+.tab {
+  display: none;
+}
+
+#tab-1 {
+  display: block;
+}
 
 /* entry form */
 
@@ -48,11 +99,11 @@
 
 .button {
   display: inline-block;
-  margin-top: 9px; 
+  margin-top: 9px;
   padding: 6px 16px;
   border-radius: 14px;
   background-color:#2e9ac2;
-  color: white; 
+  color: white;
   text-decoration: none;
   &:hover {
     background-color: #fd4968 ;
@@ -87,11 +138,11 @@ input[type=textarea]{
   font-size: 14px;
   line-height: 25px;
   outline: none;
-  resize:vertical;  
+  resize:vertical;
 }
 
 .journal-details {
-  text-align: center; 
+  text-align: center;
   margin-bottom: 40px;
 }
 

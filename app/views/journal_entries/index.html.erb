@@ -1,18 +1,43 @@
 <div class="container">
-  <div class="top-bar">
-    <span><h2>Here are your list of journal entries:</h2>
-    <%= link_to "Write a new journal entry", new_journal_entry_path, :class => 'right button' %>
-    </span>
-  </div>
-  
-  <% @journal_entries.each do |entry| %>
-  <div class="entry">
-    <% d = Date.parse(entry.created_at.to_s) %>
-    <%= link_to d.strftime('%a %b %d %Y'), journal_entry_path(entry) %>
-  </div>
-  <% end %>
 
-  
+  <div class="journal-bar">
+    <ul>
+      <li class="active"><a class='tab-head' href="#tab-1"><i class='fa fa-book'></i></a></li>
+      <li><a class='tab-head' href="#tab-2"><i class='fa fa-bars'></i></a></li>
+      <li><a class='tab-head' href="#tab-3"><i class='fa fa-globe'></i></a></li>
+    </ul>
+  </div>
+
+  <div class="tab" id="tab-1">
+    <div class="top-bar">
+      <span><h2>Please create a new journal entry:</h2></span>
+    </div>
+    <%= form_for @journal_entry do |f| %>
+      <%= f.text_area :content, :class => "text"%><br>
+        <div class="journal-details">
+        <%= f.label "select a rating for how you feel (1 is bad 5 is great)"  %>:<br>
+        <%= f.select :emotion_rating, options_for_select((1..5).to_a) %><br>
+        <%= f.label "enter some tags seperated by commas." %>:<br>
+        <%= f.text_field :tags, value: '' %><br>
+        <%= f.submit "Submit", :class => "journal-submit" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="tab" id="tab-2">
+    <div class="top-bar">
+      <span><h2>Here are your list of journal entries:</h2>
+      </span>
+    </div>
+
+    <% @journal_entries.each do |entry| %>
+    <div class="entry">
+      <% d = Date.parse(entry.created_at.to_s) %>
+      <%= link_to d.strftime('%a %b %d %Y'), journal_entry_path(entry) %>
+    </div>
+    <% end %>
+  </div>
+
 
 </div>
 

@@ -1,6 +1,15 @@
 class JournalEntriesController < ApplicationController
   def index
     @user = current_user
+    @journal_entry = JournalEntry.new
+
+    if session[:content] || session[:emotion_rating]
+      @journal_entry.content = session[:content]
+      @journal_entry.emotion_rating = session[:emotion_rating]
+      session.delete(:content)
+      session.delete(:emotion_rating)
+    end
+
     @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
   end
 
@@ -9,6 +18,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def create
+
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
 
@@ -16,12 +26,22 @@ class JournalEntriesController < ApplicationController
 
     @journal_entry.set_sentiment_score
     @journal_entry.set_sentiment_type
-    if @journal_entry.save
-      @journal_entry.update_attributes(user: current_user)
-      redirect_to journal_entries_path
+
+    if user_signed_in?
+
+      if @journal_entry.save
+        @journal_entry.update_attributes(user: current_user)
+        redirect_to journal_entries_path
+      else
+        render 'new'
+      end
+
     else
-      render 'new'
+      session[:content] = @journal_entry.content
+      session[:emotion_rating] = @journal_entry.emotion_rating
+      redirect_to new_user_registration_path
     end
+
   end
 
   def show
