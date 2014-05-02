@@ -48,22 +48,42 @@ describe JournalEntriesController do
 	        post :create, journal_entry: FactoryGirl.attributes_for(:journal_entry)
 	      }.to change(JournalEntry,:count).by(1)
       end
+      it "adds tags to the journal entry" do
+        journal_entry = FactoryGirl.create(:journal_entry)
+        journal_entry.tag_list.add("coding")
+        journal_entry.save
+        expect(journal_entry.tags[0].name).to eq("coding")
+      end
+  		it "redirects to Journal_entries_path" do
+  			post :create, journal_entry: FactoryGirl.attributes_for(:journal_entry)
+        response.should redirect_to :journal_entries
+  		end
+    end
+		context "with invalid attributes" do
+		 	it "does not save the new JournalEntry in the database" do
+        expect{
+          post :create, journal_entry: FactoryGirl.attributes_for(:invalid_journal_entry)
+        }.to_not change(JournalEntry,:count)
+      end
+      it "re-renders the :new template" do
+        post :create, journal_entry: FactoryGirl.attributes_for(:invalid_journal_entry)
+        response.should render_template :new
+      end
 		end
-		it "redirects to Journal_entries_path" do
-			post :create, journal_entry: FactoryGirl.attributes_for(:journal_entry)
-      response.should redirect_to :journal_entries
-		end
-		 context "with invalid attributes" do
-		 	# it "does not save the new JournalEntry in the database" do
-    #   end
-  #     it "re-renders the :new template" do
-  #     end
-		 end
 	end
 
-	# describe "GET #edit"
-	#   it ""
- #  end
+  @tagged_entries = JournalEntry.tagged_with(@tag_name)
+
+
+  describe "GET #show_tagged" do
+    it "show all the journal entries associated with a particular tag" do
+      journal_entry = FactoryGirl.create(:journal_entry)
+      journal_entry.tag_list.add("computer")
+      journal_entry.save
+      tagged_entry = JournalEntry.tagged_with(journal_entry.tag_list[0])[0]
+      expect(tagged_entry).to eq(journal_entry)
+    end
+  end
 end
 
 
