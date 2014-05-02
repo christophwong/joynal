@@ -1,6 +1,7 @@
 class JournalEntriesController < ApplicationController
   def index
-    @journal_entries = JournalEntry.order("created_at DESC").limit(10)
+    @user = current_user
+    @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
   end
 
   def new
@@ -16,6 +17,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.set_sentiment_score
     @journal_entry.set_sentiment_type
     if @journal_entry.save
+      @journal_entry.update_attributes(user: current_user)
       redirect_to journal_entries_path
     else
       render 'new'
@@ -24,6 +26,13 @@ class JournalEntriesController < ApplicationController
 
   def show
     @entry = JournalEntry.find(params[:id])
+  end
+
+  def show_graph
+    @journal_entry = JournalEntry.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @journal_entry.keywords }
+    end
   end
 
 

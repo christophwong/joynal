@@ -6,8 +6,11 @@
   <%= link_to tag.name, tag_path(tag.name) %>
 <% end %>
 
+<%= form_for(:show_graph, url: show_graph_path, html: { class: 'show-graph' }, remote: true) do |f| %>
+  <%= f.submit value: 'Show Graph' %>
+<% end %>
 
-
-
-
+<h3 id="journal-info"></h3>
+<div class="d3">
+</div>
 
