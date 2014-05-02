@@ -1,6 +1,6 @@
 class JournalEntriesController < ApplicationController
   def index
-    @journal_entries = JournalEntry.order("created_at DESC").limit(10)
+    @journal_entries = current_user.journal_entries.order("created_at DESC").limit(10)
   end
 
   def new
@@ -16,6 +16,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.set_sentiment_score
     @journal_entry.set_sentiment_type
     if @journal_entry.save
+      current_user.journal_entries << @journal_entry
       redirect_to journal_entries_path
     else
       render 'new'
