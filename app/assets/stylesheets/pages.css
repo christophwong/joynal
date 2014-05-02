@@ -2,5 +2,27 @@
   display: inline-block;
   width: 20px;
   height: 75px;
-  background-color: teal
+  background-color: teal;
+  margin-right: 2px;
+}
+
+rect {
+  margin-right: 2px;
+}
+
+svg text {
+  /*color: black;*/
+  font-size: 11px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
 }
