@@ -35,7 +35,6 @@ gem 'newrelic_rpm'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'slim'
-gem 'autoscaler'
 
 gem 'rspec-rails'
 group :development, :test do
