@@ -76,9 +76,9 @@ class AlchemyAPI
 	@@BASE_URL = 'http://access.alchemyapi.com/calls'
 
 
-	def initialize()
+	def initialize(key)
 		begin
-			key = File.read('api_key.txt') || ENV['alchemy_key']
+			# key = ENV['ALCHEMY_KEY'] || File.read('api_key.txt')
 			key.strip!
 
 			if key.empty?
@@ -101,7 +101,7 @@ class AlchemyAPI
 			puts 'If you do not have an API Key from AlchemyAPI please register for one at: http://www.alchemyapi.com/api/register.html'
 
 			#create a blank file to hold the key
-			File.open("api_key.txt", "w") {}
+			# File.open("api_key.txt", "w") {}
 			Process.exit(1)
 		end
 	end
