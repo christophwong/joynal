@@ -32,25 +32,34 @@ describe JournalEntriesController do
 		#   get :new
 		#    assigns(:journal_entry).should eq(journal_entry)
 		# end
-		# it "renders the :new template" do
-		# end
+		it "renders the :new template" do
+			get :new
+			response.should render_template :new
+		end
 	end
 
 
 
 
-	# describe "POST #create" do
-	# 	it "saves the new JournalEntry to the database" do
-	# 	end
-	# 	it "redirects to Journal_entries_path" do
-	# 	end
-	# 	context "with invalid attributes" do
-	# 		it "does not save the new JournalEntry in the database" do
- #      end
- #      it "re-renders the :new template" do
- #      end
-	# 	end
-	# end
+	describe "POST #create" do
+		context "with valid attributes" do
+			it "saves the new JournalEntry to the database" do
+			  expect{
+	        post :create, journal_entry: FactoryGirl.attributes_for(:journal_entry)
+	      }.to change(JournalEntry,:count).by(1)
+      end
+		end
+		it "redirects to Journal_entries_path" do
+			post :create, journal_entry: FactoryGirl.attributes_for(:journal_entry)
+      response.should redirect_to :journal_entries
+		end
+		 context "with invalid attributes" do
+		 	# it "does not save the new JournalEntry in the database" do
+    #   end
+  #     it "re-renders the :new template" do
+  #     end
+		 end
+	end
 
 	# describe "GET #edit"
 	#   it ""
