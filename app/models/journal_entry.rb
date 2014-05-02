@@ -32,8 +32,12 @@ class JournalEntry < ActiveRecord::Base
     end
   end
 
+  def set_sentiment_type
+    response = self.get_sentiment
+    self.sentiment_type = (response['docSentiment']['type'])
+  end
+
   def integerize(score)
-    puts score
     (score.to_f + 1.0) * 50
   end
 end

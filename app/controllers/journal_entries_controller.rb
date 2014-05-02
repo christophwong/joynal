@@ -14,7 +14,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.set_keywords
 
     @journal_entry.set_sentiment_score
-
+    @journal_entry.set_sentiment_type
     if @journal_entry.save
       redirect_to journal_entries_path
     else

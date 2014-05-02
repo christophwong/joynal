@@ -13,6 +13,4 @@ describe JournalEntry do
   it "is invalid without a lastname" do
     FactoryGirl.build(:journal_entry, content: nil).should_not be_valid
   end
-
 end
-
