@@ -29,6 +29,7 @@ gem 'acts-as-taggable-on'
 # Server 
 gem 'unicorn'
 gem 'rails_12factor', group: :production
+gem 'newrelic_rpm'
 
 gem 'rspec-rails'
 group :development, :test do
