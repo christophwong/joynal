@@ -12,7 +12,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
 
     @journal_entry.set_sentiment_score
-
+    @journal_entry.set_sentiment_type
     if @journal_entry.save
       redirect_to journal_entries_path
     else
