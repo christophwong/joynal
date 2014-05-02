@@ -7,4 +7,24 @@ class JournalEntry < ActiveRecord::Base
 
   validates :content, presence: true
   validates :emotion_rating, presence: true
+
+  def get_sentiment
+    response = CLIENT.sentiment('text', self.content)
+  end
+
+  def get_keywords
+    response = CLIENT.keywords('text', self.content, { 'sentiment'=>1 })
+  end
+
+  def set_sentiment_score
+    response = self.get_sentiment
+    if response['docSentiment'].key?('score')
+      self.sentiment_score = integerize(response['docSentiment']['score'])
+    end
+  end
+
+  def integerize(score)
+    puts score
+    (score.to_f + 1.0) * 50
+  end
 end

@@ -240,6 +240,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
+  json
   launchy
   pg
   rails (= 4.1.0)
