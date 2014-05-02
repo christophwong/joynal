@@ -11,11 +11,6 @@ class JournalEntriesController < ApplicationController
   def create
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
-
-    @journal_entry.set_keywords
-
-    @journal_entry.set_sentiment_score
-    @journal_entry.set_sentiment_type
     if @journal_entry.save
       @journal_entry.update_attributes(user: current_user)
       redirect_to journal_entries_path
@@ -43,10 +38,9 @@ class JournalEntriesController < ApplicationController
 
   private
   def journal_entry_params
-    params.require(:journal_entry).permit(
-      :content,
-      :emotion_rating
-      )
+    params.require(:journal_entry).permit(:content,
+                                          :emotion_rating
+                                          )
   end
 
 

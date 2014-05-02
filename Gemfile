@@ -31,6 +31,11 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
 
+# workers
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+
 gem 'rspec-rails'
 group :development, :test do
   gem 'factory_girl_rails'

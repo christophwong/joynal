@@ -3,25 +3,32 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :user
   has_many :keywords
 
+  after_commit :async_sentimental_analysis, :on => :create 
   acts_as_taggable_on :tags
 
 
   validates :content, presence: true
   validates :emotion_rating, presence: true
 
+  def async_sentimental_analysis
+    AlchemyWorker.perform_async(self.id)
+  end
+
   def get_sentiment
-    response = CLIENT.sentiment('text', self.content)
+    CLIENT.sentiment('text', self.content)
   end
 
   def get_keywords_response
-    response = CLIENT.keywords('text', self.content, { 'sentiment'=>1 })
+    CLIENT.keywords('text', self.content, { 'sentiment'=>1 })
   end
 
   def set_keywords
     response = get_keywords_response
-    response['keywords'].each do |keyword|
-      new_keyword = Keyword.create(name: keyword['text'], relevance: keyword['relevance'], sentiment_score: keyword['sentiment']['score'], sentiment_type: keyword['sentiment']['type'])
-      self.keywords << new_keyword
+    if response['keywords']
+      response['keywords'].each do |keyword|
+        new_keyword = Keyword.create(name: keyword['text'], relevance: keyword['relevance'], sentiment_score: keyword['sentiment']['score'], sentiment_type: keyword['sentiment']['type'])
+        self.keywords << new_keyword
+      end
     end
   end
 
