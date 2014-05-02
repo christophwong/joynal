@@ -12,8 +12,16 @@ class JournalEntry < ActiveRecord::Base
     response = CLIENT.sentiment('text', self.content)
   end
 
-  def get_keywords
+  def get_keywords_response
     response = CLIENT.keywords('text', self.content, { 'sentiment'=>1 })
+  end
+
+  def set_keywords
+    response = get_keywords_response
+    response['keywords'].each do |keyword|
+      new_keyword = Keyword.create(name: keyword['text'], relevance: keyword['relevance'], sentiment_score: keyword['sentiment']['score'], sentiment_type: keyword['sentiment']['type'])
+      self.keywords << new_keyword
+    end
   end
 
   def set_sentiment_score
