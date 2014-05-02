@@ -16,3 +16,12 @@ FactoryGirl.define do
     f.emotion_rating { rand(1..5)}
 	end
 end
+
+
+    # t.integer  "user_id"
+    # t.text     "content"
+    # t.integer  "emotion_rating"
+    # t.datetime "created_at"
+    # t.datetime "updated_at"
+    # t.integer  "sentiment_score"
+    # t.string   "sentiment_type"
