@@ -1,0 +1,87 @@
+* {
+  font-family: 'Cabin', sans-serif;
+}
+body {
+  background-color: #c0deed;
+}
+
+/* Nav */
+nav {
+  width: 100%;
+  position: absolute;
+  left:0;
+  top: 0;
+  height: 50px;
+  background-color: white;
+  padding-top: 5px;
+  color: #a3acb2;
+  box-shadow: 2px 2px 2px #a3acb2;
+
+  i {
+    font-size: 1.4em;
+  }
+
+ a{
+    &:link {
+    font-size: 2em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #a3acb2;
+    margin-left: 20px;
+    }
+    &:hover {
+    color: #2e9ac2;
+    }
+    &:visited {
+    color: #a3acb2;
+    }
+    &:visited:hover{
+    color: #2e9ac2;
+    }
+  }  
+}
+
+.nav-left {
+  float: left;
+  padding-left: 15%;
+}
+
+.nav-right {
+  float: right;
+  padding-right: 15%;
+}
+
+/* container */
+.centered {
+  text-align: center;
+}
+.container {
+  @include outer-container;
+  background-color: white;
+  margin: auto;
+  margin-top: 15%;
+  width: 60%;
+  min-height: 400px;
+  box-shadow: 3px 3px 3px #a3acb2;
+  margin-bottom: 50px;
+}
+
+ /* Form */ 
+
+.form-box {
+  width: 25%;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%; 
+  background-color: white;
+  text-align: center;
+  box-shadow: 3px 3px 3px #a3acb2;
+  .welcome {
+    padding-top: 50px;
+  }
+  section {
+    padding-top: 10px;
+  }
+}
+

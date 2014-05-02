@@ -8,9 +8,17 @@
 </head>
 <body>
   <nav>
-    <% if user_signed_in? %>
+    <div class="nav-left">
+      <%= link_to icon('pencil-square-o'), root_path %>
+      <%= link_to icon('male'), edit_user_registration_path %>
+    </div>
+    <div class="nav-right">
+       <% if user_signed_in? %>
       <span><%= link_to "logout", destroy_user_session_path, :method => :delete %></span>
+      <% else %>
+       <%= link_to "Login", new_user_session_path %>
     <% end %>
+    </div>
   </nav>
 
 <%= yield %>
