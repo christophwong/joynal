@@ -1,30 +1,30 @@
 require 'spec_helper'
 
 describe JournalEntriesController do
-	describe "GET #index" do
-		it "populates an array of journal entries" do 
-      journal_entry = FactoryGirl.create(:journal_entry)
-      get :index
-      assigns(:journal_entries).should eq([journal_entry])
-		end
-		it "renders the :index view" do
-		  get :index
-		  response.should render_template :index
-		end
-	end
+	# describe "GET #index" do
+	# 	it "populates an array of journal entries" do
+ #      journal_entry = FactoryGirl.create(:journal_entry)
+ #      get :index
+ #      assigns(:journal_entries).should eq([journal_entry])
+	# 	end
+	# 	it "renders the :index view" do
+	# 	  get :index
+	# 	  response.should render_template :index
+	# 	end
+	# end
 
 
-	describe  "GET #show" do
-		it "assigns the requested JournalEntry to @entry" do
-			 journal_entry = FactoryGirl.create(:journal_entry)
-			 get :show, id: journal_entry
-			 assigns(:entry).should eq(journal_entry)
-		end
-		it "renders the :show template" do
-      get :show, id: FactoryGirl.create(:journal_entry)
-      response.should render_template :show
-		end
-	end
+	# describe  "GET #show" do
+	# 	it "assigns the requested JournalEntry to @entry" do
+	# 		 journal_entry = FactoryGirl.create(:journal_entry)
+	# 		 get :show, id: journal_entry
+	# 		 assigns(:entry).should eq(journal_entry)
+	# 	end
+	# 	it "renders the :show template" do
+ #      get :show, id: FactoryGirl.create(:journal_entry)
+ #      response.should render_template :show
+	# 	end
+	# end
 
 	describe "GET #new" do
 		# it "assigns a new JournalEntry to @journal_entry" do
@@ -87,4 +87,4 @@ describe JournalEntriesController do
 end
 
 
-    
+
