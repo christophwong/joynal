@@ -22,6 +22,6 @@ rerun.txt
 pickle-email-*.html
 .project
 api_key.txt
-config/alchemy.y[a]ml
+config/alchemy.yaml
 /bin
 config/secrets.yml
