@@ -3,11 +3,16 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :user
   has_many :keywords
 
+  after_commit :async_sentimental_analysis, :on => :create 
   acts_as_taggable_on :tags
 
 
   validates :content, presence: true
   validates :emotion_rating, presence: true
+
+  def async_sentimental_analysis
+    AlchemyWorker.perform_async(self.id)
+  end
 
   def get_sentiment
     response = CLIENT.sentiment('text', self.content)

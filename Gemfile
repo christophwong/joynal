@@ -30,6 +30,7 @@ gem 'acts-as-taggable-on'
 gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
+gem 'sidekiq'
 
 gem 'rspec-rails'
 group :development, :test do
