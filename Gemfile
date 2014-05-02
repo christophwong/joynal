@@ -9,6 +9,8 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'bourbon'
 gem 'font-awesome-sass'
+gem 'neat'
+gem 'bitters'
 
 # JS
 gem 'uglifier', '>= 1.3.0'
