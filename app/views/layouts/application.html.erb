@@ -9,7 +9,11 @@
 <body>
   <nav>
     <div class="nav-left">
-      <%= link_to icon('pencil-square-o'), root_path %>
+      <% if user_signed_in? %>
+        <%= link_to icon('pencil-square-o'), new_journal_entry_path %>
+      <% else %>
+        <%= link_to icon('pencil-square-o'), root_path %>
+      <% end %>
       <%= link_to icon('male'), edit_user_registration_path %>
     </div>
     <div class="nav-right">
