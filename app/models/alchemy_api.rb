@@ -78,8 +78,11 @@ class AlchemyAPI
 
 	def initialize
 		# begin
-			@apiKey = ENV['ALCHEMY_KEY']
+		# puts "The env is #{ENV['ALCHEMY_KEY']}"
+		# puts "The secret is #{Rails.application.secrets.alchemy_key}"
+			@apiKey = ENV['ALCHEMY_KEY'] || Rails.application.secrets.alchemy_key
 			# key = ENV['ALCHEMY_KEY'] || File.read('api_key.txt')
+			# puts "The api is set to #{@apiKey}"
 		# 	key.strip!
 
 		# 	if key.empty?
