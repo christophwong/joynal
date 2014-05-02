@@ -19,16 +19,8 @@ class JournalEntriesController < ApplicationController
 
   def show
     @entry = JournalEntry.find(params[:id])
-    # @entry =
   end
 
-  def edit
-    #@entry =  @entry = JournalEntry.find(params[:id])
-  end
-
-  def update
-    # @entry = JournalEntry.find(params[:id])
-  end
 
   def show_tagged
     @tag_name = params[:name]
