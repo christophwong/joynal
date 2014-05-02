@@ -30,7 +30,12 @@ gem 'acts-as-taggable-on'
 gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
+
+# workers
 gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'autoscaler'
 
 gem 'rspec-rails'
 group :development, :test do
