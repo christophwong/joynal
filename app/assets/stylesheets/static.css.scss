@@ -27,6 +27,7 @@ nav {
     font-weight: 400;
     text-decoration: none;
     color: #a3acb2;
+    margin-left: 20px;
     }
     &:hover {
     color: #2e9ac2;
@@ -54,7 +55,7 @@ nav {
 .centered {
   text-align: center;
 }
-div.container {
+.container {
   @include outer-container;
   background-color: white;
   margin: auto;
@@ -63,7 +64,6 @@ div.container {
   min-height: 400px;
   box-shadow: 3px 3px 3px #a3acb2;
   margin-bottom: 50px;
-  
 }
 
  /* Form */ 
@@ -76,6 +76,7 @@ div.container {
   margin-top: 15%; 
   background-color: white;
   text-align: center;
+  box-shadow: 3px 3px 3px #a3acb2;
   .welcome {
     padding-top: 50px;
   }
