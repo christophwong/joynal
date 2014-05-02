@@ -2,7 +2,10 @@
   <div class="top-bar">
     <span><h2>Please create a new journal entry:</h2></span>
   </div>
-  <%= form_for @journal_entry do |f| %>
+
+  <div class="user-signup"></div>
+
+  <%= form_for @journal_entry, html: { class: 'new-journal-unregistered' } do |f| %>
     <%= f.text_area :content, :class => "text"%><br>
       <div class="journal-details">
       <%= f.label "select a rating for how you feel (1 is bad 5 is great)"  %>:<br>
@@ -12,8 +15,5 @@
       <%= f.submit "Submit", :class => "journal-submit" %>
     </div>
   <% end %>
-
-
-
 
 </div>

@@ -11,12 +11,12 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     journal_entries_path
   end
-  
+
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(
-                                                            :first_name, 
+                                                            :first_name,
                                                             :last_name,
                                                             :email,
                                                             :password,
