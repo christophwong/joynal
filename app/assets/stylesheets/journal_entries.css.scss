@@ -32,12 +32,17 @@
 .top-bar {
   width: 100%;
   position: relative;
-  height: 50px;
+  height: 15%;
   border-bottom: solid #a3acb2 1px;
   a {
     &:link {
       text-decoration: none;
     }
+  }
+  h2 {
+  width: 50%;
+  padding-top: 15px;
+  padding-left: 15px;
   }
 }
 
@@ -57,15 +62,11 @@
 button {
   border: 0;
 }
-span h2 {
-  width: 50%;
-  padding-top: 15px;
-  padding-left: 15px;
-}
+
 
 .right {
   right: 20px;
-  top: 0;
+  top: 7px;
   position: absolute;
 }
 
@@ -77,10 +78,10 @@ input[type=textarea]{
 
 .text {
   position: relative;
-  width: 800px;
+  width: 80%;
   height: 300px;
   margin-right: 40px;
-  margin-left: 90px;
+  margin-left: 10%;
   margin-top: 40px;
   border: solid 1px #ddd;
   font-size: 14px;
@@ -101,6 +102,32 @@ input[type=textarea]{
   }
 }
 
+.content {
+  padding-top: 1%;
+  padding-left: 4%;
+  padding-right: 4%;
+}
+
+.tagged {
+  padding-left: 4%;
+  a {
+    &:link {
+      text-decoration: none;
+      font-size: 1.3em;
+      color: black;
+      font-weight: 500;
+    }
+    &:hover {
+      color: #2e9ac2;
+    }
+    &:visited {
+      color: black;
+    }
+    &:visited:hover {
+      color: #2e9ac2;
+    }
+  }
+}
 
 /* footer */
 
