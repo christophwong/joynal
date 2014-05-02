@@ -45,9 +45,5 @@ end
 
 # coverage
 gem 'coveralls', require: false
-
-
 gem 'rake', group: :test
-
 gem 'json'
-
