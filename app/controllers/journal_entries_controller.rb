@@ -41,7 +41,12 @@ class JournalEntriesController < ApplicationController
   end
 
   def show
-    @entry = JournalEntry.find(params[:id])
+      entry = JournalEntry.find(params[:id])
+    if current_user.id == entry.user.id
+      @entry = JournalEntry.find(params[:id])
+    else
+      raise "Don't read other people's entry!"
+    end
   end
 
   def show_graph
