@@ -22,7 +22,7 @@ $(document).ready(function() {
                   .enter()
                   .append('circle')
                   .on("mouseenter", function(d,i) {
-                    d3.select('#journal-info').text(d.name+", relevance: "+d.relevance.toFixed(2)+", sentiment_score: "+d.sentiment_score.toFixed(2))
+                    d3.select('#journal-info').text(d.name+", relevance: "+d.relevance+", sentiment_score: "+d.sentiment_score)
                   });
 
     var labels = svg.selectAll('text')
@@ -100,7 +100,7 @@ $(document).on('page:load', function() {
                   .enter()
                   .append('circle')
                   .on("mouseenter", function(d,i) {
-                    d3.select('#journal-info').text(d.name+", relevance: "+d.relevance.toFixed(2)+", sentiment_score: "+d.sentiment_score.toFixed(2))
+                    d3.select('#journal-info').text(d.name+", relevance: "+d.relevance+", sentiment_score: "+d.sentiment_score)
                   });
 
     var labels = svg.selectAll('text')
@@ -150,16 +150,5 @@ $(document).on('page:load', function() {
         return "#000000"
       }
     })
-
-    // $('svg circle').on('mouseenter', function(e) {
-    //   console.log("This is this")
-    //   console.log(this)
-    //   d3.select(this).transition().duration(100)
-    //   .attr('r', maxRadius)
-    // })
-
-
-
-
   });
 });
