@@ -21,14 +21,15 @@ class JournalEntriesController < ApplicationController
 
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
-
     if user_signed_in?
 
+      @user = current_user
+      @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
       if @journal_entry.save
         @journal_entry.update_attributes(user: current_user)
         redirect_to journal_entries_path
       else
-        render 'new'
+        render 'index'
       end
 
     else
