@@ -24,4 +24,4 @@ pickle-email-*.html
 api_key.txt
 config/alchemy.yaml
 /bin
-config/secrets.yml
+
