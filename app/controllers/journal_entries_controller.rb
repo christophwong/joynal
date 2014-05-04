@@ -98,6 +98,27 @@ class JournalEntriesController < ApplicationController
   def map
   end
 
+  def get_quote
+    user = current_user
+    puts "'''''''''"
+    p current_user
+    puts "''''''''''"
+    entry = user.journal_entries.last
+    p entry
+    if entry.sentiment_score < 0.0
+      quote_count = Quote.count
+      random_id = rand(1..quote_count)
+      quote = Quote.find(random_id)
+      body = quote.body
+      author = quote.author
+      respond_to do |format|
+      p quote
+        format.json { render :json => { body: body,
+                     author: author} }
+      end
+    end  
+  end
+
   private
   def journal_entry_params
     params.require(:journal_entry).permit(:content,
