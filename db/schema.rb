@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140503200026) do
+ActiveRecord::Schema.define(version: 20140504021955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20140503200026) do
     t.string   "sentiment_type"
   end
 
+  add_index "journal_entries", ["created_at"], name: "index_journal_entries_on_created_at", using: :btree
   add_index "journal_entries", ["user_id"], name: "index_journal_entries_on_user_id", using: :btree
 
   create_table "keywords", force: true do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140503200026) do
 
   add_index "keywords", ["journal_entry_id"], name: "index_keywords_on_journal_entry_id", using: :btree
   add_index "keywords", ["name"], name: "index_keywords_on_name", using: :btree
+  add_index "keywords", ["sentiment_score"], name: "index_keywords_on_sentiment_score", using: :btree
 
   create_table "quotes", force: true do |t|
     t.text   "body"
