@@ -11,7 +11,7 @@ class JournalEntriesController < ApplicationController
         session.delete(:emotion_rating)
       end
 
-      @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
+      
     else
       redirect_to root_path
     end  
@@ -26,18 +26,19 @@ class JournalEntriesController < ApplicationController
   end
 
   def create
-
+    puts "====================="
+    puts journal_entry_params
+    puts "====================="
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
 
       @user = current_user
-      @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
       if @journal_entry.save
         @journal_entry.update_attributes(user: current_user)
-        redirect_to journal_entries_path
+        list
       else
-        render 'index'
+        entry 
       end
 
     else
@@ -76,6 +77,25 @@ class JournalEntriesController < ApplicationController
     else 
       redirect_to root_path
     end  
+  end
+
+  def entry
+    @user = current_user
+    @journal_entry = JournalEntry.new
+    respond_to do |format|
+      format.html { render :partial => "journal_entries/entry_form" }
+    end
+  end
+
+  def list
+    @user = current_user
+    @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
+    respond_to do |format|
+      format.html { render :partial => "journal_entries/entry_list" }
+    end
+  end
+
+  def map
   end
 
   private
