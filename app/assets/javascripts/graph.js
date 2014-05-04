@@ -43,14 +43,20 @@ function showGraph() {
     .attr('r', function(d) {
       return d.relevance * 50;
     }).attr('fill', function(d) {
-      if (d.sentiment_score > 0) {
-        return "rgb(0," + (d.sentiment_score * 255) + ", 0)"
-      } else if (d.sentiment_score < 0) {
-        return "rgb(" + (-d.sentiment_score * 255) + ",0, 0)"
-      } else {
-        return "#FFFFFF"
-      }
-    })
+        if(d.children) {
+          return "#FFFFFF";
+        } else if(d.sentiment_score == 0) {
+          return "#2C8E47";
+        } else if(d.sentiment_score > 0.5) {
+          return "#B9F345";
+        } else if(d.sentiment_score < -0.5) {
+          return "#11435B";
+        } else if(d.sentiment_score > 0) {
+          return "#45BD42";
+        } else {
+          return "#0F93A1";
+        };
+      })
 
     labels.transition().duration(500)
     .attr('x', function(d, i) {
@@ -62,13 +68,7 @@ function showGraph() {
     .attr('font-size', function(d) {
       return d.relevance * 15;
     })
-    .attr('fill', function(d) {
-      if (d.sentiment_score < 0) {
-        return "#FFFFFF"
-      } else {
-        return "#000000"
-      }
-    })
+    .attr('fill', "#000000")
   });
 }
 
