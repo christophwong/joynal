@@ -95,8 +95,20 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def calendar
+
+    @journal_entries = JournalEntry.where(user_id: current_user.id)
+    @entries_by_date = @journal_entries.group_by(&:date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    respond_to do |format|
+      format.html { render :partial => "journal_entries/calendar" }
+    end
+  end
+
   def map
   end
+
+
 
   private
   def journal_entry_params
