@@ -37,7 +37,19 @@
     &:visited:hover{
     color: #2e9ac2;
     }
-  }
+    &:hover:after{
+    background: #424242;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: -33px;
+    left: 60px;
+    color: #fff;
+    content: attr(caption);
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 98;
+   }
+  } 
 }
 
 /* registered user landing page */

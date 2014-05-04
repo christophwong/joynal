@@ -2,20 +2,33 @@
 
   <div class="journal-bar">
     <ul>
-      <li><a class='tab-head'  href="entry"><i class='fa fa-book'></i></a></li>
-      <li><a class='tab-head' href="list"><i class='fa fa-bars'></i></a></li>
-      <li><a class='tab-head' href="map"><i class='fa fa-globe'></i></a></li>
+      <li><a caption="New entry" class='tab-head'  href="entry"><i class='fa fa-pencil'></i></a></li>
+      <li><a caption="Your entries list" class='tab-head' href="list"><i class='fa fa-book '></i></a></li>
+      <li><a caption="Map of your entries"class='tab-head' href="map"><i class='fa fa-globe'></i></a></li>
     </ul>
   </div>
 
   <div class="partial">
     <%= render 'entry_form'  %>
   </div>
+
 </div>
 
 
 <div class="quote-box"></div>
 
 
+<div class="word-cloud tab" id="tab-3">
+  <%= form_for(:show_cloud, url: show_cloud_path, html: { class: 'show-cloud' }, remote: true) do |f| %>
+    <%= f.submit value: 'Show cloud' %>
+  <% end %>
+  <div class="cloud">
+    <h3 id="cloud-info"><br></h3><br>
+    <div id="chart-legend"></div>
+
+
+  </div>
+</div>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 

@@ -14,7 +14,7 @@ class JournalEntriesController < ApplicationController
       
     else
       redirect_to root_path
-    end  
+    end
   end
 
   def new
@@ -64,19 +64,29 @@ class JournalEntriesController < ApplicationController
       respond_to do |format|
         format.json { render json: @journal_entry.keywords }
       end
-    else  
-      redirect_to root_path    
+    else
+      redirect_to root_path
     end
   end
 
+   def show_cloud
+    if user_signed_in?
+      @cloud_words = current_user.jsonify_keywords
+      respond_to do |format|
+        format.json { render json: @cloud_words }
+      end
+    else
+      redirect_to root_path
+    end
+  end
 
   def show_tagged
     if user_signed_in?
       @tag_name = params[:name]
       @tagged_entries = current_user.journal_entries.tagged_with(@tag_name)
-    else 
+    else
       redirect_to root_path
-    end  
+    end
   end
 
   def entry
