@@ -1,7 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'unirest'
+
+counter = 1
+
+5.times do 
+  puts "importing quote number #{counter}"
+  response = Unirest::get "https://theysaidso.p.mashape.com/quote?category=motivational", 
+    headers: { 
+      "X-Mashape-Authorization" => ENV["QUOTE_KEY"],
+      "Accept" => "application/json"
+    }
+
+  Quote.create(body: response.body["contents"]["quote"],
+              author: response.body["contents"]["author"])
+  counter += 1
+end
+
+5.times do 
+  puts "importing quote number #{counter}"
+  response = Unirest::get "https://theysaidso.p.mashape.com/quote?category=inspirational", 
+    headers: { 
+      "X-Mashape-Authorization" => ENV["QUOTE_KEY"],
+      "Accept" => "application/json"
+    }
+
+  Quote.create(body: response.body["contents"]["quote"],
+              author: response.body["contents"]["author"])
+  counter += 1
+end

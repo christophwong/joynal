@@ -1,20 +1,28 @@
 class JournalEntriesController < ApplicationController
   def index
+    if user_signed_in?
     @user = current_user
     @journal_entry = JournalEntry.new
 
-    if session[:content] || session[:emotion_rating]
-      @journal_entry.content = session[:content]
-      @journal_entry.emotion_rating = session[:emotion_rating]
-      session.delete(:content)
-      session.delete(:emotion_rating)
-    end
+      if session[:content] || session[:emotion_rating]
+        @journal_entry.content = session[:content]
+        @journal_entry.emotion_rating = session[:emotion_rating]
+        session.delete(:content)
+        session.delete(:emotion_rating)
+      end
 
-    @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
+      @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
+    else
+      redirect_to root_path
+    end
   end
 
   def new
-    @journal_entry = JournalEntry.new
+    if user_signed_in?
+      @journal_entry = JournalEntry.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
@@ -45,22 +53,29 @@ class JournalEntriesController < ApplicationController
     if current_user.id == entry.user.id
       @entry = JournalEntry.find(params[:id])
     else
-      raise "Don't read other people's entry!"
+      redirect_to root_path
     end
   end
 
   def show_graph
-    @journal_entry = JournalEntry.find(params[:id])
-    respond_to do |format|
-      format.json { render json: @journal_entry.keywords }
-      # format.json { render json: 'journal_entries/_show'}
+    if user_signed_in?
+      @journal_entry = JournalEntry.find(params[:id])
+      respond_to do |format|
+        format.json { render json: @journal_entry.keywords }
+      end
+    else
+      redirect_to root_path
     end
   end
 
 
   def show_tagged
-    @tag_name = params[:name]
-    @tagged_entries = JournalEntry.tagged_with(@tag_name)
+    if user_signed_in?
+      @tag_name = params[:name]
+      @tagged_entries = current_user.journal_entries.tagged_with(@tag_name)
+    else
+      redirect_to root_path
+    end
   end
 
   private
@@ -69,6 +84,4 @@ class JournalEntriesController < ApplicationController
                                           :emotion_rating
                                           )
   end
-
-
 end

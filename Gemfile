@@ -25,6 +25,7 @@ gem 'spring',        group: :development
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'acts-as-taggable-on'
+gem 'unirest'
 
 # Server 
 gem 'unicorn'
