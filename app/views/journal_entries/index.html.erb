@@ -39,7 +39,14 @@
   </div>
 
 
-  <div class="word-cloud tab" id="tab-3"></div>
+  <div class="word-cloud tab" id="tab-3">
+    <%= form_for(:show_cloud, url: show_cloud_path, html: { class: 'show-cloud' }, remote: true) do |f| %>
+      <%= f.submit value: 'Show cloud' %>
+    <% end %>
+    <div class="cloud">
+      <h3 id="cloud-info"></h3>
+    </div>
+  </div>
 
 
 </div>

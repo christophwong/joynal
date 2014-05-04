@@ -1,49 +1,69 @@
-// function showCloud() {
+function showCloud() {
 
-//   var diameter = 960,
-//       format = d3.format(",d"),
-//       color = d3.scale.category20c();
+  $('.show-cloud').on('ajax:success', function(e, data, status, xhr) {
+    var dataSet = {
+      "name": "root",
+      "value": 1,
+      "children": data
+      }
 
-//   var bubble = d3.layout.pack()
-//       .sort(null)
-//       .size([diameter, diameter])
-//       .padding(1.5);
+    var diameter = data.length * 20,
+        format = d3.format(",d"),
+        color = d3.scale.category20c();
 
-//   var svg = d3.select("body").append("svg")
-//       .attr("width", diameter)
-//       .attr("height", diameter)
-//       .attr("class", "bubble");
+    var bubble = d3.layout.pack()
+        .size([diameter, diameter])
+        .padding(1.5);
 
-//   d3.json("word_cloud.json", function(error, root) {
-//     var node = svg.selectAll(".node")
-//         .data(bubble.nodes(classes(root))
-//         .filter(function(d) { return !d.children; }))
-//       .enter().append("g")
-//         .attr("class", "node")
-//         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-//     node.append("title")
-//         .text(function(d) { return d.className + ": " + format(d.value); });
-
-//     node.append("circle")
-//         .attr("r", function(d) { return d.r; })
-//         .style("fill", function(d) { return color(d.packageName); });
-
-//     node.append("text")
-//         .attr("dy", ".3em")
-//         .style("text-anchor", "middle")
-//         .text(function(d) { return d.className.substring(0, d.r / 3); });
-//   });
-
-// }
+    var svg = d3.select(".cloud").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
 
 
+    var nodes = bubble.nodes(dataSet);
+
+    var node = svg.selectAll(".node")
+              .data(nodes)
+              .enter()
+              .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")";})
+                .on('click', function(d) {
+                  d3.select('#cloud-info').text("Keyword: " + d.name + ", Frequency: " + d.value + ", Average Sentiment Score: " + d.sentiment_score)
+                }).on('mouseenter', function(d) {
+                  d3.select(this).attr('fill', 'red')
+                  .attr('font-size', '2em')
+                }).on('mouseleave', function(d) {
+                  d3.select(this).attr('fill', '')
+                  .attr('font-size', '')
+                })
 
 
-// $(document).ready(function() {
-//   showCloud();
-// });
+    node.append("circle")
+      .attr("r", function(d) { return d.r; })
+      .attr("fill", function(d) {
+        if(d.children) {
+          return "#FFFFFF";
+        } else if(d.sentiment_score > 0) {
+          return "rgba(255, 153, 0,"+ d.sentiment_score + ")";
+        } else {
+          return "rgba(153, 0, 204,"+ (-d.sentiment_score) + ")";
+        };
+      })
+      .attr("stroke", function(d) { return d.children ? "#FFFFFF" : "#5F5556"})
+      .attr("stroke-width", 2)
 
-// $(document).on('page:load', function() {
-//   showCloud();
-// })
+    node.append("text")
+      .text(function(d){ return d.children ? "" : d.name ;} )
+      .attr('text-anchor', 'middle');
+  });
+};
+
+$(document).ready(function() {
+  showCloud();
+});
+
+$(document).on('page:load', function() {
+  showCloud();
+})
