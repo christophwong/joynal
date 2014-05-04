@@ -53,6 +53,7 @@ class JournalEntriesController < ApplicationController
     @journal_entry = JournalEntry.find(params[:id])
     respond_to do |format|
       format.json { render json: @journal_entry.keywords }
+      # format.json { render json: 'journal_entries/_show'}
     end
   end
 

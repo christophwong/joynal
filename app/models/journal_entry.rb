@@ -26,7 +26,8 @@ class JournalEntry < ActiveRecord::Base
     response = get_keywords_response
     if response['keywords']
       response['keywords'].each do |keyword|
-        new_keyword = Keyword.create(name: keyword['text'], relevance: keyword['relevance'], sentiment_score: keyword['sentiment']['score'], sentiment_type: keyword['sentiment']['type'])
+        score = keyword['sentiment']['score'] || 0
+        new_keyword = Keyword.create(name: keyword['text'], relevance: keyword['relevance'], sentiment_score: score, sentiment_type: keyword['sentiment']['type'])
         self.keywords << new_keyword
       end
     end
@@ -36,6 +37,8 @@ class JournalEntry < ActiveRecord::Base
     response = self.get_sentiment
     if response['docSentiment'].key?('score')
       self.sentiment_score = response['docSentiment']['score']
+    else
+      self.sentiment_score = 0
     end
   end
 
@@ -47,4 +50,11 @@ class JournalEntry < ActiveRecord::Base
   def integerize(score)
     (score.to_f + 1.0) * 50
   end
+
+  def self.get_tagged_keywords(tag_name)
+    tagged_entries = self.tagged_with(tag_name)
+    tagged_keywords = tagged_entries.flat_map(&:keywords) #=> keywords objects array
+    tagged_keywords.assign_count #=> [{key_name: 'fuck', count: 5, sentiment_score: '-0.8', sentiment_rating: 'positive' }, {key_name: count}, ...]
+  end
+
 end
