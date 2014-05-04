@@ -45,10 +45,16 @@ function showCloud() {
       .attr("fill", function(d) {
         if(d.children) {
           return "#FFFFFF";
+        } else if(d.sentiment_score == 0) {
+          return "#2C8E47";
+        } else if(d.sentiment_score > 0.5) {
+          return "#B9F345";
+        } else if(d.sentiment_score < -0.5) {
+          return "#11435B";
         } else if(d.sentiment_score > 0) {
-          return "rgba(255, 153, 0,"+ d.sentiment_score + ")";
+          return "#45BD42";
         } else {
-          return "rgba(153, 0, 204,"+ (-d.sentiment_score) + ")";
+          return "#0F93A1";
         };
       })
       .attr("stroke", function(d) { return d.children ? "#FFFFFF" : "#5F5556"})
