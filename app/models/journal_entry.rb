@@ -47,14 +47,7 @@ class JournalEntry < ActiveRecord::Base
     self.sentiment_type = response['docSentiment']['type']
   end
 
-  def integerize(score)
-    (score.to_f + 1.0) * 50
-  end
-
-  def self.get_tagged_keywords(tag_name)
-    tagged_entries = self.tagged_with(tag_name)
-    tagged_keywords = tagged_entries.flat_map(&:keywords) #=> keywords objects array
-    tagged_keywords.assign_count #=> [{key_name: 'fuck', count: 5, sentiment_score: '-0.8', sentiment_rating: 'positive' }, {key_name: count}, ...]
-  end
-
+  # def integerize(score)
+  #   (score.to_f + 1.0) * 50
+  # end
 end

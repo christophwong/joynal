@@ -32,7 +32,7 @@ function showCloud() {
                 .on('click', function(d) {
                   d3.select('#cloud-info').text("Keyword: " + d.name + ", Frequency: " + d.value + ", Average Sentiment Score: " + d.sentiment_score)
                 }).on('mouseenter', function(d) {
-                  d3.select(this).attr('fill', 'red')
+                  d3.select(this).attr('fill', '#F38D12')
                   .attr('font-size', '2em')
                 }).on('mouseleave', function(d) {
                   d3.select(this).attr('fill', '')
