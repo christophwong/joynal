@@ -27,6 +27,9 @@ gem 'devise'
 gem 'acts-as-taggable-on'
 gem 'unirest'
 
+# Geospatial
+gem 'ar-postgis'
+
 # Server 
 gem 'unicorn'
 gem 'rails_12factor', group: :production
