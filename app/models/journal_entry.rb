@@ -50,7 +50,7 @@ class JournalEntry < ActiveRecord::Base
 
   def add_date
     date = Time.now
-    d = date.strftime('%a %b %d %Y')
+    d = date.strftime('%Y-%m-%d')
     self.update_attributes(date: d)
   end
 end
