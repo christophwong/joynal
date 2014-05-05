@@ -26,6 +26,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'acts-as-taggable-on'
 gem 'unirest'
+gem 'faker'
 
 # Geospatial
 gem 'ar-postgis'
@@ -46,7 +47,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'

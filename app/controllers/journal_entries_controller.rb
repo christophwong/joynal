@@ -2,10 +2,7 @@ class JournalEntriesController < ApplicationController
   def index
     if user_signed_in?
     @user = current_user
-    @journal_entry = JournalEntry.new
-    if cookies[:lat_lng]
-      @lat_lng = cookies[:lat_lng].split("|")
-    end  
+    @journal_entry = JournalEntry.new 
       if session[:content] || session[:emotion_rating]
         @journal_entry.content = session[:content]
         @journal_entry.emotion_rating = session[:emotion_rating]
@@ -29,12 +26,14 @@ class JournalEntriesController < ApplicationController
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
-      if cookies[:lat_lng]
-        @lat_lng = cookies[:lat_lng].split("|")
-      end
       @user = current_user
       if @journal_entry.save
         @journal_entry.update_attributes(user: current_user)
+        LocationRecords.create()
+        if cookies[:lat_lng]
+          @lat_lng = cookies[:lat_lng]
+          save_location(@lat_lng, @journal_entry)
+        end
         list
       else
         entry
@@ -131,6 +130,11 @@ class JournalEntriesController < ApplicationController
     respond_to do |format|
       format.json { render json: @journal_entries }
     end
+  end
+
+  def save_location(lat_lon, journal)
+    point = LocationRecord::GEOFACTORY.parse_wkt(lat_lon)
+    LocationRecord.create(journal_entry: journal, coords: point.projection) if point
   end
 
   private
