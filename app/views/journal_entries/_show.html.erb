@@ -17,12 +17,14 @@
   </div>
 </div>
 
-<%= form_for(:show_graph, url: show_graph_path, html: { class: 'show-graph' }, remote: true) do |f| %>
-  <%= f.submit value: 'Show Graph' %>
-<% end %>
+<div class="keyword-graph">
+  <h3>View this journal's keywords and their sentiments</h3>
+  <%= form_for(:show_graph, url: show_graph_path, html: { class: 'show-graph' }, remote: true) do |f| %>
+    <%= f.submit value: 'Show Graph', class: 'journal-submit' %>
+  <% end %>
+  <h3 id="journal-info"></h3>
+  <div class="d3"></div>
+</div>
 
-<h3 id="journal-info"></h3>
-<div class="d3">
-<!-- </div> -->
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
