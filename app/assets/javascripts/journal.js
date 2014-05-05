@@ -17,8 +17,6 @@ clickTab = function () {
 
 
 showPage = function() {
-    console.log("THIS:");
-
     var entry_id = $(this).attr('href');
     $('body').on('ajax:success', '.user-entry', function(e, data, status, xhr) {
       console.log("rabbit");
@@ -30,7 +28,13 @@ dateSwitch = function() {
   $('body').on('ajax:success', '#month a', function(e, data, status, xhr) {
     $('div.partial').html(data);  // why does this send so many requests per click???
   });
+};
 
+pageSwitch = function() {
+  $('body').on('ajax:success', '.pagination a', function(e, data, status, xhr) {
+    $('.pagination').remove();
+    $('.journal-list-show').html(data);
+  });
 };
 
 entryListener = function(){
@@ -76,8 +80,8 @@ $(document).ready(function() {
   getGeoLocation();
   dateSwitch();
   showPage();
+  pageSwitch();
 });
-
 
 $(document).on('page:load', function() {
   clickTab();
@@ -85,4 +89,9 @@ $(document).on('page:load', function() {
   getGeoLocation();
   dateSwitch();
   showPage();
+  pageSwitch();
 });
+
+$(document).on('page:update', function() {
+  $('.pagination a').attr('data-remote', 'true');
+})
