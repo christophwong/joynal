@@ -67,16 +67,7 @@ nav {
 .centered {
   text-align: center;
 }
-.container {
-  @include outer-container;
-  background-color: white;
-  margin: auto;
-  margin-top: 15%;
-  width: 60%;
-  min-height: 400px;
-  box-shadow: 3px 3px 3px #a3acb2;
-  margin-bottom: 50px;
-}
+
 
 /* Hero */
 

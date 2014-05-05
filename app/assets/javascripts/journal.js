@@ -25,13 +25,19 @@ getQuote = function(){
   setTimeout(function(){
     $.get("/journal_entries/get_quote")
       .success(function( data ){
-        console.log(data);
-        $('div.quote-box').html("<p>" + data.body + "</p> <p>" + data.author + "</p>");
-       
+        $('div.quote-box').html("<p class='body'>" + data.body + "</p> <p class='author'>" + data.author + "</p>");
+        dropQuote();
       });
-  },30000);
+  },5000);
 };
 
+dropQuote = function(){
+  $('div.quote-box').slideDown(800, function(){
+    setTimeout(function(){
+      $('div.quote-box').slideUp(800);
+    },8000);
+  });
+};
 
 
 
