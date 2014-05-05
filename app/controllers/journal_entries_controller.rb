@@ -96,7 +96,6 @@ class JournalEntriesController < ApplicationController
   end
 
   def calendar
-
     @journal_entries = JournalEntry.where(user_id: current_user.id)
     @entries_by_date = @journal_entries.group_by(&:date)
     @date = params[:date] ? Date.parse(params[:date]) : Date.today

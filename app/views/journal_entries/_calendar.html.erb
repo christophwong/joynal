@@ -1,8 +1,9 @@
 <div id="entries-calendar">
 <h2 id="month">
-    <%= link_to "<", date: @date.prev_month %>
+    <%= link_to "<", date: @date.prev_month, :class => 'date', remote: true %>
+  
     <%= @date.strftime('%Y-%b-%d') %>
-    <%= link_to ">", date: @date.next_month %>
+    <%= link_to ">", date: @date.next_month, :class => 'date', remote: true  %>
   </h2>
   <%= calendar @date do |date| %>
     <%= date.day %>
@@ -16,4 +17,6 @@
     <% end %>
   <% end %>
 </div>
+
+
 
