@@ -10,9 +10,8 @@
     <p><%= @entry.content %></p>
   </div>
   <div class="tagged">
-  <h2>tagged</h2>
     <% @entry.tags.each do |tag| %>
-      <%= link_to tag.name, tag_path(tag.name), :class => 'user-entry', remote: true %>
+      <%= link_to "##{tag.name} ", tag_path(tag.name), :class => 'user-entry', remote: true %>
     <% end %>
   </div>
 </div>

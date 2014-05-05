@@ -101,6 +101,9 @@ class JournalEntriesController < ApplicationController
   def list
     @user = current_user
     @journal_entries = @user.journal_entries.order("created_at DESC").limit(10)
+    @journal_entries.each do |entry|
+      entry.tags
+    end
     respond_to do |format|
       format.html { render :partial => "journal_entries/entry_list" }
     end
