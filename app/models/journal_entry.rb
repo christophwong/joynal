@@ -4,6 +4,7 @@ class JournalEntry < ActiveRecord::Base
   has_many :keywords
   has_many :location_records
 
+  after_create :add_date
   after_commit :async_sentimental_analysis, :on => :create
   acts_as_taggable_on :tags
 
@@ -48,7 +49,9 @@ class JournalEntry < ActiveRecord::Base
     self.sentiment_type = response['docSentiment']['type']
   end
 
-  # def integerize(score)
-  #   (score.to_f + 1.0) * 50
-  # end
+  def add_date
+    date = Time.now
+    d = date.strftime('%Y-%m-%d')
+    self.update_attributes(date: d)
+  end
 end

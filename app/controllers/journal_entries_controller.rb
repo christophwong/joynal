@@ -2,7 +2,7 @@ class JournalEntriesController < ApplicationController
   def index
     if user_signed_in?
     @user = current_user
-    @journal_entry = JournalEntry.new 
+    @journal_entry = JournalEntry.new
       if session[:content] || session[:emotion_rating]
         @journal_entry.content = session[:content]
         @journal_entry.emotion_rating = session[:emotion_rating]
@@ -100,13 +100,22 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def calendar
+    @journal_entries = JournalEntry.where(user_id: current_user.id)
+    @entries_by_date = @journal_entries.group_by(&:date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    respond_to do |format|
+      format.html { render :partial => "journal_entries/calendar" }
+    end
+  end
+
   def map
   end
 
-
   def get_quote
-    entry = user.journal_entries.last
-    p entry
+
+    entry = current_user.journal_entries.last
+
     if entry.sentiment_score < 0.0
       quote_count = Quote.count
       random_id = rand(1..quote_count)
@@ -119,9 +128,8 @@ class JournalEntriesController < ApplicationController
       end
     end
   end
-  
-  def line_chart
 
+  def line_chart
   end
 
   def get_line_chart
@@ -137,6 +145,7 @@ class JournalEntriesController < ApplicationController
   end
 
   private
+
   def journal_entry_params
     params.require(:journal_entry).permit(:content,
                                           :emotion_rating

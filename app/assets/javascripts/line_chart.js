@@ -3,11 +3,10 @@ function lineChart(){
   $('.get-line-chart').on('ajax:success', function(e, data, status, xhr) {
 
     var dataSet = data
-
     var parseDate = d3.time.format("%Y-%m-%dT%X.%LZ").parse;
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
-    var width = 900 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
+    var width = $('.container').width() - margin.left - margin.right;
+    var height = $('.container').height() - margin.top - margin.bottom;
 
     var x = d3.time.scale()
     .range([0, width]);
@@ -37,6 +36,7 @@ function lineChart(){
                   .data(dataSet)
                   .enter()
                   .append('circle')
+
 
     var captionDiv = d3.select('.line-chart')
                        .append('div')
@@ -96,3 +96,6 @@ $(document).ready(function(){
   lineChart();
 })
 
+$(document).on('page:load', function(){
+  lineChart();
+})
