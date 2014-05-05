@@ -1,5 +1,5 @@
 <% @journal_entries.each do |entry| %>
 <div class="entry">
-  <%= link_to "#{entry.content[0..35]} ....", entry, :class => 'user-entry', remote: true %>
+  <%= link_to "#{entry.content[0..35]} .... ##{entry.tags.map(&:name).join(" #")}", entry, :class => 'user-entry', remote: true %>
 </div>
 <% end %>
