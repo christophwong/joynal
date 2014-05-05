@@ -11,7 +11,7 @@ class JournalEntriesController < ApplicationController
         session.delete(:emotion_rating)
       end
 
-      
+
     else
       redirect_to root_path
     end
@@ -38,7 +38,7 @@ class JournalEntriesController < ApplicationController
         @journal_entry.update_attributes(user: current_user)
         list
       else
-        entry 
+        entry
       end
 
     else
@@ -108,6 +108,7 @@ class JournalEntriesController < ApplicationController
   def map
   end
 
+
   def get_quote
     user = current_user
     puts "'''''''''"
@@ -126,7 +127,17 @@ class JournalEntriesController < ApplicationController
         format.json { render :json => { body: body,
                      author: author} }
       end
-    end  
+    end
+
+  def line_chart
+
+  end
+
+  def get_line_chart
+    @journal_entries = current_user.journal_entries
+    respond_to do |format|
+      format.json { render json: @journal_entries }
+    end
   end
 
   private
