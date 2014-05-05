@@ -4,7 +4,7 @@ class CreateLocationRecords < ActiveRecord::Migration
       t.belongs_to :journal_entry
       t.point :coords, :srid => 3785
     end
-    change_table :location_records do |t|
+    change_table :location_record do |t|
       t.index :coords, :spatial => true  
     end
   end
