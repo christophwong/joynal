@@ -50,6 +50,9 @@ class JournalEntriesController < ApplicationController
       entry = JournalEntry.find(params[:id])
     if current_user.id == entry.user.id
       @entry = JournalEntry.find(params[:id])
+      respond_to do |format|
+        format.html { render partial: "journal_entries/show"}
+      end
     else
       redirect_to root_path
     end

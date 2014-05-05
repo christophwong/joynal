@@ -15,10 +15,21 @@ clickTab = function () {
   });
 };
 
-dateSwitch = function() {
+
+showPage = function() {
+    console.log("THIS:");
+    
+    var entry_id = $(this).attr('href');
+    $('body').on('ajax:success', '.user-entry', function(e, data, status, xhr) {
+      console.log("rabbit");
+    $('div.partial').html(data);
+  });
+};
+
+dateSwitch = function() {  
   console.log("hello")
   $('body').on('ajax:success', '#month a', function(e, data, status, xhr) {
-    $('div.partial').html(data); // why does this send so many requests per click???
+    $('div.partial').html(data);  // why does this send so many requests per click???
   });
 
 };
@@ -51,11 +62,14 @@ dropQuote = function(){
 $(document).ready(function() {
   clickTab();
   entryListener();
+  dateSwitch();
+  showPage();
 });
 
 
-$(document).on('page:update', function() {
+$(document).on('page:load', function() {
   clickTab();
   entryListener();
   dateSwitch();
+  showPage();
 });
