@@ -9,7 +9,7 @@
     <% if @entries_by_date[date.strftime('%Y-%m-%d')] %>
       <ul>
         <% @entries_by_date[date.strftime('%Y-%m-%d')].each do |entry| %>
-          <li><%= link_to "#{entry.content[0..14]}...", entry %></li>
+          <li><%= link_to "#{entry.content[0..14]}...", entry, :class => 'user-entry', remote: true %></li>
         <% end %>
       </ul>
     <% end %>
