@@ -7,6 +7,7 @@ function lineChart(){
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
     var width = $('.container').width() - margin.left - margin.right;
     var height = $('.container').height() - margin.top - margin.bottom;
+    var yRange = [-1, 1]
 
     var x = d3.time.scale()
     .range([0, width]);
@@ -44,11 +45,11 @@ function lineChart(){
                        .style('opacity', 0);
 
     x.domain(d3.extent(dataSet, function(d) { return parseDate(d.created_at) }));
-    y.domain(d3.extent(dataSet, function(d) { return d.sentiment_score}));
+    y.domain(d3.extent(yRange, function(d) { return d}));
 
     svg.append('g')
        .attr('class', 'x axis')
-       .attr('transform', "translate(0," + (height-1) + ")")
+       .attr('transform', "translate(0," + (height/2) + ")")
        .call(xAxis);
 
     svg.append('g')
