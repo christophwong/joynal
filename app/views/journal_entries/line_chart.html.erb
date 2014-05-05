@@ -1,0 +1,11 @@
+<div class="container">
+
+  <%= form_for(:get_line_chart, url: get_line_chart_path, html: { class: 'get-line-chart' }, remote: true) do |f| %>
+    <%= f.submit 'Get Line Chart' %>
+  <% end %>
+
+  <div class="line-chart">
+  </div>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+</div>

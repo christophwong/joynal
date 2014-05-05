@@ -1,0 +1,32 @@
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+}
+
+.line-chart {
+
+ a{
+    &:link {
+    font-size: 1em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #a3acb2;
+    margin-left: 20px;
+    }
+    &:hover {
+    color: #2e9ac2;
+    }
+    &:visited {
+    color: #a3acb2;
+    }
+    &:visited:hover{
+    color: #2e9ac2;
+    }
+  }
+}
