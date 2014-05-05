@@ -87,7 +87,7 @@ function lineChart(){
       captionDiv.transition()
                 .duration(200)
                 .style('opacity', .9);
-      captionDiv.html("<a href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
+      captionDiv.html("<a class='user-entry' data-remote='true' href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
       .style('left', (d3.event.pageX) + "px")
       .style('top', ((d3.event.pageY) - 20) + "px")
       .style('position', 'absolute')
@@ -134,7 +134,7 @@ function lineChart(){
           captionDiv.transition()
                     .duration(200)
                     .style('opacity', .9);
-          captionDiv.html("<a href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
+          captionDiv.html("<a class='user-entry' data-remote='true' href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
           .style('left', (d3.event.pageX) + "px")
           .style('top', ((d3.event.pageY) - 20) + "px")
           .style('position', 'absolute')
