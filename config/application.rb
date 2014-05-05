@@ -1,5 +1,26 @@
 require File.expand_path('../boot', __FILE__)
 
+class ActiveRecordOverrideRailtie < Rails::Railtie
+  initializer "active_record.initialize_database.override" do |app|
+
+    ActiveSupport.on_load(:active_record) do
+      if url = ENV['DATABASE_URL']
+        ActiveRecord::Base.connection_pool.disconnect!
+        parsed_url = URI.parse(url)
+        config =  {
+          adapter:             'postgis',
+          host:                parsed_url.host,
+          encoding:            'unicode',
+          database:            parsed_url.path.split("/")[-1],
+          port:                parsed_url.port,
+          username:            parsed_url.user,
+          password:            parsed_url.password
+        }
+        establish_connection(config)
+      end
+    end
+  end
+end
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_record/railtie"
@@ -9,6 +30,7 @@ require "action_view/railtie"
 require "sprockets/railtie"
 require 'active_record/connection_adapters/postgis_adapter/railtie'
 # require "rails/test_unit/railtie"
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
