@@ -68,12 +68,15 @@ function lineChart(){
     svg.append('path')
         .datum(dataSet)
         .attr('class', 'line')
+        .transition()
+        .duration(500)
         .attr('d', line)
         .attr('stroke', 'steelblue')
         .attr('stroke-width', '1.5px')
         .attr('fill', 'none');
 
-    circles.attr('cx', function(d) {
+    circles
+    .attr('cx', function(d) {
       return x(parseDate(d.created_at))
     }).attr('cy', function(d) {
       return y(d.sentiment_score)
