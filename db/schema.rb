@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504021955) do
+ActiveRecord::Schema.define(version: 20140505153006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "journal_entries", force: true do |t|
     t.integer  "user_id"
@@ -26,8 +27,8 @@ ActiveRecord::Schema.define(version: 20140504021955) do
     t.string   "sentiment_type"
   end
 
-  add_index "journal_entries", ["created_at"], name: "index_journal_entries_on_created_at", using: :btree
-  add_index "journal_entries", ["user_id"], name: "index_journal_entries_on_user_id", using: :btree
+  add_index "journal_entries", ["created_at"], :name => "index_journal_entries_on_created_at"
+  add_index "journal_entries", ["user_id"], :name => "index_journal_entries_on_user_id"
 
   create_table "keywords", force: true do |t|
     t.integer "journal_entry_id"
@@ -37,9 +38,16 @@ ActiveRecord::Schema.define(version: 20140504021955) do
     t.string  "sentiment_type"
   end
 
-  add_index "keywords", ["journal_entry_id"], name: "index_keywords_on_journal_entry_id", using: :btree
-  add_index "keywords", ["name"], name: "index_keywords_on_name", using: :btree
-  add_index "keywords", ["sentiment_score"], name: "index_keywords_on_sentiment_score", using: :btree
+  add_index "keywords", ["journal_entry_id"], :name => "index_keywords_on_journal_entry_id"
+  add_index "keywords", ["name"], :name => "index_keywords_on_name"
+  add_index "keywords", ["sentiment_score"], :name => "index_keywords_on_sentiment_score"
+
+  create_table "location_records", force: true do |t|
+    t.integer "journal_entry_id"
+    t.spatial "coords",           limit: {:srid=>3785, :type=>"point"}
+  end
+
+  add_index "location_records", ["coords"], :name => "index_location_records_on_coords", :spatial => true
 
   create_table "quotes", force: true do |t|
     t.text   "body"
@@ -56,14 +64,14 @@ ActiveRecord::Schema.define(version: 20140504021955) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
 
   create_table "tags", force: true do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -82,7 +90,7 @@ ActiveRecord::Schema.define(version: 20140504021955) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

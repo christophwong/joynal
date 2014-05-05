@@ -6,7 +6,7 @@ gem 'rails', '4.1.0'
 gem 'pg'
 
 # Style
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'bourbon'
 gem "font-awesome-rails"
 gem 'neat'
