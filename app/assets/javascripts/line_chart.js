@@ -96,3 +96,6 @@ $(document).ready(function(){
   lineChart();
 })
 
+$(document).on('page:load', function(){
+  lineChart();
+})
