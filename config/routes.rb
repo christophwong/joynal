@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "journal_entries/entry", to: "journal_entries#entry"
   get "journal_entries/calendar", to: "journal_entries#calendar"
   get "journal_entries/get_quote", to: "journal_entries#get_quote"
-  get 'journal_entries/line_chart', to: "journal_entries#line_chart", as: 'line_chart'
+  get 'journal_entries/stats', to: "journal_entries#stats", as: 'stats'
   post 'journal_entries/get_line_chart', to: "journal_entries#get_line_chart", as: "get_line_chart"
 
   resources :journal_entries, :only => [:index, :new, :create, :show]

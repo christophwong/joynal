@@ -11,7 +11,7 @@
     <div class="nav-left">
       <%= link_to (fa_icon "pencil-square-o 2x") , root_path, :content => "Your Journal" %>
       <% if user_signed_in? %>
-        <%= link_to fa_icon("bar-chart-o 2x"), line_chart_path, content: "Your Stats" %>
+        <%= link_to fa_icon("bar-chart-o 2x"), stats_path, content: "Your Stats" %>
       <% end %>
     </div>
     <div class="nav-right">

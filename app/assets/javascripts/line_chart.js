@@ -2,11 +2,14 @@ function lineChart(){
 
   $('.get-line-chart').on('ajax:success', function(e, data, status, xhr) {
 
+    $('.get-line-chart').remove();
+
     var dataSet = data
     var parseDate = d3.time.format("%Y-%m-%dT%X.%LZ").parse;
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
     var width = $('.container').width() - margin.left - margin.right;
     var height = $('.container').height() - margin.top - margin.bottom;
+    var yRange = [-1, 1]
 
     var x = d3.time.scale()
     .range([0, width]);
@@ -44,11 +47,11 @@ function lineChart(){
                        .style('opacity', 0);
 
     x.domain(d3.extent(dataSet, function(d) { return parseDate(d.created_at) }));
-    y.domain(d3.extent(dataSet, function(d) { return d.sentiment_score}));
+    y.domain(d3.extent(yRange, function(d) { return d}));
 
     svg.append('g')
        .attr('class', 'x axis')
-       .attr('transform', "translate(0," + (height-1) + ")")
+       .attr('transform', "translate(0," + (height/2) + ")")
        .call(xAxis);
 
     svg.append('g')
@@ -87,9 +90,34 @@ function lineChart(){
       .style('top', ((d3.event.pageY) - 20) + "px")
       .style('position', 'absolute')
     });
+
+    // slider code, cannot get the scatter plots to work
+    // because scatter plots depend on the dataSet, which
+    // cannot be dynamically changed based on slider action
+    // $( "#slider" ).slider({
+    //   range: true,
+    //   min: 0,
+    //   max: dataSet.length-1,
+    //   values: [0,dataSet.length-1],
+
+    //   slide: function( event, ui ) {
+    //     console.log(dataSet)
+
+    //     var maxv = d3.min([ui.values[1], dataSet.length]);
+    //     var minv = d3.max([ui.values[0], 0]);;
+
+    //     x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
+    //     var dataSet = dataSet.slice(minv, maxv)
+    //     svg.transition().duration(750)
+    //       .select(".x.axis").call(xAxis);
+    //     svg.transition().duration(750)
+    //       .select(".line").attr("d", line);
+    //   }
+
+    // });
+
   });
 }
-
 
 
 $(document).ready(function(){

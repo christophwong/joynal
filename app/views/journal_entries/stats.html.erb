@@ -1,0 +1,29 @@
+<div class="container">
+
+  <div class="chart-form">
+    <%= form_for(:get_line_chart, url: get_line_chart_path, html: { class: 'get-line-chart' }, remote: true) do |f| %>
+      <%= f.submit 'Get Line Chart', class: 'journal-submit' %>
+    <% end %>
+  </div>
+
+  <div class="line-chart">
+  </div>
+  <div id="slider"></div>
+
+  <div class="chart-form">
+    <%= form_for(:show_cloud, url: show_cloud_path, html: { class: 'show-cloud' }, remote: true) do |f| %>
+      <%= f.submit value: 'Show cloud', class: 'journal-submit' %>
+    <% end %>
+  </div>
+
+  <div class="cloud">
+    <h3 id="cloud-info"><br></h3><br>
+    <div id="chart-legend"></div>
+  </div>
+
+</div>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<!-- <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script> -->
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>

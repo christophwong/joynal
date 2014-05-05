@@ -2,6 +2,8 @@ function showCloud() {
 
   $('.show-cloud').on('ajax:success', function(e, data, status, xhr) {
 
+    $('.show-cloud').remove();
+
     var chartWidth = 680;
 
     var chartData = [

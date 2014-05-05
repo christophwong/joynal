@@ -132,11 +132,11 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-  def line_chart
+  def stats
   end
 
   def get_line_chart
-    @journal_entries = current_user.journal_entries
+    @journal_entries = current_user.journal_entries.order('created_at DESC')
     respond_to do |format|
       format.json { render json: @journal_entries }
     end
