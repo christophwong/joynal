@@ -69,7 +69,7 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-   def show_cloud
+  def show_cloud
     if user_signed_in?
       @cloud_words = current_user.jsonify_keywords
       respond_to do |format|
@@ -128,6 +128,7 @@ class JournalEntriesController < ApplicationController
                      author: author} }
       end
     end
+  end
 
   def line_chart
 
