@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140504021955) do
+ActiveRecord::Schema.define(version: 20140504202035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140504021955) do
     t.datetime "updated_at"
     t.float    "sentiment_score"
     t.string   "sentiment_type"
+    t.string   "date"
   end
 
   add_index "journal_entries", ["created_at"], name: "index_journal_entries_on_created_at", using: :btree

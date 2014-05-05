@@ -1,3 +1,4 @@
+//refactor the clickTab function!!!!!!!!!!!!!!!!!!!
 clickTab = function () {
   $('.tab-head').on('click', function(e) {
     e.preventDefault();
@@ -12,6 +13,14 @@ clickTab = function () {
       }
     });
   });
+};
+
+dateSwitch = function() {
+  console.log("hello")
+  $('body').on('ajax:success', '#month a', function(e, data, status, xhr) {
+    $('div.partial').html(data); // why does this send so many requests per click???
+  });
+
 };
 
 entryListener = function(){
@@ -39,10 +48,6 @@ dropQuote = function(){
   });
 };
 
-
-
-
-// completely refreshes a page
 $(document).ready(function() {
   clickTab();
   entryListener();
@@ -52,4 +57,5 @@ $(document).ready(function() {
 $(document).on('page:update', function() {
   clickTab();
   entryListener();
+  dateSwitch();
 });

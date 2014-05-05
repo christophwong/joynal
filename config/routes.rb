@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'journal_entries/:id/show_graph', to: 'journal_entries#show_graph', as: 'show_graph'
   get "journal_entries/list", to: "journal_entries#list"
   get "journal_entries/entry", to: "journal_entries#entry"
+  get "journal_entries/calendar", to: "journal_entries#calendar"
   get "journal_entries/get_quote", to: "journal_entries#get_quote"
   get 'journal_entries/line_chart', to: "journal_entries#line_chart", as: 'line_chart'
   post 'journal_entries/get_line_chart', to: "journal_entries#get_line_chart", as: "get_line_chart"

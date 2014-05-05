@@ -26,9 +26,6 @@ class JournalEntriesController < ApplicationController
   end
 
   def create
-    puts "====================="
-    puts journal_entry_params
-    puts "====================="
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
@@ -105,17 +102,20 @@ class JournalEntriesController < ApplicationController
     end
   end
 
+  def calendar
+    @journal_entries = JournalEntry.where(user_id: current_user.id)
+    @entries_by_date = @journal_entries.group_by(&:date)
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    respond_to do |format|
+      format.html { render :partial => "journal_entries/calendar" }
+    end
+  end
+
   def map
   end
 
-
   def get_quote
-    user = current_user
-    puts "'''''''''"
-    p current_user
-    puts "''''''''''"
-    entry = user.journal_entries.last
-    p entry
+    entry = current_user.journal_entries.last
     if entry.sentiment_score < 0.0
       quote_count = Quote.count
       random_id = rand(1..quote_count)
@@ -123,11 +123,11 @@ class JournalEntriesController < ApplicationController
       body = quote.body
       author = quote.author
       respond_to do |format|
-      p quote
         format.json { render :json => { body: body,
                      author: author} }
       end
     end
+  end
 
   def line_chart
 
@@ -141,6 +141,7 @@ class JournalEntriesController < ApplicationController
   end
 
   private
+
   def journal_entry_params
     params.require(:journal_entry).permit(:content,
                                           :emotion_rating

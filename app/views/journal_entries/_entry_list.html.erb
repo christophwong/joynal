@@ -1,6 +1,6 @@
 <% @journal_entries.each do |entry| %>
 <div class="entry">
   <% d = Date.parse(entry.created_at.to_s) %>
-  <%= link_to d.strftime('%a %b %d %Y'), journal_entry_path(entry) %>
+  <%= link_to d.strftime('%Y-%m-%d'), journal_entry_path(entry) %>
 </div>
 <% end %>
