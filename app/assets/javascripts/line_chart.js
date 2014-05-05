@@ -26,8 +26,8 @@ function lineChart(){
                 .orient('left');
 
     var line = d3.svg.line()
-            .x(function(d){ return x(parseDate(d.created_at)); })
-            .y(function(d){ return y(d.sentiment_score); });
+            .x(function(d) { return x(parseDate(d.created_at)); })
+            .y(function(d) { return y(d.sentiment_score); });
 
     var svg = d3.select('.line-chart').append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -36,10 +36,6 @@ function lineChart(){
         .attr('transform', "translate("+margin.left+"," + margin.top + ")");
 
     var circles = svg.selectAll('circle')
-                  .data(dataSet)
-                  .enter()
-                  .append('circle')
-
 
     var captionDiv = d3.select('.line-chart')
                        .append('div')
@@ -76,6 +72,9 @@ function lineChart(){
         .attr('fill', 'none');
 
     circles
+    .data(dataSet)
+    .enter()
+    .append('circle')
     .attr('cx', function(d) {
       return x(parseDate(d.created_at))
     }).attr('cy', function(d) {
@@ -97,27 +96,53 @@ function lineChart(){
     // slider code, cannot get the scatter plots to work
     // because scatter plots depend on the dataSet, which
     // cannot be dynamically changed based on slider action
-    // $( "#slider" ).slider({
-    //   range: true,
-    //   min: 0,
-    //   max: dataSet.length-1,
-    //   values: [0,dataSet.length-1],
+    $( "#slider" ).slider({
+      range: true,
+      min: 0,
+      max: dataSet.length-1,
+      values: [0,dataSet.length-1],
 
-    //   slide: function( event, ui ) {
-    //     console.log(dataSet)
+      slide: function( event, ui ) {
+        var circles = svg.selectAll('circle')
 
-    //     var maxv = d3.min([ui.values[1], dataSet.length]);
-    //     var minv = d3.max([ui.values[0], 0]);;
+        circles.remove();
 
-    //     x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
-    //     var dataSet = dataSet.slice(minv, maxv)
-    //     svg.transition().duration(750)
-    //       .select(".x.axis").call(xAxis);
-    //     svg.transition().duration(750)
-    //       .select(".line").attr("d", line);
-    //   }
+        var maxv = d3.min([ui.values[1], dataSet.length]);
+        var minv = d3.max([ui.values[0], 0]);;
 
-    // });
+        x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
+        svg
+          .select(".x.axis").call(xAxis);
+        svg
+          .select(".line").attr("d", line);
+
+        var circles = svg.selectAll('circle')
+
+        circles
+        .data(dataSet.slice(minv, maxv))
+        .enter()
+        .append('circle')
+        .attr('cx', function(d) {
+          return x(parseDate(d.created_at))
+        }).attr('cy', function(d) {
+          return y(d.sentiment_score)
+        }).attr('r', 5).attr('fill', 'red')
+        .on('mouseover', function(d) {
+          captionDiv.transition()
+          .duration(500)
+          .style('opacity', 0);
+          captionDiv.transition()
+                    .duration(200)
+                    .style('opacity', .9);
+          captionDiv.html("<a href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
+          .style('left', (d3.event.pageX) + "px")
+          .style('top', ((d3.event.pageY) - 20) + "px")
+          .style('position', 'absolute')
+        });
+
+      }
+
+    });
 
   });
 }
