@@ -9,8 +9,10 @@
 <body>
   <nav>
     <div class="nav-left">
-      <%= link_to icon('pencil-square-o'), root_path %>
-      <%= link_to icon('male'), edit_user_registration_path %>
+      <%= link_to (fa_icon "pencil-square-o 2x") , root_path, :content => "Your Journal" %>
+      <% if user_signed_in? %>
+        <%= link_to fa_icon("bar-chart-o 2x"), root_path, content: "Your Stats" %>
+      <% end %>
     </div>
     <div class="nav-right">
        <% if user_signed_in? %>
