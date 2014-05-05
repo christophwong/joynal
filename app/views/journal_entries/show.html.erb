@@ -1,24 +1,6 @@
 <div class="container">
-  <div class="top-bar">
-   <h2>Your Journal Entry on: <%= Date.parse(@entry.created_at.to_s) %></h2>
-  </div>
-  <div class="content">
-    <p><%= @entry.content %></p>
-  </div>
-  <div class="tagged">
-  <h2>tagged</h2>
-    <% @entry.tags.each do |tag| %>
-      <%= link_to tag.name, tag_path(tag.name) %>
-    <% end %>
-  </div>
-</div>
+  <%= render 'show' %>
 
-<%= form_for(:show_graph, url: show_graph_path, html: { class: 'show-graph' }, remote: true) do |f| %>
-  <%= f.submit value: 'Show Graph' %>
-<% end %>
-
-<h3 id="journal-info"></h3>
-<div class="d3">
 </div>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
