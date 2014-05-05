@@ -29,6 +29,7 @@ class JournalEntriesController < ApplicationController
     puts "====================="
     puts journal_entry_params
     puts "====================="
+   
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
