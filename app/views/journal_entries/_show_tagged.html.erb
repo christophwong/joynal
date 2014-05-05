@@ -2,11 +2,10 @@
   <div class="top-bar">
     <h2>Journal entries with the tag '<%= @tag_name %>'</h2>
   </div>
-  
+
   <% @tagged_entries.each do |entry| %>
   <div class="entry">
-    <% d = Date.parse(entry.created_at.to_s) %>
-    <%= link_to d.strftime('%a %b %d %Y'), entry, :class => 'user-entry', remote: true %>
+    <%= link_to "#{entry.content[0..35]} ....", entry, :class => 'user-entry', remote: true %>
   </div>
   <% end %>
 <!-- </div> -->
