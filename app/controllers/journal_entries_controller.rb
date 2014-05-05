@@ -29,7 +29,6 @@ class JournalEntriesController < ApplicationController
       @user = current_user
       if @journal_entry.save
         @journal_entry.update_attributes(user: current_user)
-        LocationRecords.create()
         if cookies[:lat_lng]
           @lat_lng = cookies[:lat_lng]
           save_location(@lat_lng, @journal_entry)

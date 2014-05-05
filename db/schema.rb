@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505171609) do
+ActiveRecord::Schema.define(version: 20140505173031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(version: 20140505171609) do
   add_index "keywords", ["sentiment_score"], :name => "index_keywords_on_sentiment_score"
 
   create_table "location_records", force: true do |t|
-    t.integer  "journal_entry_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.spatial  "coords",           limit: {:srid=>3785, :type=>"point"}
+    t.integer "journal_entry_id"
+    t.spatial "coords",           limit: {:srid=>3785, :type=>"point"}
   end
+
+  add_index "location_records", ["coords"], :name => "index_location_records_on_coords", :spatial => true
 
   create_table "quotes", force: true do |t|
     t.text   "body"
