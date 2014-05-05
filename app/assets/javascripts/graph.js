@@ -1,5 +1,7 @@
 function showGraph() {
-  $('.show-graph').on('ajax:success', function(e, data, status, xhr) {
+  $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
+    $('.show-graph').remove();
+
     var dataSet = data.slice();
 
     var w = 1200;
@@ -10,8 +12,7 @@ function showGraph() {
     var minRadius = 15;
     var maxRadius = 50;
 
-
-    var svg = d3.select("body")
+    var svg = d3.select(".d3")
               .append("svg")
               .attr("width", w)
               .attr("height", h);
@@ -33,8 +34,6 @@ function showGraph() {
                  .domain([0, (maxRadius+circlePadding) * dataSet.length])
                  .range([xPadding, w - xPadding])
 
-
-    var color = d3.scale.category20b()
 
     circles.transition().duration(500)
     .attr('cx', function(d, i) {
