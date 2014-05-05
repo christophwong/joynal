@@ -6,7 +6,7 @@ gem 'rails', '4.1.0'
 gem 'pg'
 
 # Style
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 gem 'bourbon'
 gem "font-awesome-rails"
 gem 'neat'
@@ -26,6 +26,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'acts-as-taggable-on'
 gem 'unirest'
+gem 'faker'
+
+# Geospatial
+gem 'ar-postgis'
 
 # Server 
 gem 'unicorn'
@@ -43,7 +47,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'faker'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'

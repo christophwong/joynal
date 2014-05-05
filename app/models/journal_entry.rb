@@ -2,6 +2,7 @@ class JournalEntry < ActiveRecord::Base
   has_many :tags
   belongs_to :user
   has_many :keywords
+  has_many :location_records
 
   after_create :add_date
   after_commit :async_sentimental_analysis, :on => :create

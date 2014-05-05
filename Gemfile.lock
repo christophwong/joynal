@@ -32,6 +32,9 @@ GEM
       activerecord (>= 3, < 5)
       activesupport (>= 3, < 5)
     addressable (2.3.6)
+    ar-postgis (0.7.1)
+      activerecord (~> 4.1.0)
+      rgeo-ar (~> 0.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bitters (0.9.3)
@@ -100,7 +103,7 @@ GEM
       rspec (>= 2.14, < 4.0)
     hike (1.2.3)
     i18n (0.6.9)
-    jbuilder (2.0.6)
+    jbuilder (2.0.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.0)
@@ -110,7 +113,7 @@ GEM
     kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
-    listen (2.7.3)
+    listen (2.7.4)
       celluloid (>= 0.15.2)
       celluloid-io (>= 0.15.0)
       rb-fsevent (>= 0.9.3)
@@ -175,6 +178,10 @@ GEM
       redis (~> 3.0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rgeo (0.3.20)
+    rgeo-ar (0.7.1)
+      activerecord (~> 4.0)
+      rgeo (~> 0.3.20)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -202,7 +209,7 @@ GEM
       rdoc (~> 4.0, < 5.0)
     shoulda-matchers (2.6.1)
       activesupport (>= 3.0.0)
-    sidekiq (3.0.0)
+    sidekiq (3.0.1)
       celluloid (>= 0.15.2)
       connection_pool (>= 2.0.0)
       json
@@ -267,6 +274,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  ar-postgis
   bcrypt (~> 3.1.7)
   bitters
   bourbon
@@ -289,7 +297,7 @@ DEPENDENCIES
   rails_12factor
   rake
   rspec-rails
-  sass-rails (~> 4.0.3)
+  sass-rails
   sdoc (~> 0.4.0)
   shoulda-matchers
   sidekiq

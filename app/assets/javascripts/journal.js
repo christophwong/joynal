@@ -48,14 +48,28 @@ dropQuote = function(){
   });
 };
 
+
+function getGeoLocation() {
+  navigator.geolocation.getCurrentPosition(setGeoCookie);
+}
+
+function setGeoCookie(position) {
+  var cookie_val = "POINT ("+ position.coords.latitude + " " + position.coords.longitude+")";
+  document.cookie = "lat_lng=" + escape(cookie_val);
+}
+
+// completely refreshes a page
+
 $(document).ready(function() {
   clickTab();
   entryListener();
+  getGeoLocation();
 });
 
 
 $(document).on('page:update', function() {
   clickTab();
   entryListener();
+  getGeoLocation();
   dateSwitch();
 });
