@@ -11,10 +11,10 @@ class JournalEntriesController < ApplicationController
         session.delete(:emotion_rating)
       end
 
-      
+
     else
       redirect_to root_path
-    end  
+    end
   end
 
   def new
@@ -25,7 +25,7 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-  def create 
+  def create
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
@@ -35,7 +35,7 @@ class JournalEntriesController < ApplicationController
         @journal_entry.update_attributes(user: current_user)
         list
       else
-        entry 
+        entry
       end
 
     else
@@ -61,19 +61,29 @@ class JournalEntriesController < ApplicationController
       respond_to do |format|
         format.json { render json: @journal_entry.keywords }
       end
-    else  
-      redirect_to root_path    
+    else
+      redirect_to root_path
     end
   end
 
+   def show_cloud
+    if user_signed_in?
+      @cloud_words = current_user.jsonify_keywords
+      respond_to do |format|
+        format.json { render json: @cloud_words }
+      end
+    else
+      redirect_to root_path
+    end
+  end
 
   def show_tagged
     if user_signed_in?
       @tag_name = params[:name]
       @tagged_entries = current_user.journal_entries.tagged_with(@tag_name)
-    else 
+    else
       redirect_to root_path
-    end  
+    end
   end
 
   def entry
@@ -104,6 +114,31 @@ class JournalEntriesController < ApplicationController
   def map
   end
 
+  def get_quote
+    entry = current_user.journal_entries.last
+    if entry.sentiment_score < 0.0
+      quote_count = Quote.count
+      random_id = rand(1..quote_count)
+      quote = Quote.find(random_id)
+      body = quote.body
+      author = quote.author
+      respond_to do |format|
+        format.json { render :json => { body: body,
+                     author: author} }
+      end
+    end
+  end
+
+  def line_chart
+
+  end
+
+  def get_line_chart
+    @journal_entries = current_user.journal_entries
+    respond_to do |format|
+      format.json { render json: @journal_entries }
+    end
+  end
 
   private
 

@@ -8,7 +8,7 @@ gem 'pg'
 # Style
 gem 'sass-rails', '~> 4.0.3'
 gem 'bourbon'
-gem 'font-awesome-sass'
+gem "font-awesome-rails"
 gem 'neat'
 gem 'bitters'
 

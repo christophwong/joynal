@@ -3,6 +3,7 @@
 }
 body {
   background-color: #c0deed;
+  margin: 0;
 }
 
 /* Nav */
@@ -11,19 +12,15 @@ nav {
   position: absolute;
   left:0;
   top: 0;
-  height: 50px;
+  height: 60px;
   background-color: white;
   padding-top: 5px;
   color: #a3acb2;
   box-shadow: 2px 2px 2px #a3acb2;
 
-  i {
-    font-size: 1.4em;
-  }
-
  a{
     &:link {
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 400;
     text-decoration: none;
     color: #a3acb2;
@@ -38,16 +35,31 @@ nav {
     &:visited:hover{
     color: #2e9ac2;
     }
+
   }
 }
 
 .nav-left {
   float: left;
+  padding-top: 5px;
   padding-left: 15%;
+    a:hover:after{
+    background: #424242;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: -33px;
+    left:16%;
+    color: #fff;
+    content: attr(content);
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 98;
+   }
 }
 
 .nav-right {
   float: right;
+  padding-top: 9px;
   padding-right: 15%;
 }
 
@@ -55,17 +67,44 @@ nav {
 .centered {
   text-align: center;
 }
-.container {
+
+
+/* Hero */
+
+.hero {
+  padding-top: 60px;
+} 
+
+.hero-inner {
+  background: image-url("/assets/bwclouds.jpg")no-repeat center center fixed;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  height:850px;
+  left: 0;
+  right: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+.spacer {
+  width: 100%;
+  height: 0px;
+  padding-top: 360px; 
+}
+
+.frontpage-container {
   @include outer-container;
   background-color: white;
   margin: auto;
-  margin-top: 15%;
   width: 60%;
   min-height: 400px;
   box-shadow: 3px 3px 3px #a3acb2;
   margin-bottom: 50px;
+  z-index: 100;
 }
-
  /* Form */
 
 .form-box {

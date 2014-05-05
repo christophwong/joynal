@@ -37,7 +37,30 @@
     &:visited:hover{
     color: #2e9ac2;
     }
-  }
+    &:hover:after{
+    background: #424242;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: -33px;
+    left: 60px;
+    color: #fff;
+    content: attr(caption);
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 98;
+   }
+  } 
+}
+
+.container {
+  @include outer-container;
+  background-color: white;
+  margin: auto;
+  margin-top: 10%;
+  width: 60%;
+  min-height: 400px;
+  box-shadow: 3px 3px 3px #a3acb2;
+  margin-bottom: 50px;
 }
 
 /* registered user landing page */
@@ -178,6 +201,17 @@ input[type=textarea]{
       color: #2e9ac2;
     }
   }
+}
+/* quote box */
+
+.quote-box {
+  margin: auto;
+  width: 40%;
+  height: 160px;
+  position: relative;
+  background-color:  white;
+  margin-top: 61px;
+  display: none;
 }
 
 /* footer */
