@@ -25,11 +25,7 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-  def create
-    puts "====================="
-    puts journal_entry_params
-    puts "====================="
-   
+  def create 
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
@@ -109,8 +105,8 @@ class JournalEntriesController < ApplicationController
   end
 
 
-
   private
+
   def journal_entry_params
     params.require(:journal_entry).permit(:content,
                                           :emotion_rating
