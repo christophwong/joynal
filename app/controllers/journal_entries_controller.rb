@@ -84,6 +84,9 @@ class JournalEntriesController < ApplicationController
     if user_signed_in?
       @tag_name = params[:name]
       @tagged_entries = current_user.journal_entries.tagged_with(@tag_name)
+      respond_to do |format|
+        format.html { render partial: "journal_entries/show_tagged"}
+      end
     else
       redirect_to root_path
     end
