@@ -128,7 +128,8 @@ class JournalEntriesController < ApplicationController
                      author: author} }
       end
     end
-
+  end
+  
   def line_chart
 
   end

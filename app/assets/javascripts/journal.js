@@ -39,13 +39,25 @@ dropQuote = function(){
   });
 };
 
-
-
-
+find = function() {
+  // Check to see if the browser supports the GeoLocation API.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+      var lat = position.coords.latitude;
+      var lon = position.coords.longitude;
+      console.log(lat);
+      console.log(lon);
+    });
+  }else{
+    // Print out a message to the user.
+    document.write('Your browser does not support GeoLocation');
+  }
+};
 // completely refreshes a page
 $(document).ready(function() {
   clickTab();
   entryListener();
+  find();
 });
 
 
