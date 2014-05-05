@@ -131,7 +131,6 @@ class JournalEntriesController < ApplicationController
   end
 
   def line_chart
-
   end
 
   def get_line_chart

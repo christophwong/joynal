@@ -37,6 +37,7 @@ function lineChart(){
                   .enter()
                   .append('circle')
 
+
     var captionDiv = d3.select('.line-chart')
                        .append('div')
                        .attr('class', 'tooltip')
