@@ -4,9 +4,6 @@ function lineChart(){
 
     $('.get-line-chart').remove();
 
-    // console.log(data[0].created_at)
-    console.log(data.slice(0, 3))
-
     var dataSet = data
     var parseDate = d3.time.format("%Y-%m-%dT%X.%LZ").parse;
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
@@ -94,25 +91,30 @@ function lineChart(){
       .style('position', 'absolute')
     });
 
-    $( "#slider" ).slider({
-      range: true,
-      min: 0,
-      max: dataSet.length-1,
-      values: [0,dataSet.length-1],
+    // slider code, cannot get the scatter plots to work
+    // because scatter plots depend on the dataSet, which
+    // cannot be dynamically changed based on slider action
+    // $( "#slider" ).slider({
+    //   range: true,
+    //   min: 0,
+    //   max: dataSet.length-1,
+    //   values: [0,dataSet.length-1],
 
-      slide: function( event, ui ) {
+    //   slide: function( event, ui ) {
+    //     console.log(dataSet)
 
-        var maxv = d3.min([ui.values[1], dataSet.length]);
-        var minv = d3.max([ui.values[0], 0]);;
+    //     var maxv = d3.min([ui.values[1], dataSet.length]);
+    //     var minv = d3.max([ui.values[0], 0]);;
 
-        x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
-        svg.transition().duration(750)
-          .select(".x.axis").call(xAxis);
-        svg.transition().duration(750)
-          .select(".line").attr("d", line);
-      }
+    //     x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
+    //     var dataSet = dataSet.slice(minv, maxv)
+    //     svg.transition().duration(750)
+    //       .select(".x.axis").call(xAxis);
+    //     svg.transition().duration(750)
+    //       .select(".line").attr("d", line);
+    //   }
 
-    });
+    // });
 
   });
 }
@@ -120,10 +122,8 @@ function lineChart(){
 
 $(document).ready(function(){
   lineChart();
-  // $( "#slider" ).slider();
 })
 
 $(document).on('page:load', function(){
   lineChart();
-  // $( "#slider" ).slider();
 })
