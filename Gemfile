@@ -17,6 +17,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
+# Journal List
+gem 'will_paginate'
+
 # Utilities
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
@@ -31,7 +34,7 @@ gem 'faker'
 # Geospatial
 gem 'ar-postgis'
 
-# Server 
+# Server
 gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
