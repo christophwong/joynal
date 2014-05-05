@@ -17,6 +17,10 @@
 
 
 
+<script>
+  getGeoLocation();
+</script>
+
 
 <div class="word-cloud tab" id="tab-3">
   <%= form_for(:show_cloud, url: show_cloud_path, html: { class: 'show-cloud' }, remote: true) do |f| %>
@@ -30,7 +34,6 @@
   </div>
 </div>
 
-</script>
 
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 

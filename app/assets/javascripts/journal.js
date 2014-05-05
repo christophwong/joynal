@@ -39,29 +39,26 @@ dropQuote = function(){
   });
 };
 
-find = function() {
-  // Check to see if the browser supports the GeoLocation API.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position){
-      var lat = position.coords.latitude;
-      var lon = position.coords.longitude;
-      console.log(lat);
-      console.log(lon);
-    });
-  }else{
-    // Print out a message to the user.
-    document.write('Your browser does not support GeoLocation');
-  }
-};
+
+function getGeoLocation() {
+  navigator.geolocation.getCurrentPosition(setGeoCookie);
+}
+
+function setGeoCookie(position) {
+  var cookie_val = position.coords.latitude + "|" + position.coords.longitude;
+  document.cookie = "lat_lng=" + escape(cookie_val);
+}
+
 // completely refreshes a page
 $(document).ready(function() {
   clickTab();
   entryListener();
-  find();
+  getGeoLocation();
 });
 
 
 $(document).on('page:update', function() {
   clickTab();
   entryListener();
+  getGeoLocation();
 });

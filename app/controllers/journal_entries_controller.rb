@@ -3,15 +3,15 @@ class JournalEntriesController < ApplicationController
     if user_signed_in?
     @user = current_user
     @journal_entry = JournalEntry.new
-
+    if cookies[:lat_lng]
+      @lat_lng = cookies[:lat_lng].split("|")
+    end  
       if session[:content] || session[:emotion_rating]
         @journal_entry.content = session[:content]
         @journal_entry.emotion_rating = session[:emotion_rating]
         session.delete(:content)
         session.delete(:emotion_rating)
       end
-
-
     else
       redirect_to root_path
     end
@@ -26,13 +26,12 @@ class JournalEntriesController < ApplicationController
   end
 
   def create
-    puts "====================="
-    puts journal_entry_params
-    puts "====================="
     @journal_entry = JournalEntry.new(journal_entry_params)
     @journal_entry.tag_list.add(params[:journal_entry][:tags], parse: true)
     if user_signed_in?
-
+      if cookies[:lat_lng]
+        @lat_lng = cookies[:lat_lng].split("|")
+      end
       @user = current_user
       if @journal_entry.save
         @journal_entry.update_attributes(user: current_user)
@@ -40,13 +39,11 @@ class JournalEntriesController < ApplicationController
       else
         entry
       end
-
     else
       session[:content] = @journal_entry.content
       session[:emotion_rating] = @journal_entry.emotion_rating
       redirect_to new_user_registration_path
     end
-
   end
 
   def show
@@ -69,7 +66,7 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-   def show_cloud
+  def show_cloud
     if user_signed_in?
       @cloud_words = current_user.jsonify_keywords
       respond_to do |format|
@@ -110,10 +107,6 @@ class JournalEntriesController < ApplicationController
 
 
   def get_quote
-    user = current_user
-    puts "'''''''''"
-    p current_user
-    puts "''''''''''"
     entry = user.journal_entries.last
     p entry
     if entry.sentiment_score < 0.0
@@ -123,7 +116,6 @@ class JournalEntriesController < ApplicationController
       body = quote.body
       author = quote.author
       respond_to do |format|
-      p quote
         format.json { render :json => { body: body,
                      author: author} }
       end
