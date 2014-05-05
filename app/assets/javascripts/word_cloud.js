@@ -28,16 +28,21 @@ function showCloud() {
                        .attr('class', 'chart-element')
 
     var chartBars = chartElement.append('rect')
-                       .attr('width', 130)
-                       .attr('height', 35)
-                       .attr('fill', function(d) {
-                         return d.color
-                       })
-                       .attr('x', function(d, i) {
-                         return (i * 130 + 30)
-                       })
+                      .attr('width', 0)
+                      .transition()
+                      .duration(1000)
+                      .attr('width', 130)
+                      .attr('height', 35)
+                      .attr('fill', function(d) {
+                        return d.color
+                      })
+                      .attr('x', function(d, i) {
+                        return (i * 130 + 30)
+                      })
 
     chartElement.append("text")
+                .transition()
+                .delay(900)
                 .attr('width', 130)
                 .attr('height', 300)
                 .attr('x', function(d, i) {
@@ -88,7 +93,11 @@ function showCloud() {
                 });
 
     node.append("circle")
+      .attr('fill', 'white')
+      .attr('stroke', '#FFFFFF')
       .attr("r", function(d) { return d.r; })
+      .transition()
+      .duration(1500)
       .attr("fill", function(d) {
         if(d.children) {
           return "#FFFFFF";
@@ -107,9 +116,15 @@ function showCloud() {
       .attr("stroke", function(d) { return d.children ? "#FFFFFF" : "#5F5556"})
       .attr("stroke-width", 2)
 
+
+
     node.append("text")
       .text(function(d){ return d.children ? "" : d.name ;} )
       .attr('text-anchor', 'middle')
+      .style('fill', 'white')
+      .transition()
+      .duration(1500)
+      .style('fill','black')
       .each(function(d) {
         var rect,
             r2 = d.r * d.r,
