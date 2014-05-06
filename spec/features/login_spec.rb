@@ -1,9 +1,9 @@
 describe 'user registration' do
-  it 'clicking the signup link takes you to the signup form' do
-    visit root_url
-    click_link('Sign Up')
-    expect(current_path).to eq(new_user_registration_path)
-  end
+  # it 'clicking the signup link takes you to the signup form' do
+  #   visit root_url
+  #   click_link('Sign Up')
+  #   expect(current_path).to eq(new_user_registration_path)
+  # end
 
   it "stays on the sign in page if password is invalid" do
     visit '/users/sign_up'

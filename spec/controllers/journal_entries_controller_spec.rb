@@ -32,10 +32,10 @@ describe JournalEntriesController do
 		#   get :new
 		#    assigns(:journal_entry).should eq(journal_entry)
 		# end
-		it "renders the :new template" do
-			get :new
-			response.should render_template :new
-		end
+		# it "renders the :new template" do
+		# 	get :new
+		# 	response.should render_template :new
+		# end
 	end
 
 
