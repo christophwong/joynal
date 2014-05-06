@@ -6,14 +6,14 @@ function showGraph() {
     var dataSet = data.slice();
 
     var width = 450;
-    var height = 400;
+    var height = 450;
     var radius = Math.min(width, height) / 2;
     var color = d3.scale.ordinal()
                 .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
     .outerRadius(radius - 60)
-    .innerRadius(80);
+    .innerRadius(90);
 
     var pie = d3.layout.pie()
     .sort(null)
