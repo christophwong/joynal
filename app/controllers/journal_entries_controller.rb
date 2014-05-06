@@ -143,7 +143,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def get_line_chart
-    @journal_entries = current_user.journal_entries.order('created_at DESC')
+    @journal_entries = current_user.journal_entries.order('date DESC')
     respond_to do |format|
       format.json { render json: @journal_entries }
     end

@@ -11316,10 +11316,507 @@ return jQuery;
   };
 
 }).call(this);
-(function() {
+function showGraph() {
+  $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
+
+    $('.show-graph').remove();
+
+    var dataSet = data.slice();
+
+    var width = 600;
+    var height = 500;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scale.ordinal()
+                .range(["#B9F345", "#2C8E47", "#11435B"])
+
+    var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(150);
+
+    var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.keywords.length; });
+
+    var svg = d3.select(".d3").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 5 * 3 + "," + height / 2 + ")")
+    // .on('click', function(d) {
+    //   console.log(this)
+    //   d3.select(this)
+    //   .transition().duration(500)
+    //   .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")")
+    // })
+    ;
+
+    var g = svg.selectAll(".arc")
+      .data(pie(dataSet))
+      .enter().append("g")
+      .attr("class", "arc");
 
 
-}).call(this);
+    var displayText = svg.append('text')
+       .attr('transform', "translate(0, 0)")
+       .attr('font-size', '2em')
+
+    g.append("path")
+    .attr("d", arc)
+    .style("fill", function(d) { return color(d.data.sentiment_type); })
+    .on('mouseenter', function(d) {
+      d3.select(this).attr('stroke', '#3C72F4').attr('stroke-width', '5')
+      displayText.text(d.data.keywords.length)
+    })
+    .on('mouseleave', function(d) {
+      d3.select(this).attr('stroke', 'none')
+    })
+    .on('click', function(d) {
+      d3.select('#keyword-name').text('');
+      svg.transition().duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+      for(var i=0;i<d.data.keywords.length;i++) {
+        d3.select('#keyword-name').append('p')
+        .transition().duration(750).delay(750)
+        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score);
+      }
+    });
+
+    g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.sentiment_type; })
+      .attr('fill', function(d) {
+        if (d.data.sentiment_type === 'positive') {
+          return "#0B326B"
+        } else if (d.data.sentiment_type === 'neutral') {
+          return "#ECE93B"
+        } else {
+          return "#F4EC6F"
+        }
+      });
+
+  });
+}
+
+$(document).ready(function() {
+  showGraph();
+});
+
+
+$(document).on('page:load', function() {
+  showGraph();
+});
+
+//refactor the clickTab function!!!!!!!!!!!!!!!!!!!
+clickTab = function () {
+  $('.tab-head').on('click', function(e) {
+    e.preventDefault();
+    var partial = $(this).attr('href');
+    $("#journal_entry_content").focus();
+    $.ajax({
+      url: "/journal_entries/"+partial,
+      type: "GET",
+      datatype: 'html',
+      complete: function(response) {
+        $('div.partial').html(response.responseText);
+      }
+    });
+  });
+};
+
+
+showPage = function() {
+    var entry_id = $(this).attr('href');
+    $('body').on('ajax:success', '.user-entry', function(e, data, status, xhr) {
+    $('div.partial').html(data);
+  });
+};
+
+dateSwitch = function() {
+  $('body').on('ajax:success', '#month a', function(e, data, status, xhr) {
+    $('div.partial').html(data);  // why does this send so many requests per click???
+  });
+};
+
+pageSwitch = function() {
+  $('body').on('ajax:success', '.pagination a', function(e, data, status, xhr) {
+    $('.pagination').remove();
+    $('.journal-list-show').html(data);
+  });
+};
+
+entryListener = function(){
+  $('body').on('ajax:success', '#new_journal_entry', function(e, data, status, xhr) {
+    $('div.partial').html(data);
+    getQuote();
+  });
+};
+
+getQuote = function(){
+  setTimeout(function(){
+    $.get("/journal_entries/get_quote")
+      .success(function( data ){
+        $('div.quote-box').html("<p class='body'>" + data.body + "</p> <p class='author'>" + data.author + "</p>");
+        dropQuote();
+      });
+  },5000);
+};
+
+dropQuote = function(){
+  $('div.quote-box').slideDown(800, function(){
+    setTimeout(function(){
+      $('div.quote-box').slideUp(800);
+    },8000);
+  });
+};
+
+
+function getGeoLocation() {
+  navigator.geolocation.getCurrentPosition(setGeoCookie);
+}
+
+function setGeoCookie(position) {
+  var cookie_val = "POINT ("+ position.coords.latitude + " " + position.coords.longitude+")";
+  document.cookie = "lat_lng=" + escape(cookie_val);
+}
+
+// completely refreshes a page
+
+$(document).ready(function() {
+  clickTab();
+  entryListener();
+  getGeoLocation();
+  dateSwitch();
+  showPage();
+  pageSwitch();
+});
+
+$(document).on('page:load', function() {
+  clickTab();
+  entryListener();
+  getGeoLocation();
+  dateSwitch();
+  showPage();
+  pageSwitch();
+});
+
+$(document).on('page:update', function() {
+  $('.pagination a').attr('data-remote', 'true');
+})
+;
+function lineChart(){
+
+  $('.get-line-chart').on('ajax:success', function(e, data, status, xhr) {
+
+    $('.get-line-chart').remove();
+
+    var dataSet = data
+    var parseDate = d3.time.format("%Y-%m-%dT%X.%LZ").parse;
+    var margin = {top: 20, right: 20, bottom: 30, left: 50}
+    var width = $('.container').width() - margin.left - margin.right;
+    var height = $('.container').height() - margin.top - margin.bottom;
+    var yRange = [-1, 1]
+
+    var x = d3.time.scale()
+    .range([0, width]);
+
+    var y = d3.scale.linear()
+      .range([height, 0]);
+
+    var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient('bottom')
+
+    var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient('left');
+
+    var line = d3.svg.line()
+            .x(function(d) { return x(parseDate(d.created_at)); })
+            .y(function(d) { return y(d.sentiment_score); });
+
+    var svg = d3.select('.line-chart').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', "translate("+margin.left+"," + margin.top + ")");
+
+    var circles = svg.selectAll('circle')
+
+    var captionDiv = d3.select('.line-chart')
+                       .append('div')
+                       .attr('class', 'tooltip')
+                       .style('opacity', 0);
+
+    x.domain(d3.extent(dataSet, function(d) { return parseDate(d.created_at) }));
+    y.domain(d3.extent(yRange, function(d) { return d}));
+
+    svg.append('g')
+       .attr('class', 'x axis')
+       .attr('transform', "translate(0," + (height/2) + ")")
+       .call(xAxis);
+
+    svg.append('g')
+       .attr('class', 'y axis')
+       .attr('transform', "translate(-1,0)")
+       .call(yAxis)
+       .append("text")
+       .attr('transform', 'rotate(-90)')
+       .attr('y', 6)
+       .attr('dy', '.71em')
+       .style('text-anchor', 'end')
+       .text('Positivity')
+
+    svg.append('path')
+        .datum(dataSet)
+        .attr('class', 'line')
+        .transition()
+        .duration(500)
+        .attr('d', line)
+        .attr('stroke', 'steelblue')
+        .attr('stroke-width', '1.5px')
+        .attr('fill', 'none');
+
+    circles
+    .data(dataSet)
+    .enter()
+    .append('circle')
+    .attr('cx', function(d) {
+      return x(parseDate(d.created_at))
+    }).attr('cy', function(d) {
+      return y(d.sentiment_score)
+    }).attr('r', 5).attr('fill', 'red')
+    .on('mouseover', function(d) {
+      captionDiv.transition()
+      .duration(500)
+      .style('opacity', 0);
+      captionDiv.transition()
+                .duration(200)
+                .style('opacity', .9);
+      captionDiv.html("<a class='user-entry' data-remote='true' href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
+      .style('left', (d3.event.pageX) + "px")
+      .style('top', ((d3.event.pageY) - 20) + "px")
+      .style('position', 'absolute')
+    });
+
+    // slider code, cannot get the scatter plots to work
+    // because scatter plots depend on the dataSet, which
+    // cannot be dynamically changed based on slider action
+    $( "#slider" ).slider({
+      range: true,
+      min: 0,
+      max: dataSet.length-1,
+      values: [0,dataSet.length-1],
+
+      slide: function( event, ui ) {
+        var circles = svg.selectAll('circle')
+
+        circles.remove();
+
+        var maxv = d3.min([ui.values[1], dataSet.length]);
+        var minv = d3.max([ui.values[0], 0]);;
+
+        x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
+        svg
+          .select(".x.axis").call(xAxis);
+        svg
+          .select(".line").attr("d", line);
+
+        var circles = svg.selectAll('circle')
+
+        circles
+        .data(dataSet.slice(minv, maxv))
+        .enter()
+        .append('circle')
+        .attr('cx', function(d) {
+          return x(parseDate(d.created_at))
+        }).attr('cy', function(d) {
+          return y(d.sentiment_score)
+        }).attr('r', 5).attr('fill', 'red')
+        .on('mouseover', function(d) {
+          captionDiv.transition()
+          .duration(500)
+          .style('opacity', 0);
+          captionDiv.transition()
+                    .duration(200)
+                    .style('opacity', .9);
+          captionDiv.html("<a class='user-entry' data-remote='true' href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
+          .style('left', (d3.event.pageX) + "px")
+          .style('top', ((d3.event.pageY) - 20) + "px")
+          .style('position', 'absolute')
+        });
+
+      }
+
+    });
+
+  });
+}
+
+
+$(document).ready(function(){
+  lineChart();
+})
+
+$(document).on('page:load', function(){
+  lineChart();
+})
+;
+function showCloud() {
+
+  $('.show-cloud').on('ajax:success', function(e, data, status, xhr) {
+
+    $('.show-cloud').remove();
+
+    var chartWidth = 680;
+
+    var chartData = [
+                      {'type': 'Very Negative', 'color': '#11435B', 'textColor': '#FEF990'},
+                      {'type': 'Negative', 'color': '#0F93A1', 'textColor': '#FEF76D'},
+                      {'type': 'Neutral', 'color': '#2C8E47', 'textColor': '#F0EA3D'},
+                      {'type': 'Positive', 'color': '#45BD42', 'textColor': '#09447E'},
+                      {'type': 'Very Positive', 'color': '#B9F345', 'textColor': '#0D50E7'}
+                    ]
+
+    var chartScale = d3.scale.linear()
+                     .domain([0, 1])
+                     .range([0, chartWidth])
+
+    var chart = d3.select("#chart-legend").append('svg')
+                .attr('width', chartWidth)
+                .attr('height', 35)
+
+    var chartElement = chart.selectAll('.chart-element')
+                       .data(chartData)
+                       .enter().append('g')
+                       .attr('class', 'chart-element')
+
+    var chartBars = chartElement.append('rect')
+                      .attr('width', 0)
+                      .transition()
+                      .duration(1000)
+                      .attr('width', 130)
+                      .attr('height', 35)
+                      .attr('fill', function(d) {
+                        return d.color
+                      })
+                      .attr('x', function(d, i) {
+                        return (i * 130 + 30)
+                      })
+
+    chartElement.append("text")
+                .transition()
+                .delay(900)
+                .attr('width', 130)
+                .attr('height', 300)
+                .attr('x', function(d, i) {
+                  return (i * 130) + 50
+                }).attr('y', 25)
+                .text(function(d) {
+                  return d.type;
+                }).attr('fill', function(d) {
+                  return d.textColor;
+                })
+
+
+
+
+    var dataSet = {
+      "name": "root",
+      "value": 1,
+      "children": data
+      }
+
+    var diameter = 650,
+        format = d3.format(",d");
+
+    var bubble = d3.layout.pack()
+        .size([diameter, diameter])
+        .padding(7.5);
+
+    var svg = d3.select(".cloud").append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
+
+
+    var nodes = bubble.nodes(dataSet);
+
+    var node = svg.selectAll(".node")
+              .data(nodes)
+              .enter()
+              .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d){ return "translate(" + d.x + "," + d.y + ")";})
+                .on('mouseenter', function(d) {
+                  if (d.children){
+                    return ""
+                  }else{
+                    d3.select('#cloud-info').text(d.name + " " + d.sentiment_score)
+                  }
+                });
+
+    node.append("circle")
+      .attr('fill', 'white')
+      .attr('stroke', '#FFFFFF')
+      .attr("r", function(d) { return d.r; })
+      .transition()
+      .duration(1500)
+      .attr("fill", function(d) {
+        if(d.children) {
+          return "#FFFFFF";
+        } else if(d.sentiment_score == 0) {
+          return "#2C8E47";
+        } else if(d.sentiment_score > 0.5) {
+          return "#B9F345";
+        } else if(d.sentiment_score < -0.5) {
+          return "#11435B";
+        } else if(d.sentiment_score > 0) {
+          return "#45BD42";
+        } else {
+          return "#0F93A1";
+        };
+      })
+      .attr("stroke", function(d) { return d.children ? "#FFFFFF" : "#5F5556"})
+      .attr("stroke-width", 2)
+
+
+
+    node.append("text")
+      .text(function(d){ return d.children ? "" : d.name ;} )
+      .attr('text-anchor', 'middle')
+      .style('fill', 'white')
+      .transition()
+      .duration(1500)
+      .style('fill','black')
+      .each(function(d) {
+        var rect,
+            r2 = d.r * d.r,
+            s = d.r * 2,
+            t = d3.select(this);
+        do {
+          t.style("font-size", s-- + "px");
+          rect = this.getBBox();
+        } while (norm2(rect.x, rect.y) > r2
+          || norm2(rect.x + rect.width, rect.y) > r2
+          || norm2(rect.x + rect.width, rect.y + rect.height) > r2
+          || norm2(rect.x, rect.y + rect.height) > r2);
+            });
+        });
+      function norm2(x, y) {
+        return x * x + y * y;
+      }
+};
+
+$(document).ready(function() {
+  showCloud();
+});
+
+$(document).on('page:load', function() {
+  showCloud();
+})
+;
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //

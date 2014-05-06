@@ -1,19 +1,19 @@
 function showGraph() {
   $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
-
+    
     $('.show-graph').remove();
-
+    $('.chart-description').show();
     var dataSet = data.slice();
 
-    var width = 600;
-    var height = 500;
+    var width = 450;
+    var height = 450;
     var radius = Math.min(width, height) / 2;
     var color = d3.scale.ordinal()
-                .range(["#B9F345", "#2C8E47", "#11435B"])
+                .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(150);
+    .outerRadius(radius - 60)
+    .innerRadius(90);
 
     var pie = d3.layout.pie()
     .sort(null)
@@ -39,7 +39,7 @@ function showGraph() {
 
 
     var displayText = svg.append('text')
-       .attr('transform', "translate(0, 0)")
+       .attr('transform', "translate(-9, 9)")
        .attr('font-size', '2em')
 
     g.append("path")
@@ -51,15 +51,22 @@ function showGraph() {
     })
     .on('mouseleave', function(d) {
       d3.select(this).attr('stroke', 'none')
+      displayText.text('')
     })
     .on('click', function(d) {
       d3.select('#keyword-name').text('');
       svg.transition().duration(750)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
       for(var i=0;i<d.data.keywords.length;i++) {
-        d3.select('#keyword-name').append('p')
-        .transition().duration(750).delay(750)
-        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score);
+        if (d.data.keywords[i].sentiment_score < 0 || d.data.keywords[i].sentiment_score > 0){
+          d3.select('#keyword-name').append('p')
+          .transition().duration(750).delay(750)
+          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
+        } else {
+           d3.select('#keyword-name').append('p')
+          .transition().duration(750).delay(750)
+          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(0));
+        }
       }
     });
 
@@ -67,14 +74,14 @@ function showGraph() {
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function(d) { return d.data.sentiment_type; })
+      .text(function(d) { return d.data.sentiment_type.substr(0, 1).toUpperCase() + d.data.sentiment_type.substr(1); })
       .attr('fill', function(d) {
         if (d.data.sentiment_type === 'positive') {
           return "#0B326B"
         } else if (d.data.sentiment_type === 'neutral') {
           return "#ECE93B"
         } else {
-          return "#F4EC6F"
+          return "#FFFFFF"
         }
       });
 

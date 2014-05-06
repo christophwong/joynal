@@ -1,5 +1,6 @@
 /* journal bar */
 
+
 .journal-bar {
   width: 100%;
   position: relative;
@@ -226,9 +227,27 @@ footer {
 
 /*journal keywords graph*/
 
-#keyword-name {
+.keyword-name {
   float: right;
   margin-right: 20px;
+  margin-top: 42px;
+}
+
+.chart-description {
+  display: none;
+  position: relative;
+  text-align: center;
+}
+.chart-description p {
+  font-size: 1.4em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.tagged {
+  background-color: lightgray;
+  margin-bottom: 50px;
+  margin-top: 0;
 }
 
 .pagination {

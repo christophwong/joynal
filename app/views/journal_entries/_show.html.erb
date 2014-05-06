@@ -17,13 +17,20 @@
 </div>
 
 <div class="keyword-graph">
-  <h3>View this journal's keywords and their sentiments</h3>
   <%= form_for(:show_graph, url: show_graph_path, html: { class: 'show-graph' }, remote: true) do |f| %>
     <%= f.submit value: 'Show Graph', class: 'journal-submit' %>
   <% end %>
   <h3 id="journal-info"></h3>
-  <div id='keyword-name'></div>
-  <div class="d3"></div>
+ 
+   
+    <div class="chart-description">
+      <p>Number of Keywords</p>
+      <p>per Sentment Type</p>
+   </div>
+
+  <div class='keyword-name' id='keyword-name'></div>
+  <div class="d3">
+  </div>
 </div>
 
 
