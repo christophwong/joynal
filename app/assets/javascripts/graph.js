@@ -57,9 +57,15 @@ function showGraph() {
       svg.transition().duration(750)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
       for(var i=0;i<d.data.keywords.length;i++) {
-        d3.select('#keyword-name').append('p')
-        .transition().duration(750).delay(750)
-        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
+        if (d.data.keywords[i].sentiment_score < 0 || d.data.keywords[i].sentiment_score > 0){
+          d3.select('#keyword-name').append('p')
+          .transition().duration(750).delay(750)
+          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
+        } else {
+           d3.select('#keyword-name').append('p')
+          .transition().duration(750).delay(750)
+          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(0));
+        }
       }
     });
 
