@@ -26,18 +26,29 @@ describe JournalEntriesController do
 	# 	end
 	# end
 
-	describe "GET #new" do
+	# describe "GET #new" do
 		# it "assigns a new JournalEntry to @journal_entry" do
 		#   journal_entry = JournalEntry.new
 		#   get :new
-		#    assigns(:journal_entry).should eq(journal_entry)
+		#    expect(:journal_entry).should eq(journal_entry)
 		# end
-		it "renders the :new template" do
-			get :new
-			response.should render_template :new
-		end
+		# it "renders the :new template" do
+		# 	get :new
+		# 	response.should render_template :new
+		# end
+	# end
+	before do
+		user = FactoryGirl.create(:user)
 	end
 
+	it "has a 302 status code" do
+		xhr :post, :create, journal_entry: { user_id: 1, emotion_rating: 2, content: "foo"  }
+    response.code.should == "302"
+  end
+  it "should redirect to user sign up page if not logged in" do
+  	xhr :post, :create, journal_entry: { user_id: 1, emotion_rating: 2, content: "foo"  }
+    response.code.should redirect_to '/users/sign_up'
+	end
 
 
 
