@@ -147,8 +147,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def save_location(lat_lon, journal)
-    point = LocationRecord::GEOFACTORY.parse_wkt(lat_lon)
-    LocationRecord.create(journal_entry: journal, coords: point.projection) if point
+    LocationRecord.create(journal_entry: journal, location: lat_lon)
   end
 
   private
