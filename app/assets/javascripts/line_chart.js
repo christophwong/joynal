@@ -107,6 +107,7 @@ function lineChart(){
         var circles = svg.selectAll('circle')
 
         circles.remove();
+        captionDiv.style('opacity', 0);
 
         var maxv = d3.min([ui.values[1], dataSet.length]);
         var minv = d3.max([ui.values[0], 0]);
@@ -130,6 +131,7 @@ function lineChart(){
           captionDiv.transition()
                     .duration(200)
                     .style('opacity', .9);
+
           captionDiv.html("<a class='user-entry' data-remote='true' href='/journal_entries/"+d.id+"'>"+ d.content.substring(0,50) +"...</a>")
           .style('left', (d3.event.pageX) + "px")
           .style('top', ((d3.event.pageY) - 20) + "px")
