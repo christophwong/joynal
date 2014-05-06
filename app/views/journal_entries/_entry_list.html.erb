@@ -1,4 +1,9 @@
 <div class="journal-list-show">
+<%= will_paginate @journal_entries %>
+
+<%= javascript_tag do %>
+  $('.pagination a').attr('data-remote', 'true');
+<% end %>
   <% @journal_entries.each do |entry| %>
   <div class="entry">
     <%= link_to "#{entry.content[0..35]} .... ##{entry.tags.map(&:name).join(" #")}", entry, :class => 'user-entry', remote: true %>
@@ -6,8 +11,3 @@
   <% end %>
 </div>
 
-<%= will_paginate @journal_entries %>
-
-<%= javascript_tag do %>
-  $('.pagination a').attr('data-remote', 'true');
-<% end %>

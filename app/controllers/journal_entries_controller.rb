@@ -100,7 +100,7 @@ class JournalEntriesController < ApplicationController
 
   def list
     @user = current_user
-    @journal_entries = @user.journal_entries.order(:created_at).paginate(page: params[:page], per_page: 5)
+    @journal_entries = @user.journal_entries.order(:created_at).paginate(page: params[:page], per_page: 7)
     respond_to do |format|
       format.html { render :partial => "journal_entries/entry_list" }
     end

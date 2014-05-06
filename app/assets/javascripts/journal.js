@@ -19,7 +19,6 @@ clickTab = function () {
 showPage = function() {
     var entry_id = $(this).attr('href');
     $('body').on('ajax:success', '.user-entry', function(e, data, status, xhr) {
-      console.log("rabbit");
     $('div.partial').html(data);
   });
 };

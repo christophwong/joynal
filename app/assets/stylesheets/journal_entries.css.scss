@@ -49,7 +49,7 @@
     position: absolute;
     z-index: 98;
    }
-  } 
+  }
 }
 
 .container {
@@ -60,7 +60,6 @@
   width: 60%;
   min-height: 400px;
   box-shadow: 3px 3px 3px #a3acb2;
-  margin-bottom: 50px;
 }
 
 /* registered user landing page */
@@ -225,6 +224,45 @@ footer {
   background-color: white;
 }
 
+/* pagination */
 
+.pagination {
+  /*position: absolute;*/
+  font-size: 1.5em;
+  margin: 10px;
+  margin-left: 70%;
+  }
+/*  a {
+    &:link {
+    font-size: 1em;
+    font-weight: 400;
+    text-decoration: none;
+    color: #a3acb2;
+    margin-left: 20px;
+    }
+    &:hover {
+    color: #2e9ac2;
+    }
+    &:visited {
+    color: #a3acb2;
+    }
+    &:visited:hover{
+    color: #2e9ac2;
+    }
+    &:hover:after{
+    background: #424242;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: -33px;
+    left: 60px;
+    color: #fff;
+    content: attr(caption);
+    padding: 2px 5px;
+    position: absolute;
+    z-index: 98;
+   }*/
+  /*}*/
+
+/*}*/
 
 
