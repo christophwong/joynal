@@ -5,7 +5,7 @@ class CreateLocationRecords < ActiveRecord::Migration
       t.point :coords, :srid => 3785
     end
     change_table :location_records do |t|
-      t.index :coords, :spatial => true  
+      t.index :coords, :spatial => true
     end
   end
 end

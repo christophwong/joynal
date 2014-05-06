@@ -33,6 +33,8 @@ gem 'faker'
 
 # Geospatial
 gem 'ar-postgis'
+# gem 'rgeo'
+# gem 'squeel'
 
 # Server
 gem 'unicorn'
