@@ -228,18 +228,19 @@ footer {
 
 /*journal keywords graph*/
 
-#keyword-name {
+.keyword-name {
   float: right;
   margin-right: 20px;
+  margin-top: 100px;
 }
 
 .chart-description {
   display: none;
   position: relative;
-  // float: left;
+  text-align: center;
 }
 .chart-description p {
-  margin-left: 30px;
+  font-size: 1.4em;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -247,8 +248,5 @@ footer {
 .tagged {
   background-color: lightgray;
   margin-bottom: 50px;
-}
-
-#keyword-name p:first-child {
  margin-top: 0;
 }
