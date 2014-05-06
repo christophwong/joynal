@@ -103,17 +103,18 @@ function lineChart(){
       values: [0,dataSet.length-1],
 
       slide: function( event, ui ) {
+
         var circles = svg.selectAll('circle')
 
         circles.remove();
 
         var maxv = d3.min([ui.values[1], dataSet.length]);
-        var minv = d3.max([ui.values[0], 0]);;
+        var minv = d3.max([ui.values[0], 0]);
 
         x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.date) }));
         svg
           .select(".x.axis").call(xAxis);
-        svg
+        svg.transition()
           .select(".line").attr("d", line);
 
         var circles = svg.selectAll('circle')
@@ -122,12 +123,7 @@ function lineChart(){
         .data(dataSet.slice(minv, maxv))
         .enter()
         .append('circle')
-        .attr('cx', function(d) {
-          return x(parseDate(d.date))
-        }).attr('cy', function(d) {
-          return y(d.sentiment_score)
-        }).attr('r', 5).attr('fill', 'red')
-        .on('mouseover', function(d) {
+          .on('mouseover', function(d) {
           captionDiv.transition()
           .duration(500)
           .style('opacity', 0);
@@ -138,7 +134,15 @@ function lineChart(){
           .style('left', (d3.event.pageX) + "px")
           .style('top', ((d3.event.pageY) - 20) + "px")
           .style('position', 'absolute')
-        });
+        }).attr('r', 0)
+        .transition()
+        .duration(500)
+        .attr('fill', 'red')
+        .attr('cx', function(d) {
+          return x(parseDate(d.date))
+        }).attr('cy', function(d) {
+          return y(d.sentiment_score)
+        }).attr('r', 5);
 
       }
 
