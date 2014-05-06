@@ -76,9 +76,9 @@ function showGraph() {
       .style("text-anchor", "middle")
       .text(function(d) { return d.data.sentiment_type.substr(0, 1).toUpperCase() + d.data.sentiment_type.substr(1); })
       .attr('fill', function(d) {
-        if (d.data.sentiment_type === 'Positive') {
+        if (d.data.sentiment_type === 'positive') {
           return "#0B326B"
-        } else if (d.data.sentiment_type === 'Neutral') {
+        } else if (d.data.sentiment_type === 'neutral') {
           return "#ECE93B"
         } else {
           return "#FFFFFF"
