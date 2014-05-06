@@ -59,8 +59,9 @@ class JournalEntriesController < ApplicationController
   def show_graph
     if user_signed_in?
       @journal_entry = JournalEntry.find(params[:id])
+      @journal_entry_keywords = @journal_entry.jsonify_journal_keywords
       respond_to do |format|
-        format.json { render json: @journal_entry.keywords }
+        format.json { render json: @journal_entry_keywords }
       end
     else
       redirect_to root_path

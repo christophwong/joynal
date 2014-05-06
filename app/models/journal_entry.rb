@@ -54,4 +54,17 @@ class JournalEntry < ActiveRecord::Base
     d = date.strftime('%Y-%m-%d')
     self.update_attributes(date: d)
   end
+
+  def jsonify_journal_keywords
+    json_array = []
+    journal_entry_keywords = self.keywords.group_by(&:sentiment_type).each do |key, value|
+      json = Hash.new(0)
+      json[:sentiment_type] = key
+      json[:keywords] = value
+      json_array << json
+    end
+    json_array
+  end
+
+
 end
