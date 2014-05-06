@@ -59,15 +59,9 @@ class JournalEntriesController < ApplicationController
   def show_graph
     if user_signed_in?
       @journal_entry = JournalEntry.find(params[:id])
-      json_array = []
-      @journal_entry_keywords = @journal_entry.keywords.group_by(&:sentiment_type).each do |key, value|
-        json = Hash.new(0)
-        json[key] = value
-        json_array << json
-      end
-
+      @journal_entry_keywords = @journal_entry.jsonify_journal_keywords
       respond_to do |format|
-        format.json { render json: json_array }
+        format.json { render json: @journal_entry_keywords }
       end
     else
       redirect_to root_path
