@@ -2,9 +2,12 @@ before_script:
 - cp config/database.yml.travis config/database.yml
 - psql -c 'create database travis_postgis;' -U postgres
 - psql -U postgres -c "create extension postgis"
+- bundle exec rake db:migrate
 language: ruby
 rvm:
 - 2.0.0
 env:
   global:
   - secure: "eiO5sfzJaituRJEeB1wD3+Cs7IRMSJXVZBZdDq19oG27kO6rRQto/VlAEmnMvskvKWfwwo4rYYwWNUcLM2Byisttxtz46zAl65TvXmUu0AItoiehllOboHep3h6CsIvDMxTpOrLip9Wbfa/3HvV75zxpq/cYl4ybt/clPwP1auI="
+
+script: bundle exec rake spec
