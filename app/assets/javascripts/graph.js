@@ -1,6 +1,6 @@
 function showGraph() {
   $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
-    
+
     $('.show-graph').remove();
     $('.chart-description').show();
     var dataSet = data.slice();
@@ -8,8 +8,8 @@ function showGraph() {
     var width = 450;
     var height = 450;
     var radius = Math.min(width, height) / 2;
-    var color = d3.scale.ordinal()
-                .range(["#11435B","#2C8E47","#B9F345"])
+    // var color = d3.scale.ordinal()
+    //             .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
     .outerRadius(radius - 60)
@@ -44,7 +44,15 @@ function showGraph() {
 
     g.append("path")
     .attr("d", arc)
-    .style("fill", function(d) { return color(d.data.sentiment_type); })
+    .style("fill", function(d) {
+      if (d.data.sentiment_type === 'positive') {
+          return "#B9F345"
+        } else if (d.data.sentiment_type === 'neutral') {
+          return "#2C8E47"
+        } else {
+          return "#11435B"
+        }
+      })
     .on('mouseenter', function(d) {
       d3.select(this).attr('stroke', '#3C72F4').attr('stroke-width', '5')
       displayText.text(d.data.keywords.length)
