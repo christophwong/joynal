@@ -74,14 +74,14 @@ function showGraph() {
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text(function(d) { return d.data.sentiment_type; })
+      .text(function(d) { return d.data.sentiment_type.substr(0, 1).toUpperCase() + d.data.sentiment_type.substr(1); })
       .attr('fill', function(d) {
-        if (d.data.sentiment_type === 'positive') {
+        if (d.data.sentiment_type === 'Positive') {
           return "#0B326B"
-        } else if (d.data.sentiment_type === 'neutral') {
+        } else if (d.data.sentiment_type === 'Neutral') {
           return "#ECE93B"
         } else {
-          return "#F4EC6F"
+          return "#FFFFFF"
         }
       });
 
