@@ -51,6 +51,7 @@ function showGraph() {
     })
     .on('mouseleave', function(d) {
       d3.select(this).attr('stroke', 'none')
+      displayText.text('')
     })
     .on('click', function(d) {
       d3.select('#keyword-name').text('');
