@@ -5,7 +5,7 @@ function lineChart(){
     $('.get-line-chart').remove();
 
     var dataSet = data
-    var parseDate = d3.time.format("%Y-%m-%dT%X.%LZ").parse;
+    var parseDate = d3.time.format("%Y-%m-%d").parse;
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
     var width = $('.container').width() - margin.left - margin.right;
     var height = $('.container').height() - margin.top - margin.bottom;
@@ -26,7 +26,7 @@ function lineChart(){
                 .orient('left');
 
     var line = d3.svg.line()
-            .x(function(d) { return x(parseDate(d.created_at)); })
+            .x(function(d) { return x(parseDate(d.date)); })
             .y(function(d) { return y(d.sentiment_score); });
 
     var svg = d3.select('.line-chart').append('svg')
@@ -42,7 +42,7 @@ function lineChart(){
                        .attr('class', 'tooltip')
                        .style('opacity', 0);
 
-    x.domain(d3.extent(dataSet, function(d) { return parseDate(d.created_at) }));
+    x.domain(d3.extent(dataSet, function(d) { return parseDate(d.date) }));
     y.domain(d3.extent(yRange, function(d) { return d}));
 
     svg.append('g')
@@ -76,7 +76,7 @@ function lineChart(){
     .enter()
     .append('circle')
     .attr('cx', function(d) {
-      return x(parseDate(d.created_at))
+      return x(parseDate(d.date))
     }).attr('cy', function(d) {
       return y(d.sentiment_score)
     }).attr('r', 5).attr('fill', 'red')
@@ -110,7 +110,7 @@ function lineChart(){
         var maxv = d3.min([ui.values[1], dataSet.length]);
         var minv = d3.max([ui.values[0], 0]);;
 
-        x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.created_at) }));
+        x.domain(d3.extent(dataSet.slice(minv, maxv), function(d) { return parseDate(d.date) }));
         svg
           .select(".x.axis").call(xAxis);
         svg
@@ -123,7 +123,7 @@ function lineChart(){
         .enter()
         .append('circle')
         .attr('cx', function(d) {
-          return x(parseDate(d.created_at))
+          return x(parseDate(d.date))
         }).attr('cy', function(d) {
           return y(d.sentiment_score)
         }).attr('r', 5).attr('fill', 'red')
