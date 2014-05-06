@@ -39,7 +39,7 @@ function showGraph() {
 
 
     var displayText = svg.append('text')
-       .attr('transform', "translate(-10, 9)")
+       .attr('transform', "translate(-9, 9)")
        .attr('font-size', '2em')
 
     g.append("path")
