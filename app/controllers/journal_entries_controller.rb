@@ -117,6 +117,9 @@ class JournalEntriesController < ApplicationController
   end
 
   def map
+    respond_to do |format|
+      format.html {render partial: "journal_entries/map"}
+    end
   end
 
   def get_quote
