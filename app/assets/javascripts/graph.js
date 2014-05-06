@@ -1,19 +1,19 @@
 function showGraph() {
   $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
-
+    
     $('.show-graph').remove();
-
+    $('.chart-description').show();
     var dataSet = data.slice();
 
-    var width = 430;
-    var height = 500;
+    var width = 450;
+    var height = 400;
     var radius = Math.min(width, height) / 2;
     var color = d3.scale.ordinal()
                 .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
     .outerRadius(radius - 60)
-    .innerRadius(95);
+    .innerRadius(80);
 
     var pie = d3.layout.pie()
     .sort(null)
