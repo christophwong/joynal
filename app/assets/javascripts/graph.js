@@ -5,15 +5,15 @@ function showGraph() {
 
     var dataSet = data.slice();
 
-    var width = 600;
+    var width = 430;
     var height = 500;
     var radius = Math.min(width, height) / 2;
     var color = d3.scale.ordinal()
-                .range(["#B9F345", "#2C8E47", "#11435B"])
+                .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(150);
+    .outerRadius(radius - 60)
+    .innerRadius(95);
 
     var pie = d3.layout.pie()
     .sort(null)
@@ -59,7 +59,7 @@ function showGraph() {
       for(var i=0;i<d.data.keywords.length;i++) {
         d3.select('#keyword-name').append('p')
         .transition().duration(750).delay(750)
-        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score);
+        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
       }
     });
 
