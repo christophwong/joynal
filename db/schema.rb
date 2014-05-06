@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(version: 20140505173031) do
 
   create_table "location_records", force: true do |t|
     t.integer "journal_entry_id"
-    t.spatial "coords",           limit: {:srid=>3785, :type=>"point"}
+    t.spatial "location",         limit: {:srid=>4326, :type=>"point", :geographic=>true}
   end
 
-  add_index "location_records", ["coords"], :name => "index_location_records_on_coords", :spatial => true
+  add_index "location_records", ["location"], :name => "index_location_records_on_location", :spatial => true
 
   create_table "quotes", force: true do |t|
     t.text   "body"
