@@ -1,20 +1,41 @@
-function initialize() {
+function initialize(json_array) {
 
-  var myLatLng = new google.maps.LatLng(4678342.464270972,-87.7321554);
+  var myLatLng = new google.maps.LatLng(43.397, -87.644);
 
   var mapOptions = {
-    zoom: 8,
+    zoom: 2,
     center: myLatLng
   };
+
   var map = new google.maps.Map($("#map-canvas")[0],
       mapOptions);
 
-  var marker = new google.maps.Marker({
-      position: myLatLng,
+  for(var i=0;i<json_array.length;i++) {
+    var marker = new google.maps.Marker({
+      position: new google.maps.LatLng(json_array[i].location[0], json_array[i].location[1]),
       map: map,
-      title: 'Hello World!'
-  });
+      animation: google.maps.Animation.DROP,
+      title: json_array[i].date
+    });
+    marker.set("type", "point");
+    marker.set("class", "markers");
+  }
 
+  // marker.on('mouseover', function(e) {
+  //   alert("FUCKYOU!!!!")
+  // })
+
+}
+
+function getCoords() {
+  $.ajax({
+    url: '/journal_entries/get_coords',
+    type: 'GET',
+    dataType: 'json',
+    complete: function(response) {
+      initialize($.parseJSON(response.responseText));
+    }
+  })
 }
 
 function showMap() {
@@ -25,7 +46,8 @@ function showMap() {
       type: 'GET',
       complete: function(response) {
         $('div.partial').html(response.responseText);
-        initialize();
+        getCoords();
+
       }
     })
   })
