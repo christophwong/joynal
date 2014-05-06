@@ -1,73 +1,83 @@
 function showGraph() {
   $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
+
     $('.show-graph').remove();
 
     var dataSet = data.slice();
 
-    var w = 1200;
-    var h = 200;
-    var xPadding = 60;
-    var yPadding = 10;
-    var circlePadding = 5;
-    var minRadius = 15;
-    var maxRadius = 50;
+    var width = 600;
+    var height = 500;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scale.ordinal()
+                .range(["#B9F345", "#2C8E47", "#11435B"])
 
-    var svg = d3.select(".d3")
-              .append("svg")
-              .attr("width", w)
-              .attr("height", h);
+    var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(150);
 
-    var circles = svg.selectAll('circle')
-                  .data(dataSet)
-                  .enter()
-                  .append('circle')
-                  .on("mouseenter", function(d,i) {
-                    d3.select('#journal-info').text(d.name+", relevance: "+d.relevance+", sentiment_score: "+d.sentiment_score)
-                  });
+    var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.keywords.length; });
 
-    var labels = svg.selectAll('text')
-                 .data(dataSet)
-                 .enter()
-                 .append('text')
+    var svg = d3.select(".d3").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 5 * 3 + "," + height / 2 + ")")
+    // .on('click', function(d) {
+    //   console.log(this)
+    //   d3.select(this)
+    //   .transition().duration(500)
+    //   .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")")
+    // })
+    ;
 
-    var xScale = d3.scale.linear()
-                 .domain([0, (maxRadius+circlePadding) * dataSet.length])
-                 .range([xPadding, w - xPadding])
+    var g = svg.selectAll(".arc")
+      .data(pie(dataSet))
+      .enter().append("g")
+      .attr("class", "arc");
 
 
-    circles.transition().duration(500)
-    .attr('cx', function(d, i) {
-      return i * maxRadius * 2 + xPadding;
-    }).attr('cy', 100)
-    .attr('r', function(d) {
-      return d.relevance * 50;
-    }).attr('fill', function(d) {
-        if(d.children) {
-          return "#FFFFFF";
-        } else if(d.sentiment_score == 0) {
-          return "#2C8E47";
-        } else if(d.sentiment_score > 0.5) {
-          return "#B9F345";
-        } else if(d.sentiment_score < -0.5) {
-          return "#11435B";
-        } else if(d.sentiment_score > 0) {
-          return "#45BD42";
-        } else {
-          return "#0F93A1";
-        };
-      })
+    var displayText = svg.append('text')
+       .attr('transform', "translate(0, 0)")
+       .attr('font-size', '2em')
 
-    labels.transition().duration(500)
-    .attr('x', function(d, i) {
-      return i * maxRadius * 2 + xPadding;
-    }).attr('y', 100)
-    .text(function(d) {
-      return d.name;
-    }).attr('text-anchor', 'middle')
-    .attr('font-size', function(d) {
-      return d.relevance * 15;
+    g.append("path")
+    .attr("d", arc)
+    .style("fill", function(d) { return color(d.data.sentiment_type); })
+    .on('mouseenter', function(d) {
+      d3.select(this).attr('stroke', '#3C72F4').attr('stroke-width', '5')
+      displayText.text(d.data.keywords.length)
     })
-    .attr('fill', "#000000")
+    .on('mouseleave', function(d) {
+      d3.select(this).attr('stroke', 'none')
+    })
+    .on('click', function(d) {
+      d3.select('#keyword-name').text('');
+      svg.transition().duration(750)
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+      for(var i=0;i<d.data.keywords.length;i++) {
+        d3.select('#keyword-name').append('p')
+        .transition().duration(750).delay(750)
+        .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score);
+      }
+    });
+
+    g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.sentiment_type; })
+      .attr('fill', function(d) {
+        if (d.data.sentiment_type === 'positive') {
+          return "#0B326B"
+        } else if (d.data.sentiment_type === 'neutral') {
+          return "#ECE93B"
+        } else {
+          return "#F4EC6F"
+        }
+      });
+
   });
 }
 
@@ -79,3 +89,4 @@ $(document).ready(function() {
 $(document).on('page:load', function() {
   showGraph();
 });
+
