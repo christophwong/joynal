@@ -3,6 +3,7 @@ function lineChart(){
   $('.get-line-chart').on('ajax:success', function(e, data, status, xhr) {
 
     $('.get-line-chart').remove();
+    $('.class-description').show();
 
     var dataSet = data
     var parseDate = d3.time.format("%Y-%m-%d").parse;
