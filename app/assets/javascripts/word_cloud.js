@@ -3,7 +3,7 @@ function showCloud() {
   $('.show-cloud').on('ajax:success', function(e, data, status, xhr) {
 
     $('.show-cloud').remove();
-    $('.class-description').show();
+    $('.chart-description.cloud').show();
 
     var chartWidth = 680;
 
