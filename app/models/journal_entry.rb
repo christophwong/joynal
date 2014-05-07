@@ -68,7 +68,7 @@ class JournalEntry < ActiveRecord::Base
 
   def self.get_all_journal_coords
     json_array = []
-    self.all.order("created_at DESC").limit(3).each do |entry|
+    self.all.each do |entry|
       json = Hash.new(0)
       json[:id] = entry.id
       json[:date] = entry.date

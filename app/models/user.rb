@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   def get_journal_coords
     json_array = []
-    self.journal_entries.order("created_at DESC").limit(3).each do |entry|
+    self.journal_entries.each do |entry|
       json = Hash.new(0)
       json[:id] = entry.id
       json[:date] = entry.date
