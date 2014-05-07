@@ -304,6 +304,7 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails_12factor
   rake
+  rgeo
   rspec-rails
   sass-rails
   sdoc (~> 0.4.0)
