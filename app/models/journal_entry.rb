@@ -75,7 +75,7 @@ class JournalEntry < ActiveRecord::Base
       json[:sentiment_score] = entry.sentiment_score
       json[:latitude] = entry.location_records.first.location.x.to_f
       json[:longitude] = entry.location_records.first.location.y.to_f
-      json_array << json
+      json_array << json if json[:latitude] && json[:longitude]
     end
     return json_array
   end
