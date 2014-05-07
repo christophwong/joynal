@@ -35,7 +35,6 @@ nav {
     &:visited:hover{
     color: #2e9ac2;
     }
-
   }
 }
 
@@ -61,6 +60,15 @@ nav {
   float: right;
   padding-top: 9px;
   padding-right: 15%;
+}
+
+.nav-logo {
+  font-family: 'pacifico', cursive;
+  color: #2e9ac2;
+  font-size: 1.8em;
+  position: absolute;
+  top: 0px;
+  left: 45%;
 }
 
 /* container */
@@ -89,10 +97,48 @@ nav {
 
 }
 
+.headline {
+  font-family: 'Droid Sans', sans-serif;
+  font-size: 80pt;
+  font-weight: 700;
+  color: #FFF ;
+  text-align: center;
+  text-shadow: 7px 7px 6px #424242;
+  z-index: 100;
+  padding-top: 200px; 
+}
+
+.sub-headline {
+  font-family: 'Droid Sans', sans-serif;
+  text-align: center;
+  color: #FFF ;
+  font-size: 40pt;
+  text-shadow: 7px 7px 5px #424242;
+  z-index: 100;
+  margin-top:50px;
+}
+
 .spacer {
   width: 100%;
   height: 0px;
-  padding-top: 360px; 
+  padding-top: 200px;
+  div.call {
+    font-family: 'Droid Sans', sans-serif;
+    text-align: center;
+    color: #424242;
+    font-size: 50pt;
+    z-index: 100;
+    padding-top: 200px;
+    margin-bottom: 40px;
+  } 
+}
+.nav-logo-mini {
+  font-family: 'pacifico', cursive;
+  color: white;
+  font-size: 1.6em;
+  position: absolute;
+  top: 0px;
+  left: 45%;
 }
 
 .frontpage-container {
@@ -102,8 +148,21 @@ nav {
   width: 60%;
   min-height: 400px;
   box-shadow: 3px 3px 3px #a3acb2;
-  margin-bottom: 50px;
+  margin-bottom: 200px;
   z-index: 100;
+  textarea {
+    position: relative;
+    width: 98%;
+    margin-left: 1%;
+    height: 300px;
+    margin-top: 1px;
+    border: solid 1px #ddd;
+    font-size: 18pt;
+    line-height: 25px;
+    outline: none;
+    font-weight: 100;
+    resize:vertical;
+  }
 }
  /* Form */
 
@@ -123,4 +182,29 @@ nav {
     padding-top: 10px;
   }
 }
+
+/* footer */
+
+footer {
+  width: 100%;
+  height: 40px;
+  margin-top: 50px; 
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  background-color: white;
+  text-align: right;
+  span {
+    font-size: 10pt;
+    padding-top: 10px;
+    margin-right: 20px;
+  }
+  a {
+    &:link {
+
+      text-decoration: none;
+    }
+  }
+}
+
 

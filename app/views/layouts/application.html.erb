@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ponies</title>
+  <title>Joynal</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe45yPUpZy_XZy_Y5Whg6D7aDyE0e-_Ks&sensor=true">
@@ -21,7 +21,9 @@
         <%= link_to fa_icon("bar-chart-o 2x"), stats_path, content: "Your Stats", class: 'stats', remote: true %>
       <% end %>
     </div>
+    <span class="nav-logo">Joynal</span>
     <div class="nav-right">
+        About
        <% if user_signed_in? %>
       <span><%= link_to "logout", destroy_user_session_path, :method => :delete %></span>
       <% else %>
@@ -32,7 +34,7 @@
 
 <%= yield %>
 <footer>
-
+  <span>All Text Analysis by <a href="www.alchemyapi.com">AlchemyAPI</a></span>
 </footer>
 </body>
 </html>
