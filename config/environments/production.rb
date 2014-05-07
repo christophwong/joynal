@@ -21,6 +21,7 @@ Rails.application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = true
+  config.cache_store = :dalli_store
   client = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
                            :username => ENV["MEMCACHIER_USERNAME"],
                            :password => ENV["MEMCACHIER_PASSWORD"],

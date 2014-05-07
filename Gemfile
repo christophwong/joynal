@@ -47,6 +47,7 @@ gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
 gem "memcachier", group: :production
+
 # workers
 gem 'sidekiq'
 gem 'sinatra', require: false
