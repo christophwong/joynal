@@ -154,11 +154,26 @@ function lineChart(){
   });
 }
 
+function showStatsPage() {
+  $('.stats').on('click', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/journal_entries/stats",
+      type: "GET",
+      complete: function(response) {
+        $('div.partial').html(response.responseText)
+      }
+    })
+  })
+}
+
 
 $(document).ready(function(){
-  lineChart();
+  // lineChart();
+  showStatsPage();
 })
 
 $(document).on('page:load', function(){
-  lineChart();
+  // lineChart();
+  showStatsPage();
 })
