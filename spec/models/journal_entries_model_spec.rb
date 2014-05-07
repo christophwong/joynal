@@ -18,6 +18,7 @@ describe JournalEntry do
 
   let(:journal){ FactoryGirl.create(:journal_entry) }
   let(:client){ AlchemyAPI.new }
+
   describe "#get_sentiment" do
     it "sends the journal content to Alchemy" do
       expect_any_instance_of(AlchemyAPI).to receive(:sentiment).with('text', journal.content)
@@ -99,5 +100,23 @@ describe JournalEntry do
     end
   end
 
+  describe '.get_all_journal_coords' do
+    describe 'only return an array if latitude and longitude exists' do
+      journal = FactoryGirl.create(:journal_entry)
+      lat_lon = "POINT (#{41.8613538 + rand(-10..10)/1000.0} #{-87.6929968+rand(-10..10)/1000.0})"
+      LocationRecord.create(journal_entry_id: journal.id, location: lat_lon)
 
+      it 'should return an array' do
+        expect(JournalEntry.get_all_journal_coords).to be_a Array
+      end
+
+      it 'should have latitude' do
+        expect(JournalEntry.get_all_journal_coords[0][:latitude]).to be_a Float
+      end
+
+      it 'should have longitude' do
+        expect(JournalEntry.get_all_journal_coords[0][:longitude]).to be_a Float
+      end
+    end
+  end
 end
