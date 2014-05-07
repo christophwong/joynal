@@ -1,4 +1,4 @@
-function initialize(json_array) {
+function initializeJournalMap(json_array) {
 
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
 
@@ -38,9 +38,65 @@ function getCoords() {
     type: 'GET',
     dataType: 'json',
     complete: function(response) {
-      initialize($.parseJSON(response.responseText));
+      initializeJournalMap($.parseJSON(response.responseText));
     }
-  })
+  });
+}
+
+function initializeHeatMap(json_array) {
+
+  var heatMapData;
+  var chicago;
+  var map;
+  var heatMap;
+
+  heatMapData = []
+
+  json_array.forEach(function(journalEntry, i) {
+    coord = new google.maps.LatLng(journalEntry.latitude, journalEntry.longitude)
+
+    var weight = (journalEntry.sentiment_score + 1) * 1.5
+
+    heatMapData.push({location: coord, weight: weight})
+  });
+
+  chicago = new google.maps.LatLng(47.774546, -87.55);
+
+  map = new google.maps.Map(document.getElementById('heat-map-canvas'), {
+    center: chicago,
+    zoom: 2
+  });
+
+  heatMap = new google.maps.visualization.HeatmapLayer({
+    data: heatMapData
+  });
+
+  heatMap.setMap(map);
+
+  function changeGradient() {
+    var gradient = [
+      "#0F3349",
+      "#168190",
+      "#257E37",
+      "#3BB433",
+      "#ADF53B"
+    ]
+    heatMap.set('gradient', gradient);
+  }
+
+  changeGradient();
+
+}
+
+function getAllJournalEntries () {
+  $.ajax({
+    url: '/journal_entries/get_all_journal_entries',
+    type: 'GET',
+    dataType: 'json',
+    complete: function(response) {
+      initializeHeatMap($.parseJSON(response.responseText))
+    }
+  });
 }
 
 function showMap() {
@@ -52,11 +108,12 @@ function showMap() {
       complete: function(response) {
         $('div.partial').html(response.responseText);
         getCoords();
-
+        getAllJournalEntries();
       }
-    })
-  })
+    });
+  });
 }
+
 
 $(document).ready(function() {
   showMap();

@@ -140,6 +140,9 @@ class JournalEntriesController < ApplicationController
   end
 
   def stats
+    respond_to do |format|
+      format.html { render partial: "journal_entries/stats"}
+    end
   end
 
   def get_coords
@@ -147,6 +150,13 @@ class JournalEntriesController < ApplicationController
     respond_to do |format|
       format.json { render json: json_array }
    end
+  end
+
+  def get_all_journal_entries
+    json_array = JournalEntry.get_all_journal_coords
+    respond_to do |format|
+      format.json { render json: json_array }
+    end
   end
 
   def get_line_chart

@@ -73,6 +73,15 @@ function setGeoCookie(position) {
 
 // completely refreshes a page
 
+function showStatsPage() {
+  $('body').on('ajax:success', '.stats', function(e, data, status, xhr) {
+    $('div.partial').html(data)
+    getLineChart();
+    showWordCloud();
+  });
+}
+
+
 $(document).ready(function() {
   clickTab();
   entryListener();
@@ -80,6 +89,7 @@ $(document).ready(function() {
   dateSwitch();
   showPage();
   pageSwitch();
+  showStatsPage();
 });
 
 $(document).on('page:load', function() {
@@ -89,6 +99,7 @@ $(document).on('page:load', function() {
   dateSwitch();
   showPage();
   pageSwitch();
+  showStatsPage();
 });
 
 $(document).on('page:update', function() {

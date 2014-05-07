@@ -6,6 +6,10 @@
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDe45yPUpZy_XZy_Y5Whg6D7aDyE0e-_Ks&sensor=true">
   </script>
+
+  <script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true">
+  </script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -14,7 +18,7 @@
     <div class="nav-left">
       <%= link_to (fa_icon "pencil-square-o 2x") , root_path, :content => "Your Journal" %>
       <% if user_signed_in? %>
-        <%= link_to fa_icon("bar-chart-o 2x"), stats_path, content: "Your Stats" %>
+        <%= link_to fa_icon("bar-chart-o 2x"), stats_path, content: "Your Stats", class: 'stats', remote: true %>
       <% end %>
     </div>
     <div class="nav-right">

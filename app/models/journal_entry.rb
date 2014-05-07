@@ -66,5 +66,17 @@ class JournalEntry < ActiveRecord::Base
     json_array
   end
 
-
+  def self.get_all_journal_coords
+    json_array = []
+    self.all.each do |entry|
+      json = Hash.new(0)
+      json[:id] = entry.id
+      json[:date] = entry.date
+      json[:sentiment_score] = entry.sentiment_score
+      json[:latitude] = entry.location_records.first.location.x.to_f
+      json[:longitude] = entry.location_records.first.location.y.to_f
+      json_array << json if json[:latitude] && json[:longitude]
+    end
+    return json_array
+  end
 end

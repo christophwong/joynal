@@ -33,7 +33,8 @@ gem 'faker'
 
 # Geospatial
 gem 'ar-postgis'
-# gem 'rgeo'
+gem 'rgeo'
+gem 'rgeo-ar'
 # gem 'squeel'
 
 # Server
@@ -46,6 +47,7 @@ gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
 gem "memcachier", group: :production
+
 # workers
 gem 'sidekiq'
 gem 'sinatra', require: false
