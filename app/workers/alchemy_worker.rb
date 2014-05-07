@@ -1,6 +1,6 @@
 class AlchemyWorker
   include Sidekiq::Worker
-  sidekiq_options :retry => 5
+  sidekiq_options :retry => 2
 
   def perform(journal_id)
     journal_entry = JournalEntry.find(journal_id)

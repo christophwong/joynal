@@ -54,8 +54,6 @@ function showCloud(json_array) {
               })
 
 
-
-
   var dataSet = {
     "name": "root",
     "value": 1,
@@ -140,6 +138,7 @@ function showCloud(json_array) {
     function norm2(x, y) {
       return x * x + y * y;
     }
+
 };
 
 function showWordCloud() {

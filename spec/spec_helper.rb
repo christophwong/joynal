@@ -6,7 +6,13 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'shoulda/matchers'
 require 'coveralls'
+require 'sidekiq/testing'
 Coveralls.wear!
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+SimpleCov.start do
+  add_filter 'spec/support'
+end
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
