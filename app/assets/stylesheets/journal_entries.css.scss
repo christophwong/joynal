@@ -10,7 +10,6 @@
   background-color: #424242;
   padding-top: 5px;
   color: #a3acb2;
-  box-shadow: 2px 2px 2px #a3acb2;
 
   ul {
     margin-top: 7px;
@@ -166,13 +165,18 @@ input[type=textarea]{
 
 .journal-details {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .journal-submit {
-  @include button(#2e9ac2);
+  font-size: 16pt;
+  color: white;
+  border-radius: 12px;
+  background-color: #2e9ac2;
+  border: none;
+  padding: 10px 20px;
   &:hover {
-    @include button(#fd4968)
+    background-color: #fd4968;
   }
 }
 
@@ -214,16 +218,6 @@ input[type=textarea]{
   display: none;
 }
 
-/* footer */
-
-footer {
-  width: 100%;
-  height: 10px;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  background-color: white;
-}
 
 /*journal keywords graph*/
 
