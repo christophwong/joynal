@@ -44,7 +44,6 @@ function getCoords() {
 }
 
 function initializeHeatMap(json_array) {
-  console.log("FUCK!!")
 
   var heatMapData;
   var chicago;
@@ -55,14 +54,17 @@ function initializeHeatMap(json_array) {
 
   json_array.forEach(function(journalEntry, i) {
     coord = new google.maps.LatLng(journalEntry.latitude, journalEntry.longitude)
-    heatMapData.push(coord)
+
+    var weight = (journalEntry.sentiment_score + 1) * 1.5
+
+    heatMapData.push({location: coord, weight: weight})
   });
 
   chicago = new google.maps.LatLng(47.774546, -87.55);
 
   map = new google.maps.Map(document.getElementById('heat-map-canvas'), {
     center: chicago,
-    zoom: 13
+    zoom: 2
   });
 
   heatMap = new google.maps.visualization.HeatmapLayer({
@@ -70,6 +72,19 @@ function initializeHeatMap(json_array) {
   });
 
   heatMap.setMap(map);
+
+  function changeGradient() {
+    var gradient = [
+      "#0F3349",
+      "#168190",
+      "#257E37",
+      "#3BB433",
+      "#ADF53B"
+    ]
+    heatMap.set('gradient', gradient);
+  }
+
+  changeGradient();
 
 }
 
