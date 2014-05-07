@@ -1,4 +1,4 @@
-function initialize(json_array) {
+function initializeJournalMap(json_array) {
 
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
 
@@ -38,9 +38,50 @@ function getCoords() {
     type: 'GET',
     dataType: 'json',
     complete: function(response) {
-      initialize($.parseJSON(response.responseText));
+      initializeJournalMap($.parseJSON(response.responseText));
     }
-  })
+  });
+}
+
+function initializeHeatMap(json_array) {
+  console.log("FUCK!!")
+
+  var heatMapData;
+  var chicago;
+  var map;
+  var heatMap;
+
+  heatMapData = []
+
+  json_array.forEach(function(journalEntry, i) {
+    coord = new google.maps.LatLng(journalEntry.latitude, journalEntry.longitude)
+    heatMapData.push(coord)
+  });
+
+  chicago = new google.maps.LatLng(47.774546, -87.55);
+
+  map = new google.maps.Map(document.getElementById('heat-map-canvas'), {
+    center: chicago,
+    zoom: 13
+  });
+
+  heatMap = new google.maps.visualization.HeatmapLayer({
+    data: heatMapData
+  });
+
+  heatMap.setMap(map);
+
+}
+
+function getAllJournalEntries () {
+  $.ajax({
+    url: '/journal_entries/get_all_journal_entries',
+    type: 'GET',
+    dataType: 'json',
+    complete: function(response) {
+      initializeHeatMap($.parseJSON(response.responseText))
+    }
+  });
 }
 
 function showMap() {
@@ -52,11 +93,12 @@ function showMap() {
       complete: function(response) {
         $('div.partial').html(response.responseText);
         getCoords();
-
+        getAllJournalEntries();
       }
-    })
-  })
+    });
+  });
 }
+
 
 $(document).ready(function() {
   showMap();
