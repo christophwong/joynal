@@ -89,7 +89,7 @@ function showCloud() {
                   if (d.children){
                     return ""
                   }else{
-                    d3.select('#cloud-info').text(d.name + " " + d.sentiment_score)
+                    d3.select('#cloud-info').text(d.name + " " + d.sentiment_score.toFixed(2))
                   }
                 });
 
