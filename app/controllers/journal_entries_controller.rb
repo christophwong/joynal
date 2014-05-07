@@ -149,6 +149,13 @@ class JournalEntriesController < ApplicationController
    end
   end
 
+  def get_all_journal_entries
+    json_array = JournalEntry.get_all_journal_coords
+    respond_to do |format|
+      format.json { render json: json_array }
+    end
+  end
+
   def get_line_chart
     @journal_entries = current_user.journal_entries.order('date DESC')
     respond_to do |format|
