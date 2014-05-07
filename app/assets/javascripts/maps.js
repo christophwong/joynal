@@ -10,20 +10,25 @@ function initialize(json_array) {
   var map = new google.maps.Map($("#map-canvas")[0],
       mapOptions);
 
-  for(var i=0;i<json_array.length;i++) {
+  json_array.forEach(function(journalEntry, i) {
+
+    var contentString = "<div><h3>"+journalEntry.date+"</h3><a class='user-entry' data-remote='true' href='/journal_entries/"+journalEntry.id+"'>"+journalEntry.content.substring(0,50)+"...</a></div>";
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng(json_array[i].location[0], json_array[i].location[1]),
+      position: new google.maps.LatLng(journalEntry.latitude, journalEntry.longitude),
       map: map,
       animation: google.maps.Animation.DROP,
-      title: json_array[i].date
+      title: journalEntry.content
     });
-    marker.set("type", "point");
-    marker.set("class", "markers");
-  }
 
-  // marker.on('mouseover', function(e) {
-  //   alert("FUCKYOU!!!!")
-  // })
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.open(map, this);
+    });
+  });
 
 }
 

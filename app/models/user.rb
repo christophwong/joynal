@@ -33,9 +33,12 @@ class User < ActiveRecord::Base
     json_array = []
     self.journal_entries.order("created_at DESC").limit(3).each do |entry|
       json = Hash.new(0)
+      json[:id] = entry.id
       json[:date] = entry.date
       json[:sentiment_score] = entry.sentiment_score
-      json[:location] = [entry.location_records.first.location.x.to_f, entry.location_records.first.location.y.to_f]
+      json[:content] = entry.content
+      json[:latitude] = entry.location_records.first.location.x.to_f
+      json[:longitude] = entry.location_records.first.location.y.to_f
       json_array << json
     end
     return json_array
