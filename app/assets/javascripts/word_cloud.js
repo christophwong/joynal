@@ -54,8 +54,6 @@ function showCloud(json_array) {
               })
 
 
-
-
   var dataSet = {
     "name": "root",
     "value": 1,

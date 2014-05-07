@@ -64,7 +64,6 @@ function lineChart(json_array){
       .datum(dataSet)
       .attr('class', 'line')
       .transition()
->>>>>>> master
       .duration(500)
       .attr('d', line)
       .attr('stroke', 'steelblue')
