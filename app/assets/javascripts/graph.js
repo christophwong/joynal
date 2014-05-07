@@ -1,6 +1,6 @@
 function showGraph() {
   $('body').on('ajax:success', '.show-graph', function(e, data, status, xhr) {
-    
+
     $('.show-graph').remove();
     $('.chart-description').show();
     var dataSet = data.slice();
@@ -8,8 +8,6 @@ function showGraph() {
     var width = 450;
     var height = 450;
     var radius = Math.min(width, height) / 2;
-    var color = d3.scale.ordinal()
-                .range(["#11435B","#2C8E47","#B9F345"])
 
     var arc = d3.svg.arc()
     .outerRadius(radius - 60)
@@ -23,20 +21,12 @@ function showGraph() {
     .attr("width", width)
     .attr("height", height)
     .append("g")
-    .attr("transform", "translate(" + width / 5 * 3 + "," + height / 2 + ")")
-    // .on('click', function(d) {
-    //   console.log(this)
-    //   d3.select(this)
-    //   .transition().duration(500)
-    //   .attr("transform", "translate(" + width / 4 + "," + height / 2 + ")")
-    // })
-    ;
+    .attr("transform", "translate(" + width / 5 * 3 + "," + height / 2 + ")");
 
     var g = svg.selectAll(".arc")
       .data(pie(dataSet))
       .enter().append("g")
       .attr("class", "arc");
-
 
     var displayText = svg.append('text')
        .attr('transform', "translate(-9, 9)")
@@ -44,7 +34,15 @@ function showGraph() {
 
     g.append("path")
     .attr("d", arc)
-    .style("fill", function(d) { return color(d.data.sentiment_type); })
+    .style("fill", function(d) {
+      if (d.data.sentiment_type === 'positive') {
+          return "#B9F345"
+        } else if (d.data.sentiment_type === 'neutral') {
+          return "#2C8E47"
+        } else {
+          return "#11435B"
+        }
+      })
     .on('mouseenter', function(d) {
       d3.select(this).attr('stroke', '#3C72F4').attr('stroke-width', '5')
       displayText.text(d.data.keywords.length)
@@ -57,14 +55,14 @@ function showGraph() {
       d3.select('#keyword-name').text('');
       svg.transition().duration(750)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-      for(var i=0;i<d.data.keywords.length;i++) {
+      for( var i=0 ; i<d.data.keywords.length ; i++ ) {
         if (d.data.keywords[i].sentiment_score < 0 || d.data.keywords[i].sentiment_score > 0){
           d3.select('#keyword-name').append('p')
-          .transition().duration(750).delay(750)
+          .transition().delay(550)
           .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
         } else {
            d3.select('#keyword-name').append('p')
-          .transition().duration(750).delay(750)
+          .transition().delay(550)
           .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(0));
         }
       }
