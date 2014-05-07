@@ -34,6 +34,7 @@ gem 'faker'
 # Geospatial
 gem 'ar-postgis'
 gem 'rgeo'
+gem 'rgeo-ar'
 # gem 'squeel'
 
 # Server
