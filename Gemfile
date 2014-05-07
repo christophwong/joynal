@@ -41,6 +41,11 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 gem 'newrelic_rpm'
 
+# cache
+gem 'rack-cache'
+gem 'dalli'
+gem 'kgio'
+gem "memcachier", group: :production
 # workers
 gem 'sidekiq'
 gem 'sinatra', require: false
