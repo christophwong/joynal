@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
       json[:content] = entry.content
       json[:latitude] = entry.location_records.first.location.x.to_f
       json[:longitude] = entry.location_records.first.location.y.to_f
-      json_array << json
+      json_array << json if json[:latitude] && json[:longitude]
     end
     return json_array
   end
