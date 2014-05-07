@@ -9,7 +9,7 @@ function lineChart(){
     var parseDate = d3.time.format("%Y-%m-%d").parse;
     var margin = {top: 20, right: 20, bottom: 30, left: 50}
     var width = $('.container').width() - margin.left - margin.right;
-    var height = $('.container').height() - margin.top - margin.bottom;
+    var height = 450 - margin.top - margin.bottom;
     var yRange = [-1, 1]
 
     var x = d3.time.scale()

@@ -60,6 +60,7 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+  gem "rspec-sidekiq"
   gem 'shoulda-matchers', require: false
 end
 
