@@ -31,9 +31,6 @@ GEM
       actionpack (>= 3, < 5)
       activerecord (>= 3, < 5)
     addressable (2.3.6)
-    ar-postgis (0.7.1)
-      activerecord (~> 4.1.0)
-      rgeo-ar (~> 0.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bitters (0.9.3)
@@ -181,10 +178,6 @@ GEM
       redis (~> 3.0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rgeo (0.3.20)
-    rgeo-ar (0.7.1)
-      activerecord (~> 4.0)
-      rgeo (~> 0.3.20)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -278,7 +271,6 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
-  ar-postgis
   bcrypt (~> 3.1.7)
   bitters
   bourbon
@@ -304,8 +296,6 @@ DEPENDENCIES
   rails (= 4.1.0)
   rails_12factor
   rake
-  rgeo
-  rgeo-ar
   rspec-rails
   sass-rails
   sdoc (~> 0.4.0)
