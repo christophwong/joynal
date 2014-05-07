@@ -17,18 +17,19 @@ describe JournalEntry do
   end
 
   let(:journal){ FactoryGirl.create(:journal_entry) }
-
-
+  let(:client){ AlchemyAPI.new }
   describe "#get_sentiment" do
     it "sends the journal content to Alchemy" do
-      AlchemyAPI.should_receive(:post).with(text: journal.content)
+      expect_any_instance_of(AlchemyAPI).to receive(:sentiment).with('text', journal.content)
       journal.get_sentiment
     end
   end
 
   describe '#get_keywords_response' do
-    pending
-
+     it "sends the journal content to Alchemy" do
+      expect_any_instance_of(AlchemyAPI).to receive(:keywords).with('text', journal.content, { "sentiment"=>1 })
+      journal.get_keywords_response
+    end
   end
 
   describe '#set_keywords' do
