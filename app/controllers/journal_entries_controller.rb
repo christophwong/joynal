@@ -140,6 +140,9 @@ class JournalEntriesController < ApplicationController
   end
 
   def stats
+    respond_to do |format|
+      format.html { render partial: "journal_entries/stats"}
+    end
   end
 
   def get_coords

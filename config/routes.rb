@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'journal_entries/get_line_chart', to: "journal_entries#get_line_chart", as: "get_line_chart"
   get "journal_entries/get_coords", to: "journal_entries#get_coords"
   get "journal_entries/get_all_journal_entries", to: "journal_entries#get_all_journal_entries"
+  get "journal_entries/stats", to: "journal_entries#stats"
 
   resources :journal_entries, :only => [:index, :new, :create, :show]
 
