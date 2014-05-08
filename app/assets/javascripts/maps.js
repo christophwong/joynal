@@ -3,7 +3,7 @@ function initializeJournalMap(json_array) {
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
 
   var mapOptions = {
-    zoom: 2,
+    zoom: 4,
     center: myLatLng
   };
 
@@ -96,11 +96,16 @@ function getAllJournalEntries () {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
 
-
     console.log(sw.lng())
     console.log(sw.lat())
     console.log(ne.lng())
     console.log(ne.lat())
+
+    // $.ajax({
+    //   url: '/journal_entries/get_heat_map',
+
+    // })
+
   });
 }
 
