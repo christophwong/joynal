@@ -194,6 +194,7 @@ miami =
 [26.103745,-80.4063059]
 ]
 
+
 JournalEntry.all.each do |entry|
   sample_coord = chicago.sample
   l = entry.location_records.first
