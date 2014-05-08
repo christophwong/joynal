@@ -197,9 +197,13 @@ miami =
 
 JournalEntry.all.each do |entry|
   sample_coord = chicago.sample
-  l = entry.location_records.first
-  l.location = "POINT (#{sample_coord[1]} #{sample_coord[0]})"
-  l.save
+  if  entry.location_records.first
+    l = entry.location_records.first
+    l.location = "POINT (#{sample_coord[1]} #{sample_coord[0]})"
+    l.save
+  else
+    LocationRecord.create(journal_entry: entry, location: "POINT (#{sample_coord[1]} #{sample_coord[0]})")
+  end
 end
 
 kingsly = User.new(
