@@ -152,7 +152,7 @@ class JournalEntriesController < ApplicationController
    end
   end
 
-  def get_all_journal_entries
+  def get_heat_map
     json_array = JournalEntry.get_all_journal_coords
     respond_to do |format|
       format.json { render json: json_array }

@@ -90,7 +90,7 @@ function initializeHeatMap(json_array) {
 
 function getAllJournalEntries () {
   $.ajax({
-    url: '/journal_entries/get_all_journal_entries',
+    url: '/journal_entries/get_heat_map',
     type: 'GET',
     dataType: 'json',
     complete: function(response) {

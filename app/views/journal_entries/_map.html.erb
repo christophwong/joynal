@@ -2,8 +2,10 @@
 it starts to say that we cannot load ajax -->
 
 <h3>Your Journal Entries and Their Locations</h3>
-<div id="map-canvas"/>
+<div id="map-canvas"><i class='fa fa-globe fa-spin fa-3x'></i></div>
 <br>
 
 <h3>Heat Map of All Journal Entries</h3>
-<div id="heat-map-canvas"/>
+<div id="heat-map-canvas">
+  <%= link_to 'Get Heat Map', get_heat_map_path, class: 'get-heat-map journal-submit', remote: true %>
+</div>
