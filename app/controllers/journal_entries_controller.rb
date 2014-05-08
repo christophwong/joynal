@@ -153,7 +153,10 @@ class JournalEntriesController < ApplicationController
   end
 
   def get_heat_map
-    json_array = JournalEntry.get_all_journal_coords
+    location_records = LocationRecord.box(params[:sw_lon], params[:sw_lat], params[:ne_lon], params[:ne_lat])
+    @journal_entries = location_records.map(&:journal_entry)
+    json_array = JournalEntry.get_all_journal_coords(@journal_entries)
+
     respond_to do |format|
       format.json { render json: json_array }
     end

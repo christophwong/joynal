@@ -3,7 +3,7 @@ function initializeJournalMap(json_array) {
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
 
   var mapOptions = {
-    zoom: 4,
+    zoom: 3,
     center: myLatLng
   };
 
@@ -96,16 +96,21 @@ function getAllJournalEntries () {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
 
-    console.log(sw.lng())
-    console.log(sw.lat())
-    console.log(ne.lng())
-    console.log(ne.lat())
-
-    // $.ajax({
-    //   url: '/journal_entries/get_heat_map',
-
-    // })
-
+    // Cannot do remote: true on the link_to
+    // if you want to make this ajax work
+    $.ajax({
+      url: '/journal_entries/get_heat_map',
+      type: "GET",
+      data: {
+        sw_lon: sw.lng(),
+        sw_lat: sw.lat(),
+        ne_lon: ne.lng(),
+        ne_lat: ne.lat()
+      },
+      success: function(response) {
+        initializeHeatMap(response)
+      }
+    });
   });
 }
 
