@@ -3,7 +3,7 @@ function showCloud(json_array) {
   $('.show-cloud').remove();
   $('.chart-description.cloud').show();
 
-  var chartWidth = 680;
+  var chartWidth = $('.cloud').width();
 
   var chartData = [
                     {'type': 'Very Negative', 'color': '#11435B', 'textColor': '#FEF990'},
@@ -29,23 +29,25 @@ function showCloud(json_array) {
   var chartBars = chartElement.append('rect')
                     .attr('width', 0)
                     .transition()
+                    .delay(1000)
                     .duration(1000)
-                    .attr('width', 130)
+                    .attr('width', ( chartWidth / 5 ))
                     .attr('height', 35)
                     .attr('fill', function(d) {
                       return d.color
                     })
                     .attr('x', function(d, i) {
-                      return (i * 130 + 30)
+                      return (i * ( chartWidth / 5 ))
                     })
 
   chartElement.append("text")
               .transition()
-              .delay(900)
-              .attr('width', 130)
+              .delay(1200)
+              .duration(700)
+              .attr('width', ( chartWidth / 5 ))
               .attr('height', 300)
               .attr('x', function(d, i) {
-                return (i * 130) + 50
+                return (i * ( chartWidth / 5 ) + 30)
               }).attr('y', 25)
               .text(function(d) {
                 return d.type;
@@ -60,7 +62,7 @@ function showCloud(json_array) {
     "children": json_array
     }
 
-  var diameter = 650,
+  var diameter = chartWidth,
       format = d3.format(",d");
 
   var bubble = d3.layout.pack()
@@ -85,7 +87,7 @@ function showCloud(json_array) {
                 if (d.children){
                   return ""
                 }else{
-                  d3.select('#cloud-info').text(d.name + " " + d.sentiment_score)
+                  d3.select('#cloud-info').text(d.name)
                 }
               });
 
@@ -94,6 +96,7 @@ function showCloud(json_array) {
     .attr('stroke', '#FFFFFF')
     .attr("r", function(d) { return d.r; })
     .transition()
+    .delay(1000)
     .duration(1500)
     .attr("fill", function(d) {
       if(d.children) {
@@ -120,6 +123,7 @@ function showCloud(json_array) {
     .attr('text-anchor', 'middle')
     .style('fill', 'white')
     .transition()
+    .delay(1000)
     .duration(1500)
     .style('fill','black')
     .each(function(d) {

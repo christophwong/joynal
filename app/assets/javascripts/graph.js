@@ -45,7 +45,6 @@ function showGraph() {
       })
     .on('mouseenter', function(d) {
       d3.select(this).attr('stroke', '#3C72F4').attr('stroke-width', '5')
-      displayText.text(d.data.keywords.length)
     })
     .on('mouseleave', function(d) {
       d3.select(this).attr('stroke', 'none')
@@ -55,18 +54,12 @@ function showGraph() {
       d3.select('#keyword-name').text('');
       svg.transition().duration(750)
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-      for( var i=0 ; i<d.data.keywords.length ; i++ ) {
-        if (d.data.keywords[i].sentiment_score < 0 || d.data.keywords[i].sentiment_score > 0){
-          d3.select('#keyword-name').append('p')
-          .transition().delay(550)
-          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(2));
-        } else {
-           d3.select('#keyword-name').append('p')
-          .transition().delay(550)
-          .text(d.data.keywords[i].name + ", " + d.data.keywords[i].sentiment_score.toFixed(0));
-        }
-      }
-    });
+      d3.select('#keyword-name').append('p')
+        .text("Your " + d.data.sentiment_type + " content:")
+      for( var i=0 ; i < d.data.keywords.length ; i++ ) {
+        d3.select('#keyword-name').append('li')
+        .text(d.data.keywords[i].name)}
+      });
 
     g.append("text")
       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
