@@ -112,6 +112,16 @@ new_york =
 [40.8638528,-73.5323146]
 ]
 
+chicago = [
+[41.8899109,-87.6376566],
+[41.8677395,-87.6270511],
+[41.9738814,-87.6903942],
+[41.9318204,-88.006109],
+[41.8202997,-87.8087842],
+[41.8942655,-88.1527993],
+[42.3318145,-88.9952953]
+]
+
 washington_dc =
 [
 [38.8935965,-77.014576],
@@ -185,7 +195,7 @@ miami =
 ]
 
 pastday = 90
-cities = [san_francisco,miami,new_york,san_antonio,houston,seattle,washington_dc]
+cities = [san_francisco,miami,new_york,san_antonio,houston,seattle,washington_dc, chicago]
 flat_city = cities.flatten(1)
 tag_array = ['life', 'devise', 'alchemy', 'math', 'vegas', 'closure']
 p flat_city.sample[0]
