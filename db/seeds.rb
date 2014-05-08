@@ -205,7 +205,8 @@ File.open('db/website_full_of_essays_and_philosophy.txt').each do |line|
 
   sample_coord = flat_city.sample
 
-  lat_lon = "POINT (#{sample_coord[0]} #{sample_coord[1]})"
+  lat_lon = "POINT (#{sample_coord[1]} #{sample_coord[0]})"
+
 
   LocationRecord.create(
     journal_entry_id: je.id,

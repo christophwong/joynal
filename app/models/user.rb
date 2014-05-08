@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
       json[:sentiment_score] = entry.sentiment_score
       json[:content] = entry.content
       unless entry.location_records.empty? || entry.location_records.first.location.nil?
-        json[:latitude] = entry.location_records.first.location.x.to_f
-        json[:longitude] = entry.location_records.first.location.y.to_f
+        json[:latitude] = entry.location_records.first.location.lat.to_f
+        json[:longitude] = entry.location_records.first.location.lon.to_f
         json_array << json
       end
     end
