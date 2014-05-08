@@ -98,7 +98,7 @@ class JournalEntriesController < ApplicationController
 
   def list
     @user = current_user
-    @journal_entries = @user.journal_entries.order(:created_at).limit(7)
+    @journal_entries = @user.journal_entries.order(created_at: :desc).limit(7)
     respond_to do |format|
       format.html { render :partial => "journal_entries/entry_list" }
     end
