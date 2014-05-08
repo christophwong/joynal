@@ -1,13 +1,15 @@
 function initializeJournalMap(json_array) {
 
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
+  console.log(json_array[json_array.length-1].latitude, json_array[json_array.length-1].longitude)
+  // var myLatLng = new google.maps.LatLng(json_array[json_array.length-1].latitude, json_array[json_array.length-1].longitude);
 
   var mapOptions = {
-    zoom: 2,
+    zoom: 3,
     center: myLatLng
   };
 
-  var map = new google.maps.Map($("#map-canvas")[0],
+  window.map = new google.maps.Map($("#map-canvas")[0],
       mapOptions);
 
   json_array.forEach(function(journalEntry, i) {
@@ -46,8 +48,7 @@ function getCoords() {
 function initializeHeatMap(json_array) {
 
   var heatMapData;
-  var chicago;
-  var map;
+  // var chicago;
   var heatMap;
 
   heatMapData = []
@@ -60,12 +61,7 @@ function initializeHeatMap(json_array) {
     heatMapData.push({location: coord, weight: weight})
   });
 
-  chicago = new google.maps.LatLng(47.774546, -87.55);
-
-  map = new google.maps.Map(document.getElementById('heat-map-canvas'), {
-    center: chicago,
-    zoom: 2
-  });
+  // chicago = new google.maps.LatLng(47.774546, -87.55);
 
   heatMap = new google.maps.visualization.HeatmapLayer({
     data: heatMapData
@@ -89,13 +85,28 @@ function initializeHeatMap(json_array) {
 }
 
 function getAllJournalEntries () {
-  $.ajax({
-    url: '/journal_entries/get_all_journal_entries',
-    type: 'GET',
-    dataType: 'json',
-    complete: function(response) {
-      initializeHeatMap($.parseJSON(response.responseText))
-    }
+  $('body').on('click', '.get-heat-map', function(e) {
+    e.preventDefault();
+    $('.get-heat-map').remove();
+    var bounds = map.getBounds();
+    var ne = bounds.getNorthEast();
+    var sw = bounds.getSouthWest();
+
+    // Cannot do remote: true on the link_to
+    // if you want to make this ajax work
+    $.ajax({
+      url: '/journal_entries/get_heat_map',
+      type: "GET",
+      data: {
+        sw_lon: sw.lng(),
+        sw_lat: sw.lat(),
+        ne_lon: ne.lng(),
+        ne_lat: ne.lat()
+      },
+      success: function(response) {
+        initializeHeatMap(response)
+      }
+    });
   });
 }
 
@@ -108,7 +119,6 @@ function showMap() {
       complete: function(response) {
         $('div.partial').html(response.responseText);
         getCoords();
-        getAllJournalEntries();
       }
     });
   });
@@ -117,8 +127,10 @@ function showMap() {
 
 $(document).ready(function() {
   showMap();
+  getAllJournalEntries();
 })
 
 $(document).on('page:load', function() {
   showMap();
+  getAllJournalEntries();
 })
