@@ -38,7 +38,6 @@ end
 # 1000.times do
 #   entry = JournalEntry.new(
 #     content: Faker::Lorem.paragraph(5),
-#     emotion_rating: rand(1..5),
 #     user: User.find(1)
 #     )
 #   lat_lon = "POINT (#{41.8613538 + rand(-10..10)/10.0} #{-87.6929968+rand(-10..10)/10.0})"
@@ -61,7 +60,6 @@ end
 # 100.times do
 #   entry = JournalEntry.new(
 #     content: Faker::Lorem.paragraph(5),
-#     emotion_rating: rand(1..5),
 #     user: User.find(rand(User.first.id..User.last.id))
 #     )
 #   entry.sentiment_score = rand(-10..-5)/10.0

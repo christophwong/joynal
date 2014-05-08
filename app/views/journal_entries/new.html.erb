@@ -8,8 +8,6 @@
   <%= form_for @journal_entry, html: { class: 'new-journal-unregistered' } do |f| %>
     <%= f.text_area :content, :class => "text"%><br>
       <div class="journal-details">
-      <%= f.label "select a rating for how you feel (1 is bad 5 is great)"  %>:<br>
-      <%= f.select :emotion_rating, options_for_select((1..5).to_a) %><br>
       <%= f.label "enter some tags seperated by commas." %>:<br>
       <%= f.text_field :tags, value: '' %><br>
       <%= f.submit "Submit", :class => "journal-submit" %>

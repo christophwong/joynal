@@ -3,11 +3,9 @@ class JournalEntriesController < ApplicationController
     if user_signed_in?
     @user = current_user
     @journal_entry = JournalEntry.new
-      if session[:content] || session[:emotion_rating]
+      if session[:content]
         @journal_entry.content = session[:content]
-        @journal_entry.emotion_rating = session[:emotion_rating]
         session.delete(:content)
-        session.delete(:emotion_rating)
       end
     else
       redirect_to root_path
@@ -39,7 +37,6 @@ class JournalEntriesController < ApplicationController
       end
     else
       session[:content] = @journal_entry.content
-      session[:emotion_rating] = @journal_entry.emotion_rating
       redirect_to new_user_registration_path
     end
   end
@@ -101,7 +98,7 @@ class JournalEntriesController < ApplicationController
 
   def list
     @user = current_user
-    @journal_entries = @user.journal_entries.order(:created_at).paginate(page: params[:page], per_page: 7)
+    @journal_entries = @user.journal_entries.order(:created_at).limit(7)
     respond_to do |format|
       format.html { render :partial => "journal_entries/entry_list" }
     end
@@ -176,8 +173,6 @@ class JournalEntriesController < ApplicationController
   private
 
   def journal_entry_params
-    params.require(:journal_entry).permit(:content,
-                                          :emotion_rating
-                                          )
+    params.require(:journal_entry).permit(:content)
   end
 end

@@ -23,7 +23,6 @@
     </div>
     <span class="nav-logo">Joynal</span>
     <div class="nav-right">
-        About
        <% if user_signed_in? %>
       <span><%= link_to "logout", destroy_user_session_path, :method => :delete %></span>
       <% else %>

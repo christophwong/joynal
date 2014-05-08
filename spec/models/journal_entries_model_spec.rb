@@ -10,7 +10,6 @@ describe JournalEntry do
   it { should have_many(:keywords) }
   it { should have_many(:location_records) }
   it { should validate_presence_of(:content) }
-  it { should validate_presence_of(:emotion_rating) }
 
   it "is invalid without a lastname" do
     FactoryGirl.build(:journal_entry, content: nil).should_not be_valid
