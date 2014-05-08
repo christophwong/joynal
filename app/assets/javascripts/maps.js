@@ -1,6 +1,8 @@
 function initializeJournalMap(json_array) {
 
   var myLatLng = new google.maps.LatLng(43.397, -87.644);
+  console.log(json_array[json_array.length-1].latitude, json_array[json_array.length-1].longitude)
+  // var myLatLng = new google.maps.LatLng(json_array[json_array.length-1].latitude, json_array[json_array.length-1].longitude);
 
   var mapOptions = {
     zoom: 3,
@@ -46,7 +48,7 @@ function getCoords() {
 function initializeHeatMap(json_array) {
 
   var heatMapData;
-  var chicago;
+  // var chicago;
   var heatMap;
 
   heatMapData = []

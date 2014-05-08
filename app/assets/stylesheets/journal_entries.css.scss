@@ -256,10 +256,25 @@ footer {
   margin-left: 70%;
   }
 
+
+/*map page*/
+#map-heading {
+  float: left;
+}
+
 #map-canvas {
   height: 500px;
+  clear: both
+}
+
+#map-canvas i {
+  margin-left: 45%;
 }
 
 #heat-map-canvas {
   height: 500px;
+}
+
+.get-heat-map {
+  float: right;
 }
