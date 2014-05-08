@@ -10,7 +10,6 @@ class JournalEntry < ActiveRecord::Base
 
 
   validates :content, presence: true
-  validates :emotion_rating, presence: true
 
   def async_sentimental_analysis
     AlchemyWorker.perform_async(self.id)
