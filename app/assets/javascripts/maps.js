@@ -47,7 +47,6 @@ function initializeHeatMap(json_array) {
 
   var heatMapData;
   var chicago;
-  var map;
   var heatMap;
 
   heatMapData = []
@@ -60,12 +59,7 @@ function initializeHeatMap(json_array) {
     heatMapData.push({location: coord, weight: weight})
   });
 
-  chicago = new google.maps.LatLng(47.774546, -87.55);
-
-  map = new google.maps.Map(document.getElementById('heat-map-canvas'), {
-    center: chicago,
-    zoom: 2
-  });
+  // chicago = new google.maps.LatLng(47.774546, -87.55);
 
   heatMap = new google.maps.visualization.HeatmapLayer({
     data: heatMapData
