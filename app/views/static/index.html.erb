@@ -19,7 +19,7 @@
       </div>
       <div class="user-signup"></div>
       <%= form_for @journal_entry, html: { class: 'new-journal-unregistered' } do |f| %>
-      <%= f.text_area :content, autofocus: true, placeholder: 'Today I am feeling...' %><br>
+      <%= f.text_area :content, placeholder: 'Today I am feeling...' %><br>
         <div class="journal-details">
           <%= f.submit "Submit and Sign up", :class => "journal-submit" %>
         </div>
