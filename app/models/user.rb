@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   def get_keywords_by_dates
     self.journal_entries.joins(:keywords)
-    .where(journal_entries: {created_at: (Time.now - 30.day)..Time.now })
+    .where(journal_entries: {created_at: (Time.now - 30.day)..Time.now }).limit(60)
     .group("keywords.name")
     .pluck("keywords.name, AVG(keywords.sentiment_score), COUNT(keywords.name)")
   end
