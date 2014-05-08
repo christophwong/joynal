@@ -194,8 +194,25 @@ miami =
 [26.103745,-80.4063059]
 ]
 
+JournalEntry.all.each do |entry|
+  sample_coord = chicago.sample
+  l = entry.location_records.first
+  l.location = "POINT (#{sample_coord[1]} #{sample_coord[0]})"
+  l.save
+end
+
+kingsly = User.new(
+  first_name: "Kingsly",
+  last_name: "Rutherford III",
+  email: "kingsly@rutherfordiii.com",
+  password: "password",
+  password_confirmation: "password"
+)
+
+kingsly.save
+
 pastday = 90
-cities = [san_francisco,miami,new_york,san_antonio,houston,seattle,washington_dc, chicago]
+cities = [san_francisco,miami,new_york,san_antonio,houston,seattle,washington_dc]
 flat_city = cities.flatten(1)
 tag_array = ['life', 'devise', 'alchemy', 'math', 'vegas', 'closure']
 p flat_city.sample[0]
@@ -207,14 +224,13 @@ File.open('db/website_full_of_essays_and_philosophy.txt').each do |line|
 
   je = JournalEntry.create(
     content: line,
-    user_id: 11,
+    user_id: kingsly.id,
     date: date
     )
 
   sample_coord = flat_city.sample
 
   lat_lon = "POINT (#{sample_coord[1]} #{sample_coord[0]})"
-
 
   LocationRecord.create(
     journal_entry_id: je.id,
