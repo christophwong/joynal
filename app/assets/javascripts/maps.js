@@ -7,7 +7,7 @@ function initializeJournalMap(json_array) {
     center: myLatLng
   };
 
-  var map = new google.maps.Map($("#map-canvas")[0],
+  window.map = new google.maps.Map($("#map-canvas")[0],
       mapOptions);
 
   json_array.forEach(function(journalEntry, i) {
@@ -89,13 +89,18 @@ function initializeHeatMap(json_array) {
 }
 
 function getAllJournalEntries () {
-  $.ajax({
-    url: '/journal_entries/get_heat_map',
-    type: 'GET',
-    dataType: 'json',
-    complete: function(response) {
-      initializeHeatMap($.parseJSON(response.responseText))
-    }
+  $('body').on('click', '.get-heat-map', function(e) {
+    e.preventDefault();
+    $('.get-heat-map').remove();
+    var bounds = map.getBounds();
+    var ne = bounds.getNorthEast();
+    var sw = bounds.getSouthWest();
+
+
+    console.log(sw.lng())
+    console.log(sw.lat())
+    console.log(ne.lng())
+    console.log(ne.lat())
   });
 }
 
@@ -108,7 +113,6 @@ function showMap() {
       complete: function(response) {
         $('div.partial').html(response.responseText);
         getCoords();
-        getAllJournalEntries();
       }
     });
   });
@@ -117,8 +121,10 @@ function showMap() {
 
 $(document).ready(function() {
   showMap();
+  getAllJournalEntries();
 })
 
 $(document).on('page:load', function() {
   showMap();
+  getAllJournalEntries();
 })
