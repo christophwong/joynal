@@ -4,8 +4,8 @@ class JournalEntry < ActiveRecord::Base
   has_many :keywords
   has_many :location_records
 
-  after_create :add_date
   after_commit :async_sentimental_analysis, :on => :create
+  after_create :add_date
   acts_as_taggable_on :tags
 
 
