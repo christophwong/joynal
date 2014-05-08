@@ -4,13 +4,12 @@ class JournalEntry < ActiveRecord::Base
   has_many :keywords
   has_many :location_records
 
-  after_create :add_date
+  # after_create :add_date
   after_commit :async_sentimental_analysis, :on => :create
   acts_as_taggable_on :tags
 
 
   validates :content, presence: true
-  validates :emotion_rating, presence: true
 
   def async_sentimental_analysis
     AlchemyWorker.perform_async(self.id)
@@ -66,19 +65,34 @@ class JournalEntry < ActiveRecord::Base
     json_array
   end
 
-  def self.get_all_journal_coords
+  # def self.get_all_journal_coords
+  #   json_array = []
+  #   self.all.each do |entry|
+  #     json = Hash.new(0)
+  #     json[:id] = entry.id
+  #     json[:date] = entry.date
+  #     json[:sentiment_score] = entry.sentiment_score
+  #     unless entry.location_records.empty? || entry.location_records.first.location.nil?
+  #       json[:latitude] = entry.location_records.first.location.lat.to_f
+  #       json[:longitude] = entry.location_records.first.location.lon.to_f
+  #       json_array << json
+  #     end
+  #   end
+  #   return json_array
+  # end
+
+  def self.get_all_journal_coords(journal_entry_array)
     json_array = []
-    self.all.each do |entry|
+    journal_entry_array.each do |entry|
       json = Hash.new(0)
       json[:id] = entry.id
       json[:date] = entry.date
       json[:sentiment_score] = entry.sentiment_score
-      unless entry.location_records.empty? || entry.location_records.first.location.nil?
-        json[:latitude] = entry.location_records.first.location.x.to_f
-        json[:longitude] = entry.location_records.first.location.y.to_f
-        json_array << json
-      end
+      json[:latitude] = entry.location_records.first.location.lat.to_f
+      json[:longitude] = entry.location_records.first.location.lon.to_f
+      json_array << json
     end
     return json_array
   end
+
 end
