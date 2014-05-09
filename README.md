@@ -4,6 +4,8 @@
 
 Joynal is a final project by DevBootcamp students: [Harry Wang](https://github.com/hgw2101), [Jake Nations](https://github.com/Nayshins), [Greg Heaphy](https://github.com/heaphyg), [Mike Lee Jr.](https://github.com/mikeleejr), and [Christoph Wong](https://github.com/christophwong).
 
+Check it out: http://joynal.me/
+
 Joynal is a personal journal application that hopes to increase engagment in journaling and help users cultivate reflective and healthy self-awareness. It analyzes the user's journal entry for sentiment data with Alchemy sentiment analysis. Using data visualization technology and google maps visualizations, the app presents the sentiment data in meaningful ways to our users.
 
 Technological features:
